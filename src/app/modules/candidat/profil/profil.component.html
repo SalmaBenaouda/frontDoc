@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+  
+    <title>Responsive Dashboard Design #1 | AsmrProg</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Sidebar Section -->
+        <aside>
+            <div class="logo-divider"></div>
+
+            <div class="sidebar">
+               <img src="  /images/logo.png">
+               
+                <div class="logo-divider"></div><br>
+                <a href="candidat/dashboard">
+                    <span class="material-icons-sharp">
+                        dashboard
+                    </span>
+                    <h3>Acceuil</h3>
+                </a>
+                <a href="candidat/profil"  class="active">
+                    <span class="material-icons-sharp">
+                        person_outline
+                    </span>
+                    <h3>Profil</h3>
+                </a>
+                <a href="candidat/choixSujet">
+                    <span class="material-icons-sharp">
+                        receipt_long
+                    </span>
+                    <h3>Sujets de thèse</h3>
+                </a>
+                <a href="#" >
+                    <span class="material-icons-sharp">
+                        insights
+                    </span>
+                    <h3>Bourse</h3>
+                </a>
+               
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        add
+                    </span>
+                    <h3>New Login</h3>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        logout
+                    </span>
+                    <h3>Logout</h3>
+                </a>
+                <br><br><br><br><br><br><img src="  /images/hmama.svg">
+            </div>
+        </aside>
+        <!-- End of Sidebar Section -->
+
+        <!-- Main Content -->
+        <main>
+            <h1>Mon profil</h1>
+            <!-- Analyses -->
+            
+<br>
+            <!-- New Users Section -->
+            <div class="new-users">
+                <h2>État Civil</h2>
+                    <div class="etat-civil-form">
+                       
+                        <div class="form-row">
+                          <label for="situation-familiale">Situation Familiale*</label>
+                          <select id="situation-familiale">
+                            <option value="celibataire">Célibataire</option>
+                            <option value="marie">Marié(e)</option>
+                            <option value="divorce">Divorcé(e)</option>
+                            <!-- Autres options -->
+                          </select>
+                        </div>
+                      
+                        <div class="form-row">
+                          <label for="nationalite">Nationalité*</label>
+                          <select id="nationalite">
+                            <option value="marocaine">Marocaine</option>
+                            <option value="etranger">Étranger</option>
+                            <!-- Autres options -->
+                          </select>
+                        </div>
+                      
+                        <div class="form-row">
+                          <label for="cin">CIN*</label>
+                          <input type="text" id="cin" placeholder="Entrez votre CIN" required>
+                        </div>
+                      
+                        <div class="form-row">
+                          <label for="pays-naissance">Pays de naissance*</label>
+                          <select id="pays-naissance">
+                            <option value="maroc">Maroc</option>
+                            <option value="france">France</option>
+                            <!-- Autres options -->
+                          </select>
+                        </div>
+                      
+                        <div class="form-row">
+                          <label for="province-naissance">Province de naissance*</label>
+                          <input type="text" id="province-naissance" placeholder="Entrez votre province">
+                        </div>
+                      
+                        <div class="form-row">
+                          <label for="lieu-naissance">Lieu de naissance*</label>
+                          <input type="text" id="lieu-naissance" placeholder="Entrez votre lieu de naissance">
+                        </div>
+                      
+                        <div class="form-row">
+                          <label for="date-naissance">Date de naissance*</label>
+                          <input type="date" id="date-naissance" required>
+                        </div>
+                      
+                        <div class="form-row">
+                          <label for="cne">CNE*</label>
+                          <input type="text" id="cne" placeholder="Entrez votre CNE" required>
+                        </div>
+                      
+                        <div class="form-row">
+                          <label for="adresse">Adresse de correspondance*</label>
+                          <input type="text" id="adresse" placeholder="Entrez votre adresse">
+                        </div>
+                      
+                      
+                        <div class="form-row">
+                          <label for="sexe">Sexe*</label>
+                          <select id="sexe">
+                            <option value="homme">Homme</option>
+                            <option value="femme">Femme</option>
+                          </select>
+                        </div>
+                      
+                        <div class="form-row">
+                          <label for="code-postal">Code Postal*</label>
+                          <input type="text" id="code-postal" placeholder="Entrez votre code postal">
+                        </div>
+                      
+                      
+                        <div class="form-row">
+                          <label for="email-institutionnel">Email institutionnel</label>
+                          <input type="email" id="email-institutionnel" placeholder="Entrez votre email institutionnel">
+                        </div>
+                      
+
+                        <div class="form-row">
+                          <label for="professionPere">Profession du père*</label>
+                          <input type="text" placeholder="Entrez la profession du père">
+                        </div>
+
+                        <div class="form-row">
+                          <label for="provincePere">Province du père*</label>
+                          <input type="text" placeholder="Entrez le province du père">
+                        </div>
+
+                        <div class="form-row">
+                          <label for="professionMere">Prefession de mère*</label>
+                          <input type="text" placeholder="Entrez la profession de mère">
+                        </div>
+
+                        <div class="form-row">
+                          <label for="provinceMere">Province de mère*</label>
+                          <input type="text" placeholder="Entrez le province de mère">
+                        </div>
+
+                        <div class="form-row">
+                          <label for="profession">Votre profession*</label>
+                          <input type="text" placeholder="Entrez votre profession">
+                        </div>
+
+                        <div class="form-row">
+                          <label>Votre photo*</label>
+                          <input type="file"  required>
+                        </div>
+
+
+                    
+                      
+                        
+                      </div>
+                      
+                </div>
+
+
+
+                           
+<br>
+<!-- New Users Section -->
+<div class="new-users">
+    <h2>Baccalaureat</h2>
+        <div class="etat-civil-form">
+
+            <div class="form-row">
+              <label>Nom du lycée*</label>
+              <input type="text"  required>
+            </div>
+
+            <div class="form-row">
+              <label>Pays*</label>
+              <input type="text">
+            </div>
+
+            <div class="form-row">
+              <label>Académie*</label>
+              <input type="text"  required>
+            </div>
+
+            <div class="form-row">
+              <label>Province*</label>
+              <input type="text">
+            </div>
+
+            <div class="form-row">
+              <label>Statut*</label>
+              <select>
+                <option value="public">Public</option>
+                <option value="privee">Privée</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <label>Filière de Bac*</label>
+              <input type="text">
+            </div>
+
+            <div class="form-row">
+              <label>Année d'obtention*</label>
+              <input type="date"  required>
+            </div>
+
+            <div class="form-row">
+              <label>Mention*</label>
+              <select>
+                <option value="tbien">Très bien</option>
+                <option value="bien">Bien</option>
+                <option value="abien">Assez bien</option>
+                <option value="passable">Passable</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <label>Moyenne générale /20*</label>
+              <input type="text"  required>
+            </div>
+  
+          </div>
+          
+    </div>
+
+               
+<br>
+<!-- New Users Section -->
+<div class="new-users">
+  <h2>Licence</h2>
+      <div class="etat-civil-form">
+
+          <div class="form-row">
+            <label>Université*</label>
+            <input type="text"  required>
+          </div>
+
+          <div class="form-row">
+            <label>Etablissement*</label>
+            <input type="text"  required>
+          </div>
+
+          <div class="form-row">
+            <label>Pays*</label>
+            <input type="text">
+          </div>
+
+          
+
+          
+
+          <div class="form-row">
+            <label>Statut*</label>
+            <select>
+              <option value="public">Public</option>
+              <option value="privee">Privée</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label>Spécialité de la licence*</label>
+            <input type="text">
+          </div>
+
+          <div class="form-row">
+            <label>Année d'obtention*</label>
+            <input type="date"  required>
+          </div>
+
+          <div class="form-row">
+            <label>Mention*</label>
+            <select>
+              <option value="tbien">Très bien</option>
+              <option value="bien">Bien</option>
+              <option value="abien">Assez bien</option>
+              <option value="passable">Passable</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label>Moyenne générale /20*</label>
+            <input type="text"  required>
+          </div>
+
+        </div>
+        
+  </div>
+
+             
+<br>
+
+<!-- New Users Section -->
+<div class="new-users">
+  <h2>Master ou équivalent</h2>
+      <div class="etat-civil-form">
+
+          <div class="form-row">
+            <label>Université*</label>
+            <input type="text"  required>
+          </div>
+
+          <div class="form-row">
+            <label>Etablissement*</label>
+            <input type="text"  required>
+          </div>
+
+          <div class="form-row">
+            <label>Pays*</label>
+            <input type="text">
+          </div>
+
+          
+
+          <div class="form-row">
+            <label>Statut*</label>
+            <select>
+              <option value="public">Public</option>
+              <option value="privee">Privée</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label>Spécialité du Master*</label>
+            <input type="text">
+          </div>
+
+          <div class="form-row">
+            <label>Année d'obtention*</label>
+            <input type="date"  required>
+          </div>
+
+          <div class="form-row">
+            <label>Mention*</label>
+            <select>
+              <option value="tbien">Très bien</option>
+              <option value="bien">Bien</option>
+              <option value="abien">Assez bien</option>
+              <option value="passable">Passable</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label>Moyenne générale /20*</label>
+            <input type="text"  required>
+          </div>
+
+        </div>
+        
+  </div>
+
+             
+<br>
+
+<!-- New Users Section -->
+<div class="new-users">
+  <h2>Langues</h2>
+      <div class="etat-civil-form">
+
+          <div class="form-row">
+            <label>Langue 1*</label>
+            <input type="text"  required>
+          </div>
+
+          <div class="form-row">
+            <label>Niveau langue 1*</label>
+            <select>
+              <option value="a1">A1 Niveau Découverte</option>
+              <option value="a2">A2 Niveau Intermédiaire</option>
+              <option value="b1">B1 Niveau Seuil</option>
+              <option value="b2">B2 Niveau Avancé</option>
+              <option value="c1">C1 Niveau Autonome</option>
+              <option value="c2">C2 Niveau Maitrisé</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label>Langue 2</label>
+            <input type="text">
+          </div>
+
+          <div class="form-row">
+            <label>Niveau langue 2</label>
+            <select>
+              <option value="a1">A1 Niveau Découverte</option>
+              <option value="a2">A2 Niveau Intermédiaire</option>
+              <option value="b1">B1 Niveau Seuil</option>
+              <option value="b2">B2 Niveau Avancé</option>
+              <option value="c1">C1 Niveau Autonome</option>
+              <option value="c2">C2 Niveau Maitrisé</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label>Langue 3</label>
+            <input type="text">
+          </div>
+
+          <div class="form-row">
+            <label>Niveau langue 3</label>
+            <select>
+              <option value="a1">A1 Niveau Découverte</option>
+              <option value="a2">A2 Niveau Intermédiaire</option>
+              <option value="b1">B1 Niveau Seuil</option>
+              <option value="b2">B2 Niveau Avancé</option>
+              <option value="c1">C1 Niveau Autonome</option>
+              <option value="c2">C2 Niveau Maitrisé</option>
+            </select>
+          </div>
+
+    
+
+
+        </div>
+        
+  </div>
+
+             
+<br>
+
+
+<!-- New Users Section -->
+<div class="new-users">
+  <h2>Expériences professionnelles</h2>
+      <div class="etat-civil-form">
+
+          <div class="form-row">
+            <label>Expérience 1*</label>
+            <input type="text"  required>
+          </div>
+
+          <div class="form-row">
+            <label>Etablissement 1*</label>
+            <input type="text"  required>
+          </div>
+
+          <div class="form-row">
+            <label>Fonction*</label>
+            <input type="text">
+          </div>
+
+          
+
+          <div class="form-row">
+            <label>Secteur 1*</label>
+            <input type="text">
+          </div>
+
+          <div class="form-row">
+            <label>Du*</label>
+            <input type="date"  required>
+          </div>
+
+          <div class="form-row">
+            <label>Au*</label>
+            <input type="date"  required>
+          </div>
+
+        </div>
+        
+  </div>
+
+             
+<br>
+
+
+<!-- New Users Section -->
+<div class="new-users">
+  <h2>Importation des documents</h2>
+      <div class="etat-civil-form">
+
+          <div class="form-row">
+            <label>Baccalaureat scanné*</label>
+            <input type="file"  required>
+          </div>
+
+          <div class="form-row">
+            <label>Licence scannée*</label>
+            <input type="file"  required>
+          </div>
+
+          <div class="form-row">
+            <label>Relevé de note licence scanné*</label>
+            <input type="file"  required>
+          </div>
+
+
+          <div class="form-row">
+            <label>Master scanné*</label>
+            <input type="file"  required>
+          </div>
+
+          <div class="form-row">
+            <label>Relevé de note master scanné*</label>
+            <input type="file"  required>
+          </div>
+
+
+          <div class="form-row">
+            <label>Carte nationnale scannée*</label>
+            <input type="file"  required>
+          </div>
+
+          <div class="form-row">
+            <label>CV scanné*</label>
+            <input type="file"  required>
+          </div>
+
+
+      </div>
+        
+</div>
+
+             
+<br>
+
+           
+            
+        </main>
+        <!-- End of Main Content -->
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <div class="nav">
+             
+               
+
+                <div class="profile">
+                    <div class="info">
+                        <p>Hey, <b>Salma</b></p>
+                    </div>
+                    <div class="profile-photo">
+                        <img src="images/hero-banner-1.jpg">
+                    </div>
+                </div>
+
+            </div>
+            <!-- End of Nav -->
+
+           
+
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>

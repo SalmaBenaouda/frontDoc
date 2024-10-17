@@ -1,0 +1,104 @@
+
+
+<div class="container">
+    <!-- Sidebar Section -->
+    <aside>
+        <div class="logo-divider"></div>
+
+        <div class="sidebar">
+           <img src="  /images/logo.png">
+           
+            <div class="logo-divider"></div><br>
+            <a href="candidat/dashboard">
+                <span class="material-icons-sharp">
+                    dashboard
+                </span>
+                <h3>Acceuil</h3>
+            </a>
+            <a href="candidat/profil" >
+                <span class="material-icons-sharp">
+                    person_outline
+                </span>
+                <h3>Profil</h3>
+            </a>
+            <a href="candidat/choixSujet"  >
+                <span class="material-icons-sharp">
+                    receipt_long
+                </span>
+                <h3>Sujets de thèse</h3>
+            </a>
+            <a href="candidat/planning" class="active" >
+                <span class="material-icons-sharp">
+                    event
+                    </span>
+                <h3>Planning</h3>
+            </a>
+           
+            <a href="#">
+                <span class="material-icons-sharp">
+                    add
+                </span>
+                <h3>New Login</h3>
+            </a>
+            <a href="#">
+                <span class="material-icons-sharp">
+                    logout
+                </span>
+                <h3>Logout</h3>
+            </a>
+            <br><br><br><br><br><br><img src="  /images/hmama.svg">
+        </div>
+    </aside>
+    <!-- End of Sidebar Section -->
+
+    <!-- Main Content -->
+    <main>
+        <h1>Planning des entretiens</h1>
+        <div id="calendar-container">
+            <div id="calendar">
+              <full-calendar [options]="calendarOptions"></full-calendar>
+            </div>
+            <div id="event-details">
+              <h3>Détails de l'entretien</h3>
+              <ng-container *ngIf="selectedEvents.length > 0; else noEvent">
+                <div *ngFor="let event of selectedEvents">
+                  <p><strong>Titre :</strong> {{ event.title }}</p>
+                  <p><strong>Date :</strong> {{ event.start | date: 'fullDate' }}</p>
+                  <p><strong>Heure :</strong> {{ event.start | date: 'shortTime' }} - {{ event.end | date: 'shortTime' }}</p>
+                  <hr />
+                </div>
+              </ng-container>
+              <ng-template #noEvent>
+                <p>Pas d'entretiens programmés pour ce jour.</p>
+              </ng-template>
+            </div>
+          </div>
+          
+          
+    </main>
+    <!-- End of Main Content -->
+
+    <!-- Right Section -->
+    <div class="right-section">
+        <div class="nav">
+         
+           
+
+            <div class="profile">
+                <div class="info">
+                    <p>Hey, <b>Salma</b></p>
+                </div>
+                <div class="profile-photo">
+                    <img src="images/hero-banner-1.jpg">
+                </div>
+            </div>
+
+        </div>
+        <!-- End of Nav -->
+
+       
+
+    </div>
+
+
+</div>

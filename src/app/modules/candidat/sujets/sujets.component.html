@@ -54,36 +54,88 @@
         <!-- Main Content -->
         <main>
             <h1>Sujet de thèse</h1>
-            <form>
-                <!-- Sélection du CED -->
-                <div>
-                  <label for="ced">Choisir un CED :</label>
-                  <select id="ced" [(ngModel)]="cedSelectionne" name="ced">
-                    <option *ngFor="let ced of ceds" [value]="ced">{{ ced }}</option>
-                  </select>
-                </div>
-            
-                <!-- Afficher les formations si un CED est sélectionné -->
-                <div *ngIf="cedSelectionne">
-                  <label for="formation">Choisir une formation :</label>
-                  <select id="formation" [(ngModel)]="formationSelectionnee" (change)="onFormationChange()" name="formation">
-                    <option *ngFor="let formation of formations[cedSelectionne]" [value]="formation">
-                      {{ formation }}
-                    </option>
-                  </select>
-                </div>
-            
-                <!-- Afficher les sujets disponibles si une formation est sélectionnée -->
+            <br>
+            <div class="form-container">
+                <span class="selection-icon-container" (click)="ouvrirCart()">
+                    <i class="fas fa-book" style="font-size: 20px;"></i>
+                    <span>{{ sujetsSelectionnes.length }} / 3</span>
+                </span>
+                <form>
+                  <div class="form-group">
+                    <label for="ced">Choisir un CED :</label>
+                    <select id="ced" [(ngModel)]="cedSelectionne" name="ced">
+                      <option *ngFor="let ced of ceds" [value]="ced">{{ ced }}</option>
+                    </select>
+                  </div>
+              
+                  <div class="form-group" *ngIf="cedSelectionne">
+                    <label for="formation">Choisir une formation :</label>
+                    <select id="formation" [(ngModel)]="formationSelectionnee" (change)="onFormationChange()" name="formation">
+                      <option *ngFor="let formation of formations[cedSelectionne]" [value]="formation">
+                        {{ formation }}
+                      </option>
+                    </select>
+                  </div>
+                </form>
+              
                 <div *ngIf="formationSelectionnee">
-                  <h2>Sujets disponibles :</h2>
-                  <ul>
-                    <li *ngFor="let sujet of sujets">{{ sujet }}</li>
-                  </ul>
+                  <h2>Sujets :</h2>
+                  <div *ngIf="sujets.length > 0" class="subject-grid">
+                    <div class="subject-card" *ngFor="let sujet of sujets" [ngClass]="{'selected': isSelected(sujet)}" (click)="ouvrirModale(sujet)">
+                      <h3>{{ sujet.nom }}</h3>
+                      <p>{{ sujet.etablissement }}</p>
+                    </div>
+                  </div>
+                  <p *ngIf="sujets.length === 0">Aucun sujet disponible pour cette formation.</p>
                 </div>
-              </form>
+              
+                <!-- Modale -->
+                <div class="modal" *ngIf="sujetActuel">
+                  <div class="modal-content">
+                    <span class="close-icon" (click)="fermerModale()">&times;</span>
+                    <h2>Information sur le sujet</h2>
+                    <div class="modal-section">
+                      <h4>Sujet</h4>
+                      <p>{{ sujetActuel.nom }}</p>
+                    </div>
+                    <div class="modal-section">
+                      <h4>Thématiques prioritaires RS</h4>
+                      <p>{{ sujetActuel.thematiques }}</p>
+                    </div>
+                    <div class="modal-section">
+                      <h4>Enseignant</h4>
+                      <p>{{ sujetActuel.enseignant }}</p>
+                    </div>
+                    <div class="modal-section">
+                      <h4>Description du sujet</h4>
+                      <p>{{ sujetActuel.description }}</p>
+                    </div>
+                    <button (click)="selectSujet(sujetActuel)">Choisir ce sujet</button>
+                  </div>
+                </div>
+              
+                <!-- Cart Modal -->
+                <div class="cart-modal" *ngIf="showCart">
+                  <div class="modal-content">
+                    <div class="cart-modal-header">
+                      <h3>Sujets sélectionnés</h3>
+                      <span class="close-icon" (click)="fermerCart()">&times;</span>
+                    </div>
+                    <div *ngFor="let sujet of sujetsSelectionnes" class="cart-item" [ngClass]="{'non-removable': sujet.candidature?.statut !== 'En cours'}">
+                      <div>
+                        <h4>{{ sujet.nom }}</h4>
+                        <p><strong>Établissement:</strong> {{ sujet.etablissement }}</p>
+                        <p><strong>Statut:</strong> {{ sujet.candidature?.statut }}</p>
+                      </div>
+                      <button *ngIf="sujet.candidature?.statut === 'En cours'" (click)="retirerSujet(sujet)">Retirer</button>
+                    </div>
+                    <p *ngIf="sujetsSelectionnes.length === 0">Aucun sujet selectionné pour le moment.</p>
+                  </div>
+                </div>
+              </div>
 <br>
-           
- 
+
+
            
             
         </main>

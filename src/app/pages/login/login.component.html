@@ -33,29 +33,30 @@
           <span class="text-2">Commencez votre parcours</span>
         </div>
       </div>
+
     </div>
     <div class="forms">
         <div class="form-content">
             
           <div class="login-form">
             <div class="title">Se connecter</div>
-          <form action="#">
-            <div class="input-boxes">
-              <div class="input-box">
-                <i class="fas fa-envelope"></i>
-                <input type="text" placeholder="Entrez votre email" required>
+            <form (submit)="seConnecter()">
+              <div class="input-boxes">
+                <div class="input-box">
+                  <i class="fas fa-envelope"></i>
+                  <input type="email" [(ngModel)]="email" name="email" placeholder="Entrez votre email" required>
+                </div>
+                <div class="input-box">
+                  <i class="fas fa-lock"></i>
+                  <input type="password" [(ngModel)]="password" name="password" placeholder="Entrez votre mot de passe" required>
+                </div>
+                <div class="text"><a href="#">Mot de passe oublié?</a></div>
+                <div class="button input-box">
+                  <input type="submit" value="Soumettre">
+                </div>
+                <div class="text sign-up-text">Pas encore inscrit? <label for="flip">S'inscrire</label></div>
               </div>
-              <div class="input-box">
-                <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Entrez votre mot de passe" required>
-              </div>
-              <div class="text"><a href="#">Mot de passe oublié?</a></div>
-              <div class="button input-box">
-                <input type="submit" value="Soumettre">
-              </div>
-              <div class="text sign-up-text">Pas encore inscrit? <label for="flip">S'inscrire</label></div>
-            </div>
-        </form>
+            </form>
       </div>
         <div class="signup-form" style="position: relative; top: -15px;">
             <div class="header-right2">
@@ -64,33 +65,48 @@
               </div>
               
           <div class="title">S'inscrire</div>
-          
-        <form action="#">
+          <br>
+          <div *ngIf="successMessage" class="success-message">
+            {{ successMessage }}
+          </div>
+          <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
+
+          <form (submit)="sInscrire()">
             <div class="input-boxes">
               <div class="input-box">
                 <i class="fas fa-user"></i>
-                <input type="text" placeholder="Entrez votre nom" required>
+                <input type="text" placeholder="Entrez votre nom" [(ngModel)]="registerRequest.nom" name="nom" required>
+              </div>
+              <div class="input-box">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Entrez votre prénom" [(ngModel)]="registerRequest.prenom" name="prenom" required>
               </div>
               <div class="input-box">
                 <i class="fas fa-id-card"></i>
-                <input type="text" placeholder="Entrez votre CIN" required>
+                <input type="text" placeholder="Entrez votre CNE" [(ngModel)]="registerRequest.CIN" name="CIN" required>
               </div>
-              
+              <div class="input-box">
+                <i class="fas fa-phone"></i>
+                <input type="text" placeholder="Entrez votre numéro de téléphone" [(ngModel)]="registerRequest.telephone" name="telephone" required>
+              </div>
               <div class="input-box">
                 <i class="fas fa-envelope"></i>
-                <input type="text" placeholder="Entrez votre email" required>
+                <input type="email" placeholder="Entrez votre email" [(ngModel)]="registerRequest.email" name="email" required>
               </div>
               <div class="input-box">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Entrez votre password" required>
+                <input type="password" placeholder="Entrez votre password" [(ngModel)]="registerRequest.password" name="password" required>
               </div>
-              
+  
               <div class="button input-box">
                 <input type="submit" value="Soumettre">
               </div>
-              <div class="text sign-up-text">Compte dejà existant? <label for="flip">Se connecter</label></div>
+              <div class="text sign-up-text">Compte déjà existant? <label for="flip">Se connecter</label></div>
             </div>
-      </form>
+          </form>
+          
     </div>
     </div>
     </div>

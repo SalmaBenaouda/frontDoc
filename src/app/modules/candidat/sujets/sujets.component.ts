@@ -1,25 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Sujet } from '../../../models/Sujet.model';
+import { Candidature } from '../../../models/candidature.model';
 
-
-interface Sujet {
-  nom: string;
-  etablissement: string;
-  description: string;
-  thematiques?: string;
-  enseignant?: string;
-  showDetails?: boolean;  // Optionnel: Gère l'affichage des détails
-  candidature?: Candidature;
-}
-
-interface Candidature {
-  id: number;
-  idCandidat: number;
-  idSujet: number;
-  statut: string;
-  dateEntretien: string;
-}
 @Component({
   selector: 'app-sujets',
   standalone: true,
@@ -40,19 +24,32 @@ export class SujetsComponent {
 
   sujetsDisponibles: { [formation: string]: Sujet[] } = {
     'IA': [
-      { nom: 'Réseaux de Neurones', etablissement: 'Faculté des Sciences', description: 'Sujet sur l’apprentissage profond.', thematiques: 'Sciences Humaines et Sociales', enseignant: 'Dr. Dupont' },
-      { nom: 'Systèmes Experts1', etablissement: 'Faculté des Sciences', description: 'Étude des systèmes basés sur des règles.', thematiques: 'Technologies et Sciences', enseignant: 'Dr. Martin' },
-      { nom: 'Systèmes Experts2', etablissement: 'Faculté des Sciences', description: 'Étude des systèmes basés sur des règles.', thematiques: 'Technologies et Scieynces', enseignant: 'Dr. Martin' },
-      { nom: 'Systèmes Experts3', etablissement: 'Faculté des Sciences', description: 'Étude des systèmes basés sur des règles.', thematiques: 'Technologies et Scddiences', enseignant: 'Dr. Martin' },
+      new Sujet({
+        nom: 'Réseaux de Neurones',
+        etablissement: 'Faculté des Sciences',
+        description: 'Sujet sur l’apprentissage profond.',
+        thematiques: 'Sciences Humaines et Sociales',
+        enseignant: 'Dr. Dupont',
+      }),
+      new Sujet({
+        nom: 'Systèmes Experts1',
+        etablissement: 'Faculté des Sciences',
+        description: 'Étude des systèmes basés sur des règles.',
+        thematiques: 'Technologies et Sciences',
+        enseignant: 'Dr. Martin',
+      }),
     ],
     'Sécurité': [
-      { nom: 'Cryptographie Avancée', etablissement: 'Faculté de Technologie', description: 'Sécurisation par chiffrement.', thematiques: 'Mathématiques Appliquées', enseignant: 'Prof. Lemoine' },
-      { nom: 'Détection d’Intrusion', etablissement: 'Faculté de Technologie', 
-        description: 'Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.Détection des menaces en ligne.', 
-        thematiques: 'Systèmes de Sécurité', enseignant: 'Dr. Renault' },
+      new Sujet({
+        nom: 'Cryptographie Avancée',
+        etablissement: 'Faculté de Technologie',
+        description: 'Sécurisation par chiffrement.',
+        thematiques: 'Mathématiques Appliquées',
+        enseignant: 'Prof. Lemoine',
+      }),
     ],
   };
- 
+
   cedSelectionne: string = '';
   formationSelectionnee: string = '';
   sujets: Sujet[] = [];
@@ -76,13 +73,13 @@ export class SujetsComponent {
   selectSujet(sujet: Sujet) {
     if (this.sujetsSelectionnes.length < 3) {
       if (!this.sujetsSelectionnes.some(selected => selected.nom === sujet.nom)) {
-        const newCandidature: Candidature = {
+        const newCandidature = new Candidature({
           id: Date.now(),
-          idCandidat: 123, // Example value for candidate ID
-          idSujet: Date.now(), // Example value for sujet ID
+          idCandidat: 123,  // Exemple de valeur
+          idSujet: Date.now(),  // Exemple de valeur
           statut: 'En cours',
           dateEntretien: '',
-        };
+        });
         sujet.candidature = newCandidature;
         this.sujetsSelectionnes.push(sujet);
         this.sujets = this.sujets.filter((s) => s.nom !== sujet.nom);

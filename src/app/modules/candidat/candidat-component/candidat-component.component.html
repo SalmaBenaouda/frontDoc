@@ -1,0 +1,45 @@
+<form (submit)="ajouterCandidat()">
+    <label for="nom">Nom</label>
+    <input type="text" id="nom" [(ngModel)]="nouveauCandidat.nom" name="nom" required>
+  
+    <label for="prenom">Prénom</label>
+    <input type="text" id="prenom" [(ngModel)]="nouveauCandidat.prenom" name="prenom" required>
+  
+    <label for="email">Email</label>
+    <input type="email" id="email" [(ngModel)]="nouveauCandidat.email" name="email" required>
+  
+    <label for="CIN">CIN</label>
+    <input type="text" id="CIN" [(ngModel)]="nouveauCandidat.CIN" name="CIN">
+  
+    <label for="telephone">Téléphone</label>
+    <input type="text" id="telephone" [(ngModel)]="nouveauCandidat.telephone" name="telephone">
+  
+    <!-- Ajoute plus de champs ici si nécessaire -->
+  
+    <button type="submit">Ajouter le Candidat</button>
+  </form>
+  <form (submit)="mettreAJourCandidat()">
+    <label for="id">ID du Candidat</label>
+    <input type="number" id="id" [(ngModel)]="candidatAMettreAJour.id" name="id" required>
+  
+    <label for="nom">Nom</label>
+    <input type="text" id="nom" [(ngModel)]="candidatAMettreAJour.nom" name="nom" required>
+  
+    <label for="prenom">Prénom</label>
+    <input type="text" id="prenom" [(ngModel)]="candidatAMettreAJour.prenom" name="prenom" required>
+  
+    <label for="email">Email</label>
+    <input type="email" id="email" [(ngModel)]="candidatAMettreAJour.email" name="email" required>
+  
+    <label for="CIN">CIN</label>
+    <input type="text" id="CIN" [(ngModel)]="candidatAMettreAJour.CIN" name="CIN">
+  
+    <label for="telephone">Téléphone</label>
+    <input type="text" id="telephone" [(ngModel)]="candidatAMettreAJour.telephone" name="telephone">
+  
+    <!-- Ajoute d'autres champs ici si nécessaire -->
+  
+    <button type="submit">Mettre à jour le Candidat</button>
+  </form>
+  
+  

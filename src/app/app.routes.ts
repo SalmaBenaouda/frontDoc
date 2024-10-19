@@ -5,6 +5,7 @@ import { DashboardComponent } from './modules/candidat/dashboard/dashboard.compo
 import { ProfilComponent } from './modules/candidat/profil/profil.component';
 import { SujetsComponent } from './modules/candidat/sujets/sujets.component';
 import { PlanningComponent } from './modules/candidat/planning/planning.component';
+import { CandidatComponentComponent } from './modules/candidat/candidat-component/candidat-component.component';
 
 export const routes: Routes = [ 
     { path: '', component: HomeComponent },
@@ -13,4 +14,5 @@ export const routes: Routes = [
     { path: 'candidat/profil', component: ProfilComponent },
     { path: 'candidat/choixSujet', component: SujetsComponent },
     { path: 'candidat/planning', component: PlanningComponent },
+    { path: 'candidat/test', component: CandidatComponentComponent },
     ];

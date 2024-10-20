@@ -6,13 +6,21 @@ import { ProfilComponent } from './modules/candidat/profil/profil.component';
 import { SujetsComponent } from './modules/candidat/sujets/sujets.component';
 import { PlanningComponent } from './modules/candidat/planning/planning.component';
 import { CandidatComponentComponent } from './modules/candidat/candidat-component/candidat-component.component';
+import { RoleGuard } from './guards/role.guard';
+
 
 export const routes: Routes = [ 
     { path: '', component: HomeComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'candidat/dashboard', component: DashboardComponent },
-    { path: 'candidat/profil', component: ProfilComponent },
-    { path: 'candidat/choixSujet', component: SujetsComponent },
-    { path: 'candidat/planning', component: PlanningComponent },
-    { path: 'candidat/test', component: CandidatComponentComponent },
+    
+    
+    { path: 'candidat/dashboard', component: DashboardComponent, canActivate: [RoleGuard], data: { role: 'Candidat' } },
+  { path: 'candidat/profil', component: ProfilComponent, canActivate: [RoleGuard], data: { role: 'Candidat' } },
+  { path: 'candidat/choixSujet', component: SujetsComponent, canActivate: [RoleGuard], data: { role: 'Candidat' } },
+  { path: 'candidat/planning', component: PlanningComponent, canActivate: [RoleGuard], data: { role: 'Candidat' } },
+  { path: 'candidat/test', component: CandidatComponentComponent, canActivate: [RoleGuard], data: { role: 'Candidat' } },
+
+    // Path de prof
+
+    // Path de ced
     ];

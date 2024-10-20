@@ -39,7 +39,14 @@
         <div class="form-content">
             
           <div class="login-form">
+            
             <div class="title">Se connecter</div>
+            <div *ngIf="successMessage" class="success-message">
+              {{ successMessage }}
+            </div>
+            <div *ngIf="loginErrorMessage" class="error-message">
+              {{ loginErrorMessage }}
+            </div>
             <form (submit)="seConnecter()">
               <div class="input-boxes">
                 <div class="input-box">
@@ -50,7 +57,7 @@
                   <i class="fas fa-lock"></i>
                   <input type="password" [(ngModel)]="password" name="password" placeholder="Entrez votre mot de passe" required>
                 </div>
-                <div class="text"><a href="#">Mot de passe oublié?</a></div>
+                <div class="text">Mot de passe oublié?</div>
                 <div class="button input-box">
                   <input type="submit" value="Soumettre">
                 </div>
@@ -65,10 +72,8 @@
               </div>
               
           <div class="title">S'inscrire</div>
-          <br>
-          <div *ngIf="successMessage" class="success-message">
-            {{ successMessage }}
-          </div>
+          
+         
           <div *ngIf="errorMessage" class="error-message">
             {{ errorMessage }}
           </div>

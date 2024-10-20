@@ -74,7 +74,7 @@ export class LoginComponent {
     this.authService.authenticate(this.email, this.password).subscribe({
       next: (response) => {
         console.log(response);
-        localStorage.setItem('token', response.Token);  // Stocker le token dans le local storage
+        localStorage.setItem('token', response.token);  // Stocker le token dans le local storage
         localStorage.setItem('role', response.role);
   
         // Rediriger l'utilisateur selon son rôle

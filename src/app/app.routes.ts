@@ -5,8 +5,8 @@ import { DashboardComponent } from './modules/candidat/dashboard/dashboard.compo
 import { ProfilComponent } from './modules/candidat/profil/profil.component';
 import { SujetsComponent } from './modules/candidat/sujets/sujets.component';
 import { PlanningComponent } from './modules/candidat/planning/planning.component';
-import { CandidatComponentComponent } from './modules/candidat/candidat-component/candidat-component.component';
 import { RoleGuard } from './guards/role.guard';
+import { DashComponent } from './modules/professeur/dash/dash.component';
 
 
 export const routes: Routes = [ 
@@ -14,13 +14,13 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     
     
-    { path: 'candidat/dashboard', component: DashboardComponent, canActivate: [RoleGuard], data: { role: 'Candidat' } },
-  { path: 'candidat/profil', component: ProfilComponent, canActivate: [RoleGuard], data: { role: 'Candidat' } },
-  { path: 'candidat/choixSujet', component: SujetsComponent, canActivate: [RoleGuard], data: { role: 'Candidat' } },
-  { path: 'candidat/planning', component: PlanningComponent, canActivate: [RoleGuard], data: { role: 'Candidat' } },
-  { path: 'candidat/test', component: CandidatComponentComponent, canActivate: [RoleGuard], data: { role: 'Candidat' } },
+    { path: 'Candidat/dashboard', component: DashboardComponent, canActivate: [RoleGuard], data: { role: 'Candidat' } },
+  { path: 'Candidat/profil', component: ProfilComponent, canActivate: [RoleGuard], data: { role: 'Candidat' } },
+  { path: 'Candidat/choixSujet', component: SujetsComponent, canActivate: [RoleGuard], data: { role: 'Candidat' } },
+  { path: 'Candidat/planning', component: PlanningComponent, canActivate: [RoleGuard], data: { role: 'Candidat' } },
+  
 
     // Path de prof
-    { path: 'professeur/dashboard', component: DashboardComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
+    { path: 'Professeur/dashboard', component: DashComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
     // Path de ced
     ];

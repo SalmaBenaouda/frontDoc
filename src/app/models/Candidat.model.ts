@@ -7,16 +7,15 @@ export class Candidat {
     nom!: string;
     prenom!: string;
     email!: string;
-    CIN!: string;
+    cin!: string;
     telephone!: string;
     situationFamiliale!: string;
     nationalite!: string;
     prenomArabe!: string;
     nomArabe!: string;
-    payeNaissance!: string;
+    paysNaissance!: string;
     adresse!: string;
     codePostal!: number;
-    handicap!: string;
     professionPere!: string;
     professionMere!: string;
     provincePere!: string;

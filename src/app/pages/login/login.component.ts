@@ -29,7 +29,7 @@ export class LoginComponent {
     this.errorMessage = '';
   
     // Validation côté client pour vérifier que tous les champs sont remplis
-    if (!this.registerRequest.nom || !this.registerRequest.prenom || !this.registerRequest.CIN ||
+    if (!this.registerRequest.nom || !this.registerRequest.prenom || !this.registerRequest.cin ||
         !this.registerRequest.telephone || !this.registerRequest.email || !this.registerRequest.password) {
       this.errorMessage = "Tous les champs sont obligatoires. Veuillez remplir tous les champs.";
       return;
@@ -74,16 +74,17 @@ export class LoginComponent {
     this.authService.authenticate(this.email, this.password).subscribe({
       next: (response) => {
         console.log(response);
-        localStorage.setItem('token', response.token);  // Stocker le token dans le local storage
+        localStorage.setItem('token', response.token);  
         localStorage.setItem('role', response.role);
+        
   
         // Rediriger l'utilisateur selon son rôle
         if (response.role === 'Candidat') {
-          this.router.navigate(['/candidat/dashboard']);
+          this.router.navigate(['/Candidat/dashboard']);
         } else if (response.role === 'Professeur') {
-          this.router.navigate(['/professeur/dashboard']);
+          this.router.navigate(['/Professeur/dashboard']);
         } else if (response.role === 'CED') {
-          this.router.navigate(['/ced/dashboard']);
+          this.router.navigate(['/CED/dashboard']);
         }
       },
       error: (err) => {

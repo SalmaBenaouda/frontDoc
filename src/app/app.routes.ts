@@ -21,6 +21,6 @@ export const routes: Routes = [
   { path: 'candidat/test', component: CandidatComponentComponent, canActivate: [RoleGuard], data: { role: 'Candidat' } },
 
     // Path de prof
-
+    { path: 'professeur/dashboard', component: DashboardComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
     // Path de ced
     ];

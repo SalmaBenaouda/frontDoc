@@ -4,6 +4,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-planning',
@@ -14,6 +15,11 @@ import { CommonModule } from '@angular/common';
   encapsulation: ViewEncapsulation.None,
 })
 export class PlanningComponent implements OnInit {
+  constructor(private authService: AuthService) {}
+
+  onLogout() {
+    this.authService.logout();
+  }
   selectedEvents: any[] = [];
 
   // Stockez vos événements dans une variable distincte

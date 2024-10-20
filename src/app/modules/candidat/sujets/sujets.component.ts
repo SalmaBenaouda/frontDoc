@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Sujet } from '../../../models/Sujet.model';
 import { Candidature } from '../../../models/candidature.model';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-sujets',
@@ -14,6 +15,11 @@ import { Candidature } from '../../../models/candidature.model';
 })
 
 export class SujetsComponent {
+  constructor(private authService: AuthService) {}
+
+  onLogout() {
+    this.authService.logout();
+  }
   ceds = ['CED Informatique', 'CED Mathématiques', 'CED Physique'];
 
   formations: { [key: string]: string[] } = {

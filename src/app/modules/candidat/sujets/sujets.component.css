@@ -440,7 +440,7 @@ select:focus {
     color: #333;
 }
 
-button {
+.button2 {
     margin-top: 20px;
     padding: 15px 20px;
     background: linear-gradient(135deg, #4b79a1, #283e51);
@@ -452,22 +452,22 @@ button {
     transition: all 0.3s ease;
 }
 
-button:hover {
+.button2:hover {
     background-color: #0056b3;
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-button:active {
+.button2:active {
     transform: translateY(1px);
 }
 
-button:last-of-type {
+.button2:last-of-type {
     margin-left: 15px;
     background: #4b79a1;
 }
 
-button:last-of-type:hover {
+.button2:last-of-type:hover {
     background: #4b79a1;
 }
 

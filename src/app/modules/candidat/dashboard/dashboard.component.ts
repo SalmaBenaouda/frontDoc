@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,5 +10,9 @@ import { Component, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None, 
 })
 export class DashboardComponent {
+  constructor(private authService: AuthService) {}
 
+  onLogout() {
+    this.authService.logout();
+  }
 }

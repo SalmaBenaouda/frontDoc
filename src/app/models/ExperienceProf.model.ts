@@ -7,8 +7,8 @@ export class ExperienceProf {
   etablissement!: string;
   fonction!: string;
   secteurActivite!: string;
-  dateDebut!: Date;
-  dateFin?: Date;
+  dateDebut!: string;
+  dateFin?: string;
   candidatId!: number;
   candidat?: Candidat;
 }

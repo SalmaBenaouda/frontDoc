@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Langue } from '../../models/Langue.model';
 
@@ -12,6 +12,10 @@ export class LangueService {
   constructor(private http: HttpClient) {}
 
   addLangues(userId: number, langues: Langue[]): Observable<any> {
-    return this.http.post(`${this.baseUrl}/addLangue/${userId}`, langues);
+    const token = localStorage.getItem('token');  // Récupérer le token du local storage
+  
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.baseUrl}/addLangue/${userId}`, langues, { headers, responseType: 'text' });
   }
+  
 }

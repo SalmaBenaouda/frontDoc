@@ -390,6 +390,18 @@ main .new-users .user-list:hover{
     box-shadow: 0 0 10px rgba(0, 0, 0, 5); /* A slight shadow for effect */
     z-index: 2; /* Ensure it stays above the form */
   }
+  .btn-add-langue {
+    position: absolute;
+    top: 8px; /* Position it slightly above the box */
+    left: 95%; /* Adjust horizontal position */
+    background-color: #000000; /* Background to match the form's background */
+    padding: 4px 13px; /* Padding around the text to make it look like a label */
+    font-size: 1.2rem; /* Adjust font size */
+    color: white; /* A distinct color for the label */
+    font-weight: bold; /* Make it stand out */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 5); /* A slight shadow for effect */
+    z-index: 2; /* Ensure it stays above the form */
+  }
   
   .etat-civil-form {
     max-width: 3000px; /* Adjust width as needed */
@@ -436,4 +448,6 @@ main .new-users .user-list:hover{
   .submit-btn:hover {
     background-color: #1e3872;
   }
+  
+  /************************************/
   

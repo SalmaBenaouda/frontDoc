@@ -7,6 +7,7 @@ import { SujetsComponent } from './modules/candidat/sujets/sujets.component';
 import { PlanningComponent } from './modules/candidat/planning/planning.component';
 import { RoleGuard } from './guards/role.guard';
 import { DashComponent } from './modules/professeur/dash/dash.component';
+import { DashCedComponent } from './modules/ced/dash-ced/dash-ced.component';
 
 
 export const routes: Routes = [ 
@@ -23,4 +24,5 @@ export const routes: Routes = [
     // Path de prof
     { path: 'Professeur/dashboard', component: DashComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
     // Path de ced
-    ];
+    { path: 'CED/dashboard', component: DashCedComponent, canActivate: [RoleGuard], data: { role: 'CED' } },
+]

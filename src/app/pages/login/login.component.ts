@@ -70,14 +70,16 @@ export class LoginComponent {
   } 
   seConnecter() {
     this.loginErrorMessage = '';
-  
+
     this.authService.authenticate(this.email, this.password).subscribe({
       next: (response) => {
         console.log(response);
-        localStorage.setItem('token', response.token);  
-        localStorage.setItem('role', response.role);
         
-  
+        // Stocker les informations nécessaires dans le local storage
+        localStorage.setItem('token', response.token);  // Stocker le token
+        localStorage.setItem('role', response.role);    // Stocker le rôle
+        localStorage.setItem('userId', response.id.toString()); // Stocker l'ID de l'utilisateur
+
         // Rediriger l'utilisateur selon son rôle
         if (response.role === 'Candidat') {
           this.router.navigate(['/Candidat/dashboard']);

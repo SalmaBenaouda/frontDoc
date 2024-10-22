@@ -1,1 +1,197 @@
-<p>dash-ced works!</p>
+
+<div class="container">
+    <!-- Sidebar Section -->
+    <aside>
+        <div class="logo-divider"></div>
+
+        <div class="sidebar">
+           <img src="  /images/logo.png">
+           
+            <div class="logo-divider"></div><br>
+            <a href="Candidat/dashboard" class="active">
+                <span class="material-icons-sharp">
+                    dashboard
+                </span>
+                <h3>Accueil</h3>
+            </a>
+            <a href="Candidat/profil">
+                <span class="material-icons-sharp">
+                    person_outline
+                </span>
+                <h3>Gestion professeurs</h3>
+            </a>
+            <a href="">
+                <span class="material-icons-sharp">
+                    insights
+                </span>
+                <h3>Structures de recherche</h3>
+            </a>
+            <a href="Candidat/choixSujet">
+                <span class="material-icons-sharp">
+                    receipt_long
+                </span>
+                <h3>Préselection</h3>
+            </a>
+            <a href="Candidat/planning" >
+                <span class="material-icons-sharp">
+                    event
+                    </span>
+                <h3>Planning</h3>
+            </a>
+           
+            
+            <a href="">
+                <span class="material-icons-sharp">
+                    logout
+                </span>
+                <button (click)="onLogout()"><h3>Logout</h3></button>
+            </a>
+            <br><br><br><br><br><br><img src="  /images/hmama.svg">
+        </div>
+    </aside>
+    <!-- End of Sidebar Section -->
+
+    <!-- Main Content -->
+    <main>
+        <h1>Accueil</h1>
+        <!-- Analyses -->
+        <div class="analyse">
+            <div class="sales">
+                <div class="status">
+                    <div class="info">
+                        <h3>Candidatures acceptées</h3>
+                        <h1>0</h1>
+                    </div>
+                    <div class="progresss">
+                        <svg>
+                            <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="percentage">
+                            <p>0 %</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="visits">
+                <div class="status">
+                    <div class="info">
+                        <h3>Total candidatures</h3>
+                        <h1>0/3</h1>
+                    </div>
+                    <div class="progresss">
+                        <svg>
+                            <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="percentage">
+                            <p>-48%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="searches">
+                <div class="status">
+                    <div class="info">
+                        <h3>Candidatures refusées</h3>
+                        <h1>2</h1>
+                    </div>
+                    <div class="progresss">
+                        <svg>
+                            <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="percentage">
+                            <p>+21%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Analyses -->
+
+        <!-- New Users Section -->
+        <div class="new-users">
+            <h2>Mes informations</h2>
+            <div class="user-list">
+                
+                <a href="Candidat/profil"><div class="user">
+                    <img src="images/hero-banner-1.jpg">
+                    <h2>Mon dossier</h2>
+                </div></a>
+                <a href="Candidat/choixSujet"><div class="user">
+                    <img src="images/sujets.jpg">
+                    <h2>Sujets proposées</h2>
+                </div></a>
+                
+                <div class="user">
+                    <img src="images/resultats.png">
+                    <h2>Résultats</h2>
+                </div>
+            </div>
+        </div>
+        <!-- End of New Users Section -->
+
+        <!-- Recent Orders Table -->
+        <div class="recent-orders">
+            <h2>Mes candidatures</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sujet</th>
+                        <th>Thématique</th>
+                        <th>Etablissement</th>
+                        <th>Statut</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Réseaux de Neurones</td>
+                        <td>Sciences Humaines et Sociales</td>
+                        <td>Faculté des Sciences</td>
+                        <td>En cours</td>
+                    </tr>
+                    <tr>
+                        <td>Systèmes Experts</td>
+                        <td>Technologies et Sciences</td>
+                        <td>Faculté des Sciences</td>
+                        <td>Préselection</td>
+                    </tr>
+                    <tr>
+                        <td>Cryptographie Avancée</td>
+                        <td>Mathématiques Appliquées</td>
+                        <td>Faculté des Sciences</td>
+                        <td>Acceptée</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="#">Show All</a>
+        </div>
+        <!-- End of Recent Orders -->
+
+    </main>
+    <!-- End of Main Content -->
+
+    <!-- Right Section -->
+    <div class="right-section">
+        <div class="nav">
+         
+           
+
+            <div class="profile">
+                <div class="info">
+                    <p>Hey, <b>Salma</b></p>
+                </div>
+                <div class="profile-photo">
+                    <img src="images/hero-banner-1.jpg">
+                </div>
+            </div>
+
+        </div>
+        <!-- End of Nav -->
+
+       
+
+    </div>
+
+
+</div>
+

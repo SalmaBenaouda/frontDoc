@@ -1,0 +1,120 @@
+
+<div class="container">
+    <!-- Sidebar Section -->
+    <aside>
+        <div class="logo-divider"></div>
+
+        <div class="sidebar">
+           <img src="  /images/logo.png">
+           
+            <div class="logo-divider"></div><br>
+            <a href="CED/dashboard">
+                <span class="material-icons-sharp">
+                    dashboard
+                </span>
+                <h3>Accueil</h3>
+            </a>
+            <a href="CED/gestionProfesseurs"  class="active">
+                <span class="material-icons-sharp">
+                    person_outline
+                </span>
+                <h3>Gestion professeurs</h3>
+            </a>
+            <a href="CED/gestionStructures">
+                <span class="material-icons-sharp">
+                    insights
+                </span>
+                <h3>Structures de recherche</h3>
+            </a>
+            <a href="CED/preselection">
+                <span class="material-icons-sharp">
+                    receipt_long
+                </span>
+                <h3>Préselection</h3>
+            </a>
+            <a href="CED/planning" >
+                <span class="material-icons-sharp">
+                    event
+                    </span>
+                <h3>Planning</h3>
+            </a>
+           
+            
+            <a href="">
+                <span class="material-icons-sharp">
+                    logout
+                </span>
+                <button (click)="onLogout()"><h3>Logout</h3></button>
+            </a>
+            <br><br><br><br><br><br><img src="  /images/hmama.svg">
+        </div>
+    </aside>
+    <!-- End of Sidebar Section -->
+
+    <!-- Main Content -->
+    <main>
+        <h1>Gestion professeurs</h1><br>
+        <a href="CED/gestionProfesseurs" class="linkActive"><span>Liste des professeurs</span></a>
+        <span class="linkDisabled">> Ajouter professeur</span><br><br>
+        
+        <!-- Formulaire d'ajout de professeur -->
+        <form class="add-professor-form" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="ced">Centre ID (CED)</label>
+            <input type="text" id="ced" name="ced" [value]="cedId" readonly>
+          </div>
+        
+          <div class="form-group">
+            <label for="structure">Structure de recherche</label>
+            <select id="structure" name="structure" [(ngModel)]="structureRechercheId" required>
+              <option *ngFor="let structure of structures" [value]="structure.id">
+                {{ structure.nom }} - {{ structure.etablissement }}
+              </option>
+            </select>
+          </div>
+        
+          <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" [(ngModel)]="professeur.nom" required>
+          </div>
+        
+          <div class="form-group">
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" name="prenom" [(ngModel)]="professeur.prenom" required>
+          </div>
+        
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" [(ngModel)]="professeur.email" required>
+          </div>
+        
+          <button type="submit" class="btn-submit">Ajouter</button>
+        </form>
+    </main>
+    <!-- End of Main Content -->
+
+    <!-- Right Section -->
+    <div class="right-section">
+        <div class="nav">
+         
+           
+
+            <div class="profile">
+                <div class="info">
+                    <p>Hey, <b>Salma</b></p>
+                </div>
+                <div class="profile-photo">
+                    <img src="images/hero-banner-1.jpg">
+                </div>
+            </div>
+
+        </div>
+        <!-- End of Nav -->
+
+       
+
+    </div>
+
+
+</div>
+

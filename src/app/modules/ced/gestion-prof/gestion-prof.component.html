@@ -1,1 +1,152 @@
-<p>gestion-prof works!</p>
+
+<div class="container">
+    <!-- Sidebar Section -->
+    <aside>
+        <div class="logo-divider"></div>
+
+        <div class="sidebar">
+           <img src="  /images/logo.png">
+           
+            <div class="logo-divider"></div><br>
+            <a href="CED/dashboard">
+                <span class="material-icons-sharp">
+                    dashboard
+                </span>
+                <h3>Accueil</h3>
+            </a>
+            <a href="CED/gestionProfesseurs"  class="active">
+                <span class="material-icons-sharp">
+                    person_outline
+                </span>
+                <h3>Gestion professeurs</h3>
+            </a>
+            <a href="CED/gestionStructures">
+                <span class="material-icons-sharp">
+                    insights
+                </span>
+                <h3>Structures de recherche</h3>
+            </a>
+            <a href="CED/preselection">
+                <span class="material-icons-sharp">
+                    receipt_long
+                </span>
+                <h3>Préselection</h3>
+            </a>
+            <a href="CED/planning" >
+                <span class="material-icons-sharp">
+                    event
+                    </span>
+                <h3>Planning</h3>
+            </a>
+           
+            
+            <a href="">
+                <span class="material-icons-sharp">
+                    logout
+                </span>
+                <button (click)="onLogout()"><h3>Logout</h3></button>
+            </a>
+            <br><br><br><br><br><br><img src="  /images/hmama.svg">
+        </div>
+    </aside>
+    <!-- End of Sidebar Section -->
+
+    <!-- Main Content -->
+    <main>
+        <h1>Gestion professeurs</h1><br>
+        <span class="linkDisabled">Liste des professeurs  > </span>
+        <a href="CED/ajouterProfesseur" class="linkActive"><span>Ajouter professeur</span></a><br><br>
+        
+        <!-- Search and Filter Section -->
+        <div class="search-filter">
+            <input type="text" placeholder="Rechercher par nom" (input)="onSearchChange($event)">
+            <select (change)="onFilterChange($event)">
+                <option value="">Tous les établissements</option>
+                <option value="Etablissement 1">Etablissement 1</option>
+                <option value="Etablissement 2">Etablissement 2</option>
+                <option value="Etablissement 3">Etablissement 3</option>
+            </select>
+        </div><br>
+        
+        <!-- Professors Table -->
+        <table class="professors-table">
+            <thead>
+                <tr>
+                    <th>Nom complet</th>
+                    <th>CED</th>
+                    <th>Structure de recherche</th>
+                    <th>Établissement</th>
+                    <th>Détails</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let professor of paginatedProfessors">
+                    <td>{{ professor.nom }}</td>
+                    <td>CED-STSM</td>
+                    <td>{{ professor.structureRecherche?.nom }}</td>
+                    <td>{{ professor.structureRecherche?.etablissement }}</td>
+                    <td>
+                        <button (click)="viewProfile(professor)" class="view-profile-button">
+                            <span class="material-icons-sharp">visibility</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    <!-- Modal for Professor Profile -->
+    <!-- Modal for Professor Profile -->
+    <div class="modal" [ngClass]="{'show-modal': showModal}" *ngIf="selectedProfessor">
+        <div class="modal-content">
+            <span class="close-button" (click)="closeModal()">&times;</span>
+            <div class="modal-banner">
+                <img src="images/banner.png" alt="Banner Image" class="banner-image">
+            </div>
+            <div class="modal-header">
+                <h2>{{ selectedProfessor.nom }} {{ selectedProfessor.prenom }}</h2>
+            </div>
+            <div class="profile-details">
+                <div class="profile-info">
+                    <p><strong>Email :</strong> {{ selectedProfessor.email }}</p>
+                    <p><strong>Structure de recherche :</strong> {{ selectedProfessor.structureRecherche?.nom }}</p>
+                    <p><strong>Établissement :</strong> {{ selectedProfessor.structureRecherche?.etablissement }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+        <!-- Pagination Section -->
+        <div class="pagination">
+            <button *ngFor="let page of totalPages; let i = index" (click)="goToPage(i + 1)" [class.active]="currentPage === (i + 1)">
+                {{ i + 1 }}
+            </button>
+        </div>
+        
+    </main>
+    <!-- End of Main Content -->
+
+    <!-- Right Section -->
+    <div class="right-section">
+        <div class="nav">
+         
+           
+
+            <div class="profile">
+                <div class="info">
+                    <p>Hey, <b>Salma</b></p>
+                </div>
+                <div class="profile-photo">
+                    <img src="images/hero-banner-1.jpg">
+                </div>
+            </div>
+
+        </div>
+        <!-- End of Nav -->
+
+       
+
+    </div>
+
+
+</div>
+

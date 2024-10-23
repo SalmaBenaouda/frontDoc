@@ -8,6 +8,11 @@ import { PlanningComponent } from './modules/candidat/planning/planning.componen
 import { RoleGuard } from './guards/role.guard';
 import { DashComponent } from './modules/professeur/dash/dash.component';
 import { DashCedComponent } from './modules/ced/dash-ced/dash-ced.component';
+import { GestionProfComponent } from './modules/ced/gestion-prof/gestion-prof.component';
+import { GestionStructureComponent } from './modules/ced/gestion-structure/gestion-structure.component';
+import { GestionPlanningComponent } from './modules/ced/gestion-planning/gestion-planning.component';
+import { PreselectionComponent } from './modules/ced/preselection/preselection.component';
+import { AddProfComponent } from './modules/ced/add-prof/add-prof.component';
 
 
 export const routes: Routes = [ 
@@ -23,6 +28,13 @@ export const routes: Routes = [
 
     // Path de prof
     { path: 'Professeur/dashboard', component: DashComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
+    
+
     // Path de ced
     { path: 'CED/dashboard', component: DashCedComponent, canActivate: [RoleGuard], data: { role: 'CED' } },
+    { path: 'CED/gestionProfesseurs', component: GestionProfComponent, canActivate: [RoleGuard], data: { role: 'CED' } },
+    { path: 'CED/ajouterProfesseur', component: AddProfComponent, canActivate: [RoleGuard], data: { role: 'CED' } },
+    { path: 'CED/gestionStructures', component: GestionStructureComponent, canActivate: [RoleGuard], data: { role: 'CED' } },
+    { path: 'CED/planning', component: GestionPlanningComponent, canActivate: [RoleGuard], data: { role: 'CED' } },
+    { path: 'CED/preselection', component: PreselectionComponent, canActivate: [RoleGuard], data: { role: 'CED' } },
 ]

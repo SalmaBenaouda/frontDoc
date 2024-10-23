@@ -8,6 +8,7 @@ import { Professeur } from '../../models/Professeur.model';
   providedIn: 'root'
 })
 export class CedService {
+
   private apiUrl = 'http://localhost:8081/CED'; // Remplacer par l'URL de votre backend
 
   constructor(private http: HttpClient) {}
@@ -17,6 +18,12 @@ export class CedService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post(`${this.apiUrl}/addProfesseur`, professeur, { headers });
+  }
+
+  addStructure(structure: StructureRecherche): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.apiUrl}/addStructure`, structure, { headers });
   }
 }
 

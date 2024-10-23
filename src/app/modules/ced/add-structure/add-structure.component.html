@@ -8,19 +8,19 @@
            <img src="  /images/logo.png">
            
             <div class="logo-divider"></div><br>
-            <a href="CED/dashboard" class="active">
+            <a href="CED/dashboard">
                 <span class="material-icons-sharp">
                     dashboard
                 </span>
                 <h3>Accueil</h3>
             </a>
-            <a href="CED/gestionProfesseurs">
+            <a href="CED/gestionProfesseurs"  >
                 <span class="material-icons-sharp">
                     person_outline
                 </span>
                 <h3>Gestion professeurs</h3>
             </a>
-            <a href="CED/gestionStructures">
+            <a href="CED/gestionStructures" class="active">
                 <span class="material-icons-sharp">
                     settings
                 </span>
@@ -38,7 +38,6 @@
                 </span>
                 <h3>Bourse</h3>
             </a>
-           
             
             <a href="">
                 <span class="material-icons-sharp">
@@ -52,62 +51,36 @@
     <!-- End of Sidebar Section -->
 
     <!-- Main Content -->
-    <main>
-        <h1>Accueil</h1>
-        <!-- Analyses -->
-        <div class="analyse">
-            <div class="sales">
-                <div class="status">
-                    <div class="info">
-                        <h3>Total candidatures</h3>
-                        <h1>0</h1>
-                    </div>
-                    <div class="progresss">
-                        <svg>
-                            <circle cx="38" cy="38" r="36"></circle>
-                        </svg>
-                        <div class="percentage">
-                            <p>0 %</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="visits">
-                <div class="status">
-                    <div class="info">
-                        <h3>Demandes de bourse</h3>
-                        <h1>5</h1>
-                    </div>
-                    <div class="progresss">
-                        <svg>
-                            <circle cx="38" cy="38" r="36"></circle>
-                        </svg>
-                        <div class="percentage">
-                            <p>-48%</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="searches">
-                <div class="status">
-                    <div class="info">
-                        <h3>Total structures</h3>
-                        <h1>2</h1>
-                    </div>
-                    <div class="progresss">
-                        <svg>
-                            <circle cx="38" cy="38" r="36"></circle>
-                        </svg>
-                        <div class="percentage">
-                            <p>+21%</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-     
+     <main>
+    <h1>Gestion structures</h1><br>
+    <a href="CED/gestionStructures" class="linkActive" ><span>Liste des structures</span></a>
+    <span class="linkDisabled">> Ajouter structure</span><br><br>
 
-    </main>
+    <!-- Formulaire d'ajout de structure -->
+    <form class="add-professor-form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="ced">Centre ID (CED)</label>
+            <input type="text" id="ced" name="ced" [value]="cedId" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="nom">Nom de la structure</label>
+            <input type="text" id="nom" name="nom" [(ngModel)]="structure.nom" required>
+        </div>
+
+        <div class="form-group">
+            <label for="domaine">Domaine</label>
+            <input type="text" id="domaine" name="domaine" [(ngModel)]="structure.domaine" required>
+        </div>
+
+        <div class="form-group">
+            <label for="etablissement">Établissement</label>
+            <input type="text" id="etablissement" name="etablissement" [(ngModel)]="structure.etablissement" required>
+        </div>
+
+        <button type="submit" class="btn-submit">Ajouter</button>
+    </form>
+</main>
     <!-- End of Main Content -->
 
     <!-- Right Section -->

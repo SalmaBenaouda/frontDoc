@@ -400,116 +400,136 @@ aside .sidebar .message-count{
 }
 
 /* Styles for Search and Filter Section */
-.search-filter {
+
+
+/**************************************/
+
+.profile-page {
     display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-    
-    align-items: center;
-    background-color: #f9f9f9;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.search-filter input[type="text"] {
-    padding: 10px 0.5px 10px 30px;
-    border: 1px solid #ccc;
-    margin-left: 58%;
-    border-radius: 5px;
-    font-size: 1em;
-    background: url('../../../../../public/images/search-icon.png') no-repeat left 10px center;
-    background-size: 20px;
-}
-
-.search-filter select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
-}
-
-/* Styles for Professors Table */
-.professors-table {
+    flex-direction: column;
+    max-width: 900px;
     width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 2;
+    margin: auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+}
+
+
+.etat-civil-form {
+    max-width: 3000px; /* Adjust width as needed */
+    margin: 20px auto;
+    padding: 30px 20px 20px 20px; /* Add extra padding on top */
+    background-color: #f9f9f9;
     border-radius: 10px;
-    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Adjust to have 3 columns */
+    gap: 15px; /* Adjust the space between fields */
+  }
+.section {
+    position: relative; /* Required for the label placement */
+  }
+  
+ 
+.section h3 {
+    position: absolute;
+    top: -10px; /* Position it slightly above the box */
+    left: 20px; /* Adjust horizontal position */
+    background-color: #0b4079; /* Background to match the form's background */
+    padding: 5px 15px; /* Padding around the text to make it look like a label */
+    font-size: 1.2rem; /* Adjust font size */
+    color: white; /* A distinct color for the label */
+    font-weight: bold; /* Make it stand out */
+    border-radius: 4px; /* Rounded edges */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 5); /* A slight shadow for effect */
+    z-index: 2; /* Ensure it stays above the form */
+  }
+.content__cover {
+    position: relative;
+   
 }
 
-.professors-table th, .professors-table td {
-    border-bottom: 1px solid #ddd;
-    padding: 15px;
-    text-align: left;
+.content__avatar {
+    width: 9rem;
+    height: 9rem;
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+    z-index: 2;
+    transform: translate(-50%, 50%);
+    background: #8f6ed5 url("https://a.storyblok.com/f/191576/1200x800/215e59568f/round_profil_picture_after_.webp") center center no-repeat;
+    background-size: cover;
+    border-radius: 50%;
 }
 
-.professors-table th {
-    background-color: #0b4079;
-    color: white;
-    font-weight: bold;
-}
-
-.professors-table tr:last-child td {
-    border-bottom: none;
-}
-tbody tr:hover {
-    background-color: #f1f1f1;
-}
-.view-profile-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    color: #0056b3;
+.content__title {
+    margin-top: 1px;
+    margin-left: 15%;
+    order: 1;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
-.view-profile-button .material-icons-sharp {
-    font-size: 1.5em;
+.content__title h1 {
+    margin-bottom: 1.2rem;
+    font-size: 2.4rem;
 }
 
-/* Styles for Pagination */
-.pagination {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
+.profile-details {
     margin-top: 20px;
 }
 
-.pagination button {
-    padding: 10px 15px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    cursor: pointer;
-    font-size: 1em;
+.action-buttons {
+    display: flex;
+    margin-left: 5%;
+    gap: 10px;
+}
+
+.accept-button, .reject-button {
+    padding: 10px 20px;
+    border: none;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    font-size: 1em;
+    cursor: pointer;
 }
 
-.pagination button.active {
-    background-color: #0b4079;
-    color: #fff;
-    border-color: #0b4079;
+.accept-button {
+    background-color: #04AA6D;
+    color: white;
 }
 
-.pagination button:hover:not(.active) {
-    background-color: #f2f2f2;
+.reject-button {
+    background-color: #f44336;
+    color: white;
 }
-/**************************************/
+.accept-button:hover {
+    background-color: #04aa6d9f;
+    color: white;
+}
+
+.reject-button:hover {
+    background-color: #f44336ab;
+    color: white;
+}
+
+/*******************************************/
 .modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
     display: flex;
     justify-content: center;
     align-items: center;
     transition: opacity 0.4s ease;
+ 
     z-index: 1000;
 }
 
@@ -519,32 +539,15 @@ tbody tr:hover {
 
 .modal-content {
     background-color: #ffffff;
-    padding: 0;
+    padding: 30px;
     border-radius: 15px;
-    max-width: 800px;
+    max-width: 500px;
     width: 80%;
     color: #333;
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
     position: relative;
-    overflow: hidden;
-}
-
-.modal-banner {
-    width: 100%;
-    height: 100px;
-    overflow: hidden;
-}
-
-.banner-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.modal-header {
-    padding: 20px;
-    background-color: #f8f8f8;
-    text-align: center;
+    overflow-y: auto;
+    max-height: 80vh;
 }
 
 .close-button {
@@ -564,49 +567,38 @@ tbody tr:hover {
     cursor: pointer;
 }
 
-.profile-details {
-    padding: 20px;
+.schedule-details {
+    margin-left: 3%;
+    margin-top: 15px;
+}
+.schedule-details label {
+    font-size: 13px;
 }
 
-.profile-info {
-    text-align: left;
-    max-width: 500px;
-    margin: 0 auto;
-}
 
-.profile-details p,
-.profile-details label {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-.profile-details input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    font-size: 1.1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.save-structure-button {
-    background-color: #0b4079;
-    color: white;
-    padding: 10px 20px;
-    margin-left: 80%;
+.save-button {
+    padding: 8px 16px;
+    font-size: 1em;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1.1em;
+    background-color: #04AA6D;
+    color: white;
+    margin-top: 10px;
+    margin-left: 15%;
+}
+.save-button:hover {
+   
+    background-color: #04aa6da4;
+}
+.document-link {
+    color: #007bff;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-.save-structure-button:hover {
-    background-color: #0b4079a9;
-}
-.edit-structure-button:hover{
-    color: #0b4079a9;
-
-}
-.delete-structure-button:hover{
-    color: rgb(231, 90, 90);
+.document-link:hover {
+    color: #0056b3;
+    text-decoration: none;
 }

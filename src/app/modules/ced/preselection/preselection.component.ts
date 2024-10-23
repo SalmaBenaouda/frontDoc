@@ -1,12 +1,149 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AuthService } from '../../../services/auth/auth.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Candidature } from '../../../models/candidature.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-preselection',
   standalone: true,
-  imports: [],
+  imports: [CommonModule,FormsModule],
   templateUrl: './preselection.component.html',
-  styleUrl: './preselection.component.css'
-})
-export class PreselectionComponent {
+  styleUrl: './preselection.component.css',
+  encapsulation: ViewEncapsulation.None, 
 
-}
+})
+export class PreselectionComponent implements OnInit{
+  constructor(private router: Router,private authService: AuthService) {}
+  
+  onLogout() {
+    this.authService.logout();
+  }
+    candidatures: Candidature[] = [
+      {
+        id: 1,
+        idCandidat: 101,
+        candidat: {
+          nom: 'Candidat A',
+          id: 0,
+          prenom: '',
+          email: '',
+          cin: '',
+          telephone: '',
+          situationFamiliale: '',
+          nationalite: '',
+          prenomArabe: '',
+          nomArabe: '',
+          paysNaissance: '',
+          adresse: '',
+          codePostal: 0,
+          professionPere: '',
+          professionMere: '',
+          provincePere: '',
+          provinceMere: '',
+          profession: '',
+          cvScanne: '',
+          cinScanne: ''
+        },
+        idSujet: 201,
+        sujet: {
+          nom: 'Sujet 1', etablissement: 'Tetouan',
+          description: ''
+        },
+        statut: 'En attente',
+        dateEntretien: '2024-11-15'
+      },
+      {
+        id: 2,
+        idCandidat: 102,
+        candidat: {
+          nom: 'Candidat B',
+          id: 0,
+          prenom: '',
+          email: '',
+          cin: '',
+          telephone: '',
+          situationFamiliale: '',
+          nationalite: '',
+          prenomArabe: '',
+          nomArabe: '',
+          paysNaissance: '',
+          adresse: '',
+          codePostal: 0,
+          professionPere: '',
+          professionMere: '',
+          provincePere: '',
+          provinceMere: '',
+          profession: '',
+          cvScanne: '',
+          cinScanne: ''
+        },
+        idSujet: 202,
+        sujet: {
+          nom: 'Sujet 2', etablissement: 'Tanger',
+          description: ''
+        },
+        statut: 'Accepté',
+        dateEntretien: '2024-11-16'
+      },
+      // Ajouter d'autres candidatures...
+    ];
+    filteredCandidatures: Candidature[] = [];
+    paginatedCandidatures: Candidature[] = [];
+    selectedCandidature: Candidature | null = null;
+    showModal: boolean = false;
+    currentPage: number = 1;
+    itemsPerPage: number = 5;
+    totalPages: number[] = [];
+
+    ngOnInit(): void {
+      this.filteredCandidatures = this.candidatures;
+      this.calculateTotalPages();
+      this.updatePaginatedCandidatures();
+    }
+
+    onSearchChange(event: Event): void {
+      const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
+      this.filteredCandidatures = this.candidatures.filter(candidature =>
+        candidature.candidat?.nom.toLowerCase().includes(searchTerm)
+      );
+      this.currentPage = 1;
+      this.calculateTotalPages();
+      this.updatePaginatedCandidatures();
+    }
+
+    onFilterChange(event: Event): void {
+      const selectedEtablissement = (event.target as HTMLSelectElement).value;
+      if (selectedEtablissement) {
+        this.filteredCandidatures = this.candidatures.filter(candidature =>
+          candidature.sujet?.etablissement === selectedEtablissement
+        );
+      } else {
+        this.filteredCandidatures = this.candidatures;
+      }
+      this.currentPage = 1;
+      this.calculateTotalPages();
+      this.updatePaginatedCandidatures();
+    }
+
+    calculateTotalPages(): void {
+      this.totalPages = Array(Math.ceil(this.filteredCandidatures.length / this.itemsPerPage)).fill(0).map((x, i) => i + 1);
+    }
+
+    updatePaginatedCandidatures(): void {
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      this.paginatedCandidatures = this.filteredCandidatures.slice(startIndex, endIndex);
+    }
+
+    goToPage(page: number): void {
+      this.currentPage = page;
+      this.updatePaginatedCandidatures();
+    }
+    /*viewCandidatureProfile(idCandidat: number): void {
+      this.router.navigate([`/ced/candidature`, idCandidat]);
+    }*/
+    
+  }
+

@@ -1,1 +1,157 @@
-<p>gestion-structure works!</p>
+
+<div class="container">
+    <!-- Sidebar Section -->
+    <aside>
+        <div class="logo-divider"></div>
+
+        <div class="sidebar">
+           <img src="  /images/logo.png">
+           
+            <div class="logo-divider"></div><br>
+            <a href="CED/dashboard">
+                <span class="material-icons-sharp">
+                    dashboard
+                </span>
+                <h3>Accueil</h3>
+            </a>
+            <a href="CED/gestionProfesseurs" >
+                <span class="material-icons-sharp">
+                    person_outline
+                </span>
+                <h3>Gestion professeurs</h3>
+            </a>
+            <a href="CED/gestionStructures"  class="active">
+                <span class="material-icons-sharp">
+                    settings
+                </span>
+                <h3>Structures de recherche</h3>
+            </a>
+            <a href="CED/preselection">
+                <span class="material-icons-sharp">
+                    receipt_long
+                </span>
+                <h3>Préselection</h3>
+            </a>
+            <a href="CED/bourse"  >
+                <span class="material-icons-sharp">
+                    insights
+                </span>
+                <h3>Bourse</h3>
+            </a>
+           
+            
+            <a href="">
+                <span class="material-icons-sharp">
+                    logout
+                </span>
+                <button (click)="onLogout()"><h3>Logout</h3></button>
+            </a>
+           <br><br><br><br><br><br><img src="  /images/hmama.svg">
+        </div>
+    </aside>
+    <!-- End of Sidebar Section -->
+
+    <!-- Main Content -->
+     <main>
+    <h1>Gestion structures</h1><br>
+    <span class="linkDisabled">Liste des structures > </span>
+    <a href="CED/ajouterStructure" class="linkActive"><span>Ajouter structure</span></a><br><br>
+
+    <!-- Search and Filter Section -->
+    <div class="search-filter">
+        <input type="text" placeholder="Rechercher par nom" (input)="onSearchChange($event)">
+        <select (change)="onFilterChange($event)">
+            <option value="">Tous les établissements</option>
+            <option value="Etablissement 1">Etablissement 1</option>
+            <option value="Etablissement 2">Etablissement 2</option>
+            <option value="Etablissement 3">Etablissement 3</option>
+        </select>
+    </div><br>
+
+    <!-- Structures Table -->
+    <table class="professors-table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Domaine</th>
+                <th>Établissement</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let structure of paginatedStructures; let i = index">
+                <td>{{ structure.nom }}</td>
+                <td>{{ structure.domaine }}</td>
+                <td>{{ structure.etablissement }}</td>
+                <td>
+                    <button (click)="editStructure(i)" class="edit-structure-button">
+                        <span class="material-icons-sharp">edit</span>
+                    </button>&nbsp;&nbsp;
+                    <button (click)="deleteStructure(i)" class="delete-structure-button">
+                        <span class="material-icons-sharp">delete</span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal for Structure Profile -->
+    <div class="modal" [ngClass]="{'show-modal': showModal}" *ngIf="selectedStructure">
+        <div class="modal-content">
+            <span class="close-button" (click)="closeModal()">&times;</span>
+            <div class="modal-banner">
+                <img src="images/banner.png" alt="Banner Image" class="banner-image">
+            </div>
+            <div class="modal-header">
+                <h2>Modifier Structure</h2>
+            </div>
+            <div class="profile-details">
+                <div class="profile-info">
+                    <label>Nom :</label>
+                    <input type="text" [(ngModel)]="selectedStructure.nom">
+                    <label>Domaine :</label>
+                    <input type="text" [(ngModel)]="selectedStructure.domaine">
+                    <label>Établissement :</label>
+                    <input type="text" [(ngModel)]="selectedStructure.etablissement">
+                </div>
+                <button (click)="saveStructure()" class="save-structure-button">Sauvegarder</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination Section -->
+    <div class="pagination">
+        <button *ngFor="let page of totalPages; let i = index" (click)="goToPage(i + 1)" [class.active]="currentPage === (i + 1)">
+            {{ i + 1 }}
+        </button>
+    </div>
+</main>
+
+    
+    <!-- End of Main Content -->
+
+    <!-- Right Section -->
+    <div class="right-section">
+        <div class="nav">
+         
+           
+
+            <div class="profile">
+                <div class="info">
+                    <p>Hey, <b>Salma</b></p>
+                </div>
+                <div class="profile-photo">
+                    <img src="images/hero-banner-1.jpg">
+                </div>
+            </div>
+
+        </div>
+        <!-- End of Nav -->
+
+       
+
+    </div>
+
+
+</div>
+

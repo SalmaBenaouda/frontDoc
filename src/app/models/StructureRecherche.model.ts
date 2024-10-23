@@ -8,7 +8,7 @@ export class StructureRecherche {
   nom!: string;
   domaine!: string;
   etablissement!: string;
-  cedId!: number;
+  ced_id!: number;
   ced?: CED; 
   professeurs?: Professeur[];  
   sujets?: Sujet[]; 

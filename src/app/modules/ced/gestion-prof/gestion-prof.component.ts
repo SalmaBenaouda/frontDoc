@@ -27,7 +27,7 @@ export class GestionProfComponent implements OnInit {
         nom: 'Structure A',
         domaine: 'Informatique',
         etablissement: 'Etablissement 1',
-        cedId: 1
+        ced_id: 1
       }
     },
     {
@@ -41,7 +41,7 @@ export class GestionProfComponent implements OnInit {
         nom: 'Structure B',
         domaine: 'Mathématiques',
         etablissement: 'Etablissement 2',
-        cedId: 2
+        ced_id: 2
       }
     },
     {
@@ -55,7 +55,7 @@ export class GestionProfComponent implements OnInit {
         nom: 'Structure A',
         domaine: 'Informatique',
         etablissement: 'Etablissement 1',
-        cedId: 1
+        ced_id: 1
       }
     },
     {
@@ -69,7 +69,7 @@ export class GestionProfComponent implements OnInit {
         nom: 'Structure A',
         domaine: 'Informatique',
         etablissement: 'Etablissement 1',
-        cedId: 1
+        ced_id: 1
       }
     },
     {
@@ -83,7 +83,7 @@ export class GestionProfComponent implements OnInit {
         nom: 'Structure A',
         domaine: 'Informatique',
         etablissement: 'Etablissement 1',
-        cedId: 1
+        ced_id: 1
       }
     },
     {
@@ -97,7 +97,7 @@ export class GestionProfComponent implements OnInit {
         nom: 'Structure A',
         domaine: 'Informatique',
         etablissement: 'Etablissement 1',
-        cedId: 1
+        ced_id: 1
       }
     },
     // Ajouter d'autres professeurs...

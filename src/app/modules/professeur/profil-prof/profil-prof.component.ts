@@ -4,14 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-dash',
+  selector: 'app-profil-prof',
   standalone: true,
   imports: [FormsModule,CommonModule],
-  templateUrl: './dash.component.html',
-  styleUrl: './dash.component.css',
+  templateUrl: './profil-prof.component.html',
+  styleUrl: './profil-prof.component.css',
   encapsulation: ViewEncapsulation.None, 
 })
-export class DashComponent {
+export class ProfilProfComponent {
   constructor(private authService: AuthService) {}
 
   onLogout() {

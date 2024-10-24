@@ -1,0 +1,113 @@
+
+<div class="container">
+    <!-- Sidebar Section -->
+    <aside>
+        <div class="logo-divider"></div>
+
+        <div class="sidebar">
+           <img src="  /images/logo.png">
+           
+            <div class="logo-divider"></div><br>
+            <a href="Professeur/dashboard" >
+                <span class="material-icons-sharp">
+                    dashboard
+                </span>
+                <h3>Accueil</h3>
+            </a>
+            <a href="Professeur/profil">
+                <span class="material-icons-sharp">
+                    person_outline
+                </span>
+                <h3>Profil</h3>
+            </a>
+            <a href="Professeur/depotSujet" class="active">
+                <span class="material-icons-sharp">
+                    receipt_long
+                </span>
+                <h3>Dépôt de sujets</h3>
+            </a>
+            <a href="Professeur/planning" >
+                <span class="material-icons-sharp">
+                    event
+                    </span>
+                <h3>Planning</h3>
+            </a>
+            <a href="Professeur/selection">
+                <span class="material-icons-sharp">
+                    how_to_reg
+                </span>
+                <h3>Selection doctorants</h3>
+            </a>
+            <a href="">
+                <span class="material-icons-sharp">
+                    logout
+                </span>
+                <button (click)="onLogout()"><h3>Logout</h3></button>
+            </a>
+            <br><br><br><br><br><br><img src="  /images/hmama.svg">
+        </div>
+    </aside>
+    <!-- End of Sidebar Section -->
+
+    <!-- Main Content -->
+    <main>
+        <h1>Sujets</h1><br>
+        <a href="Professeur/depotSujet" class="linkActive"><span>Liste des sujets</span></a>
+        <span class="linkDisabled">> Ajouter sujet</span><br><br>
+         <!-- Formulaire d'ajout de sujet -->
+         <form class="add-professor-form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="ced">Centre ID (CED)</label>
+              <input type="text" id="ced" name="ced" [value]="cedId" readonly>
+            </div>
+          
+            <div class="form-group">
+              <label for="structure">Structure de recherche</label>
+              <input type="text" id="structure" name="structure" [value]="structureRecherchenom" readonly>
+            </div>
+          
+            <div class="form-group">
+              <label for="titre">Titre</label>
+              <input type="text" id="titre" name="titre" [(ngModel)]="sujet.titre" required>
+            </div>
+          
+            <div class="form-group">
+              <label for="thematique">Thématique</label>
+              <input type="text" id="thematique" name="thematique" [(ngModel)]="sujet.thematiques" required>
+            </div>
+          
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea rows="4" cols="140" id="description" name="description" [(ngModel)]="sujet.description" required></textarea>
+            </div>
+          
+            <button type="submit" class="btn-submit">Ajouter</button>
+          </form>
+      </main>
+      <!-- End of Main Content -->
+
+    <!-- Right Section -->
+    <div class="right-section">
+        <div class="nav">
+         
+           
+
+            <div class="profile">
+                <div class="info">
+                    <p>Hey, <b>Salma</b></p>
+                </div>
+                <div class="profile-photo">
+                    <img src="images/hero-banner-1.jpg">
+                </div>
+            </div>
+
+        </div>
+        <!-- End of Nav -->
+
+       
+
+    </div>
+
+
+</div>
+

@@ -17,6 +17,11 @@ import { DetailsCandidatureComponent } from './modules/ced/details-candidature/d
 import { InscriptionDoctorantComponent } from './modules/ced/inscription-doctorant/inscription-doctorant.component';
 import { DetailsBourseComponent } from './modules/ced/details-bourse/details-bourse.component';
 import { BourseComponent } from './modules/candidat/bourse/bourse.component';
+import { DepotSujetComponent } from './modules/professeur/depot-sujet/depot-sujet.component';
+import { PlanningPreselectionComponent } from './modules/professeur/planning-preselection/planning-preselection.component';
+import { ProfilProfComponent } from './modules/professeur/profil-prof/profil-prof.component';
+import { SelectionComponent } from './modules/professeur/selection/selection.component';
+import { AjouterSujetComponent } from './modules/professeur/ajouter-sujet/ajouter-sujet.component';
 
 
 export const routes: Routes = [ 
@@ -33,7 +38,12 @@ export const routes: Routes = [
 
     // Path de prof
     { path: 'Professeur/dashboard', component: DashComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
-    
+    { path: 'Professeur/depotSujet', component: DepotSujetComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
+    { path: 'Professeur/ajouterSujet', component: AjouterSujetComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
+    { path: 'Professeur/planning', component: PlanningPreselectionComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
+    { path: 'Professeur/profil', component: ProfilProfComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
+    { path: 'Professeur/selection', component: SelectionComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
+
 
     // Path de ced
     { path: 'CED/dashboard', component: DashCedComponent, canActivate: [RoleGuard], data: { role: 'CED' } },

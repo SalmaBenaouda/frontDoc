@@ -1,0 +1,177 @@
+
+<div class="container">
+    <!-- Sidebar Section -->
+    <aside>
+        <div class="logo-divider"></div>
+
+        <div class="sidebar">
+           <img src="  /images/logo.png">
+           
+            <div class="logo-divider"></div><br>
+            <a href="Professeur/dashboard" >
+                <span class="material-icons-sharp">
+                    dashboard
+                </span>
+                <h3>Accueil</h3>
+            </a>
+            <a href="Professeur/profil">
+                <span class="material-icons-sharp">
+                    person_outline
+                </span>
+                <h3>Profil</h3>
+            </a>
+            <a href="Professeur/depotSujet" class="active">
+                <span class="material-icons-sharp">
+                    receipt_long
+                </span>
+                <h3>Dépôt de sujets</h3>
+            </a>
+            <a href="Professeur/planning" >
+                <span class="material-icons-sharp">
+                    event
+                    </span>
+                <h3>Planning</h3>
+            </a>
+            <a href="Professeur/selection">
+                <span class="material-icons-sharp">
+                    how_to_reg
+                </span>
+                <h3>Selection doctorants</h3>
+            </a>
+            <a href="">
+                <span class="material-icons-sharp">
+                    logout
+                </span>
+                <button (click)="onLogout()"><h3>Logout</h3></button>
+            </a>
+            <br><br><br><br><br><br><img src="  /images/hmama.svg">
+        </div>
+    </aside>
+    <!-- End of Sidebar Section -->
+
+    <!-- Main Content -->
+    <main>
+        <h1>Sujets</h1><br>
+        <span class="linkDisabled">Liste des sujets > </span>
+        <a href="Professeur/ajouterSujet" class="linkActive"><span>Ajouter sujet</span></a><br><br>
+
+        <!-- Search and Filter Section -->
+        <div class="search-filter">
+            <input type="text" placeholder="Rechercher par titre" (input)="onSearchChange($event)">
+            <select (change)="onFilterChange($event)">
+                <option value="">Toutes les établissements</option>
+                <option value="Tetouan">Tetouan</option>
+                <option value="Tanger">Tanger</option>
+                <option value="Rabat">Rabat</option>
+            </select>
+        </div><br>
+
+        <!-- Sujets Table -->
+        <table class="professors-table">
+            <thead>
+                <tr>
+                    <th>Sujet</th>
+                    <th>Thématique</th>
+                    <th>Établissement</th>
+                    <th>Détails</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sujet of paginatedSujets; let i = index">
+                    <td>{{ sujet.titre }}</td>
+                    <td>{{ sujet.thematiques }}</td>
+                    <td>{{ sujet.structureRecherche.etablissement }}</td>
+                    <td>
+                        <button (click)="viewSujetDetails(sujet)" class="view-profile-button">
+                            <span class="material-icons-sharp">visibility</span>
+                        </button>
+                    </td>
+                    <td>
+                        <button (click)="editSujet(sujet)" class="edit-structure-button">
+                            <span class="material-icons-sharp">edit</span>
+                        </button>&nbsp;&nbsp;
+                        <button (click)="deleteSujet(i)" class="delete-structure-button">
+                            <span class="material-icons-sharp">delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Modal for Sujet Details -->
+        <div class="modal" [ngClass]="{'show-modal': showModal}" *ngIf="selectedSujet">
+            <div class="modal-content">
+                <span class="close-button" (click)="closeModal()">&times;</span>
+                <div class="modal-header">
+                    <h2>{{ selectedSujet.titre }}</h2>
+                </div>
+                <div class="profile-details">
+                    <div class="profile-info">
+                        <p><strong>Thématique :</strong> {{ selectedSujet.thematiques }}</p>
+                        <p><strong>Description :</strong> {{ selectedSujet.description }}</p>
+                        <p><strong>Structure de recherche :</strong> {{ selectedSujet.structureRecherche.nom }}</p>
+                        <p><strong>Établissement :</strong> {{ selectedSujet.structureRecherche.etablissement }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for Edit Sujet -->
+        <div class="modal" [ngClass]="{'show-modal': showEditModal}" *ngIf="sujetToEdit">
+            <div class="modal-content">
+                <span class="close-button" (click)="closeEditModal()">&times;</span>
+                <div class="modal-banner">
+                    <img src="images/banner.png" alt="Banner Image" class="banner-image">
+                </div>
+                <div class="modal-header">
+                    <h2>Modifier Sujet</h2>
+                </div>
+                <div class="profile-details">
+                    <div class="profile-info">
+                        <label>Titre :</label>
+                        <input type="text" [(ngModel)]="sujetToEdit.titre">
+                        <label>Thématique :</label>
+                        <input type="text" [(ngModel)]="sujetToEdit.thematiques">
+                        <label>Description :</label>
+                        <input type="text" [(ngModel)]="sujetToEdit.description">
+                    </div>
+                    <button (click)="saveSujet()" class="save-structure-button">Sauvegarder</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination Section -->
+        <div class="pagination">
+            <button *ngFor="let page of totalPages; let i = index" (click)="goToPage(i + 1)" [class.active]="currentPage === (i + 1)">
+                {{ i + 1 }}
+            </button>
+        </div>
+    </main>
+    <!-- End of Main Content -->
+
+    <!-- Right Section -->
+    <div class="right-section">
+        <div class="nav">
+         
+           
+
+            <div class="profile">
+                <div class="info">
+                    <p>Hey, <b>Salma</b></p>
+                </div>
+                <div class="profile-photo">
+                    <img src="images/hero-banner-1.jpg">
+                </div>
+            </div>
+
+        </div>
+        <!-- End of Nav -->
+
+       
+
+    </div>
+
+
+</div>
+

@@ -4,6 +4,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Candidature } from '../../../models/candidature.model';
+import { Professeur } from '../../../models/Professeur.model';
 
 @Component({
   selector: 'app-inscription-doctorant',
@@ -47,8 +48,18 @@ export class InscriptionDoctorantComponent {
       },
       idSujet: 201,
       sujet: {
-        nom: 'Sujet 1', etablissement: 'Tetouan',
-        description: ''
+        titre: 'Sujet 1',
+        structureRecherche: {
+          id: 0,
+          nom: '',
+          domaine: '',
+          etablissement: 'Tetouan',
+          ced_id: 0
+        },
+        description: '',
+        professeur_id: 0,
+        structureRecherche_id: 0,
+        professeur: new Professeur
       },
       statut: 'En attente',
       dateEntretien: '2024-11-15'
@@ -80,8 +91,18 @@ export class InscriptionDoctorantComponent {
       },
       idSujet: 202,
       sujet: {
-        nom: 'Sujet 2', etablissement: 'Tanger',
-        description: ''
+        titre: 'Sujet 2',
+        structureRecherche: {
+          id: 0,
+          nom: '',
+          domaine: '',
+          etablissement: 'Tanger',
+          ced_id: 0,
+        },
+        description: '',
+        professeur_id: 0,
+        structureRecherche_id: 0,
+        professeur: new Professeur
       },
       statut: 'Accepté',
       dateEntretien: '2024-11-16'
@@ -116,7 +137,7 @@ export class InscriptionDoctorantComponent {
     const selectedEtablissement = (event.target as HTMLSelectElement).value;
     if (selectedEtablissement) {
       this.filteredCandidatures = this.candidatures.filter(candidature =>
-        candidature.sujet?.etablissement === selectedEtablissement
+        candidature.sujet?.structureRecherche.etablissement === selectedEtablissement
       );
     } else {
       this.filteredCandidatures = this.candidatures;

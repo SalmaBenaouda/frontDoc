@@ -82,8 +82,8 @@
                   <h2>Sujets :</h2>
                   <div *ngIf="sujets.length > 0" class="subject-grid">
                     <div class="subject-card" *ngFor="let sujet of sujets" [ngClass]="{'selected': isSelected(sujet)}" (click)="ouvrirModale(sujet)">
-                      <h3>{{ sujet.nom }}</h3>
-                      <p>{{ sujet.etablissement }}</p>
+                      <h3>{{ sujet.titre }}</h3>
+                      <p>{{ sujet.structureRecherche.etablissement }}</p>
                     </div>
                   </div>
                   <p *ngIf="sujets.length === 0">Aucun sujet disponible pour cette formation.</p>
@@ -96,7 +96,7 @@
                     <h2>Information sur le sujet</h2>
                     <div class="modal-section">
                       <h4>Sujet</h4>
-                      <p>{{ sujetActuel.nom }}</p>
+                      <p>{{ sujetActuel.titre }}</p>
                     </div>
                     <div class="modal-section">
                       <h4>Thématiques prioritaires RS</h4>
@@ -104,7 +104,7 @@
                     </div>
                     <div class="modal-section">
                       <h4>Enseignant</h4>
-                      <p>{{ sujetActuel.enseignant }}</p>
+                      <p>{{ sujetActuel.professeur.nom }}</p>
                     </div>
                     <div class="modal-section">
                       <h4>Description du sujet</h4>
@@ -123,8 +123,8 @@
                     </div>
                     <div *ngFor="let sujet of sujetsSelectionnes" class="cart-item" [ngClass]="{'non-removable': sujet.candidature?.statut !== 'En cours'}">
                       <div>
-                        <h4>{{ sujet.nom }}</h4>
-                        <p><strong>Établissement:</strong> {{ sujet.etablissement }}</p>
+                        <h4>{{ sujet.titre }}</h4>
+                        <p><strong>Établissement:</strong> {{ sujet.structureRecherche.etablissement }}</p>
                         <p><strong>Statut:</strong> {{ sujet.candidature?.statut }}</p>
                       </div>
                       <button class="button2" *ngIf="sujet.candidature?.statut === 'En cours'" (click)="retirerSujet(sujet)">Retirer</button>

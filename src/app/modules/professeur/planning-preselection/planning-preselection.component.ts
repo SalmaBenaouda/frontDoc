@@ -1,17 +1,17 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { AuthService } from '../../../services/auth/auth.service';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
-  selector: 'app-dash',
+  selector: 'app-planning-preselection',
   standalone: true,
   imports: [FormsModule,CommonModule],
-  templateUrl: './dash.component.html',
-  styleUrl: './dash.component.css',
+  templateUrl: './planning-preselection.component.html',
+  styleUrl: './planning-preselection.component.css',
   encapsulation: ViewEncapsulation.None, 
 })
-export class DashComponent {
+export class PlanningPreselectionComponent {
   constructor(private authService: AuthService) {}
 
   onLogout() {

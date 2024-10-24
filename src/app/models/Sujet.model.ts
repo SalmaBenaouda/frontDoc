@@ -4,14 +4,13 @@ import { StructureRecherche } from "./StructureRecherche.model";
 
 
 export class Sujet {
-  nom!: string;
-  etablissement!: string;
+  titre!: string;
   description!: string;
   thematiques?: string;
-  enseignant?: string;
-  showDetails?: boolean;
+  professeur_id!:number;
+  structureRecherche_id!:number;
+  professeur!: Professeur;
+  structureRecherche!: StructureRecherche;
   candidature?: Candidature;
-  constructor(init?: Partial<Sujet>) {
-    Object.assign(this, init);
-  }
+
 }

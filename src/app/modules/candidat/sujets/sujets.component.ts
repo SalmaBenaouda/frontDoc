@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { Sujet } from '../../../models/Sujet.model';
 import { Candidature } from '../../../models/candidature.model';
 import { AuthService } from '../../../services/auth/auth.service';
+import { Professeur } from '../../../models/Professeur.model';
+import { StructureRecherche } from '../../../models/StructureRecherche.model';
 
 @Component({
   selector: 'app-sujets',
@@ -30,32 +32,37 @@ export class SujetsComponent {
 
   sujetsDisponibles: { [formation: string]: Sujet[] } = {
     'IA': [
-      new Sujet({
-        nom: 'Réseaux de Neurones',
-        etablissement: 'Faculté des Sciences',
+      {
+        titre: 'Réseaux de Neurones',
         description: 'Sujet sur l’apprentissage profond.',
         thematiques: 'Sciences Humaines et Sociales',
-        enseignant: 'Dr. Dupont',
-      }),
-      new Sujet({
-        nom: 'Systèmes Experts1',
-        etablissement: 'Faculté des Sciences',
+        professeur: { nom: 'Dr. Dupont' } as Professeur,
+        professeur_id: 1,
+        structureRecherche_id: 1,
+        structureRecherche: {} as StructureRecherche,
+      },
+      {
+        titre: 'Systèmes Experts',
         description: 'Étude des systèmes basés sur des règles.',
         thematiques: 'Technologies et Sciences',
-        enseignant: 'Dr. Martin',
-      }),
+        professeur: { nom: 'Dr. Martin' } as Professeur,
+        professeur_id: 2,
+        structureRecherche_id: 2,
+        structureRecherche: {} as StructureRecherche,
+      },
     ],
     'Sécurité': [
-      new Sujet({
-        nom: 'Cryptographie Avancée',
-        etablissement: 'Faculté de Technologie',
+      {
+        titre: 'Cryptographie Avancée',
         description: 'Sécurisation par chiffrement.',
         thematiques: 'Mathématiques Appliquées',
-        enseignant: 'Prof. Lemoine',
-      }),
+        professeur: { nom: 'Prof. Lemoine' } as Professeur,
+        professeur_id: 3,
+        structureRecherche_id: 3,
+        structureRecherche: {} as StructureRecherche,
+      },
     ],
   };
-
   cedSelectionne: string = '';
   formationSelectionnee: string = '';
   sujets: Sujet[] = [];
@@ -65,7 +72,7 @@ export class SujetsComponent {
 
   onFormationChange() {
     this.sujets = this.sujetsDisponibles[this.formationSelectionnee] || [];
-    this.sujets = this.sujets.filter((sujet) => !this.sujetsSelectionnes.some(selected => selected.nom === sujet.nom));
+    this.sujets = this.sujets.filter((sujet) => !this.sujetsSelectionnes.some(selected => selected.titre === sujet.titre));
   }
 
   ouvrirModale(sujet: Sujet) {
@@ -78,7 +85,7 @@ export class SujetsComponent {
 
   selectSujet(sujet: Sujet) {
     if (this.sujetsSelectionnes.length < 3) {
-      if (!this.sujetsSelectionnes.some(selected => selected.nom === sujet.nom)) {
+      if (!this.sujetsSelectionnes.some(selected => selected.titre === sujet.titre)) {
         const newCandidature = new Candidature({
           id: Date.now(),
           idCandidat: 123,  // Exemple de valeur
@@ -88,7 +95,7 @@ export class SujetsComponent {
         });
         sujet.candidature = newCandidature;
         this.sujetsSelectionnes.push(sujet);
-        this.sujets = this.sujets.filter((s) => s.nom !== sujet.nom);
+        this.sujets = this.sujets.filter((s) => s.titre !== sujet.titre);
         localStorage.setItem('sujetsSelectionnes', JSON.stringify(this.sujetsSelectionnes));
       }
       this.fermerModale();
@@ -98,7 +105,7 @@ export class SujetsComponent {
   }
 
   isSelected(sujet: Sujet): boolean {
-    return this.sujetsSelectionnes.some(selected => selected.nom === sujet.nom);
+    return this.sujetsSelectionnes.some(selected => selected.titre === sujet.titre);
   }
 
   ouvrirCart() {
@@ -111,7 +118,7 @@ export class SujetsComponent {
 
   retirerSujet(sujet: Sujet) {
     if (sujet.candidature?.statut === 'En cours') {
-      const index = this.sujetsSelectionnes.findIndex(selected => selected.nom === sujet.nom);
+      const index = this.sujetsSelectionnes.findIndex(selected => selected.titre === sujet.titre);
       if (index !== -1) {
         this.sujetsSelectionnes.splice(index, 1);
         delete sujet.candidature;

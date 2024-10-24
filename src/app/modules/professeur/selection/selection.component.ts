@@ -4,14 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-dash',
+  selector: 'app-selection',
   standalone: true,
   imports: [FormsModule,CommonModule],
-  templateUrl: './dash.component.html',
-  styleUrl: './dash.component.css',
+  templateUrl: './selection.component.html',
+  styleUrl: './selection.component.css',
   encapsulation: ViewEncapsulation.None, 
 })
-export class DashComponent {
+export class SelectionComponent {
   constructor(private authService: AuthService) {}
 
   onLogout() {

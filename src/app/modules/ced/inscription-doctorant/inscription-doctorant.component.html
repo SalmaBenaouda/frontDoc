@@ -81,7 +81,7 @@
                 <tr *ngFor="let candidature of paginatedCandidatures; let i = index">
                     <td>{{ candidature.candidat.nom }}</td>
                     <td>{{ candidature.candidat.email }}</td>
-                    <td>{{ candidature.sujet.etablissement }}</td>
+                    <td>{{ candidature.sujet.structureRecherche.etablissement }}</td>
                     
                     <td>
                         <a href="CED/doctorant"><button  class="view-candidature-button">

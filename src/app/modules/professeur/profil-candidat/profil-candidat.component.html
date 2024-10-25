@@ -1,0 +1,223 @@
+
+<div class="container">
+    <!-- Sidebar Section -->
+    <aside>
+        <div class="logo-divider"></div>
+
+        <div class="sidebar">
+           <img src="  /images/logo.png">
+           
+            <div class="logo-divider"></div><br>
+            <a href="Professeur/dashboard" >
+                <span class="material-icons-sharp">
+                    dashboard
+                </span>
+                <h3>Accueil</h3>
+            </a>
+            <a href="Professeur/profil">
+                <span class="material-icons-sharp">
+                    person_outline
+                </span>
+                <h3>Profil</h3>
+            </a>
+            <a href="Professeur/depotSujet" >
+                <span class="material-icons-sharp">
+                    receipt_long
+                </span>
+                <h3>Dépôt de sujets</h3>
+            </a>
+            <a href="Professeur/planning" >
+                <span class="material-icons-sharp">
+                    event
+                    </span>
+                <h3>Planning</h3>
+            </a>
+            <a href="Professeur/selection" class="active">
+                <span class="material-icons-sharp">
+                    how_to_reg
+                </span>
+                <h3>Selection doctorants</h3>
+            </a>
+            <a href="">
+                <span class="material-icons-sharp">
+                    logout
+                </span>
+                <button (click)="onLogout()"><h3>Logout</h3></button>
+            </a>
+            <br><br><br><br><br><br><img src="  /images/hmama.svg">
+        </div>
+    </aside>
+    <!-- End of Sidebar Section -->
+
+    <!-- Main Content -->
+    <main>
+        <h1>Selection doctorants</h1><br>
+        <a href="Professeur/selection" class="linkActive"><span>> Retour</span></a><br><br>
+        <div class="profile-page">
+            
+            <div class="content">
+                
+                <div class="content__cover">
+                    <div class="content__avatar"></div>
+                </div>
+                <div class="content__title">
+                    
+                    <h1>Samantha Jones</h1>
+                   
+                      
+                        <div class="action-buttons">
+                            <button class="accept-button" (click)="onAccept()">Accepter</button>
+            <button class="reject-button" (click)="onReject()">Refuser</button>
+                        </div>
+             
+                   
+                </div>
+               
+                <div class="profile-details">
+                    <div class="section">
+                        <h3>Sujet choisi</h3>
+                        <div class="etat-civil-form" style="background-color: rgba(187, 193, 230, 0.493);">
+                            <p><strong>Structure :</strong> FTP</p>
+                            <p><strong>Établissement :</strong> Tetouan</p>
+                            <p><strong>Sujet :</strong> Stagiaire</p>
+                            <p><strong>Thématique :</strong> Technologie</p>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <h3>État Civil</h3>
+                        <div class="etat-civil-form">
+                            <p><strong>Nom :</strong> Ribel</p>
+                            <p><strong>Prénom :</strong> Salma</p>
+                            <p><strong>Nom Arabe :</strong> ريبل</p>
+                            <p><strong>Prénom Arabe :</strong> سلمى</p>
+                            <p><strong>Téléphone :</strong> 0615123041</p>
+                            <p><strong>Situation Familiale :</strong> Célibataire</p>
+                            <p><strong>Nationalité :</strong> Marocaine</p>
+                            <p><strong>CIN :</strong> P12560</p>
+                            <p><strong>Pays de naissance :</strong> Casa</p>
+                            <p><strong>Adresse :</strong> Rue prestigie</p>
+                            <p><strong>Code Postal :</strong> 154200</p>
+                            <p><strong>Email :</strong> partd.com</p>
+                            <p><strong>Profession du père :</strong> Ingenieur</p>
+                            <p><strong>Province du père :</strong> Casablanca</p>
+                            <p><strong>Profession de mère :</strong> Femme au foyer</p>
+                            <p><strong>Province de mère :</strong> Rabat</p>
+                            <p><strong>Votre profession :</strong> Étudiante</p>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <h3>Baccalauréat</h3>
+                        <div class="etat-civil-form">
+                            <p><strong>Nom du lycée :</strong> Orite</p>
+                            <p><strong>Pays :</strong> Maroc</p>
+                            <p><strong>Académie :</strong> Rabat</p>
+                            <p><strong>Statut :</strong> Privée</p>
+                            <p><strong>Filière de Bac :</strong> SCM</p>
+                            <p><strong>Année d'obtention :</strong> 2017</p>
+                            <p><strong>Mention :</strong> Bien</p>
+                            <p><strong>Moyenne générale :</strong> 15.15</p>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <h3>Licence</h3>
+                        <div class="etat-civil-form">
+                            <p><strong>Établissement :</strong> RORte</p>
+                            <p><strong>Pays :</strong> Égypte</p>
+                            <p><strong>Académie :</strong> Casablanca</p>
+                            <p><strong>Statut :</strong> Public</p>
+                            <p><strong>Filière de Bac :</strong> SCM</p>
+                            <p><strong>Année d'obtention :</strong> 2019</p>
+                            <p><strong>Mention :</strong> Très bien</p>
+                            <p><strong>Moyenne générale :</strong> 18/20</p>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <h3>Master ou équivalent</h3>
+                        <div class="etat-civil-form">
+                            <p><strong>Nom du lycée :</strong> Ilyass</p>
+                            <p><strong>Pays :</strong> Maroc</p>
+                            <p><strong>Académie :</strong> El jadida</p>
+                            <p><strong>Statut :</strong> Privée</p>
+                            <p><strong>Filière de Bac :</strong> SCM</p>
+                            <p><strong>Année d'obtention :</strong> 2018</p>
+                            <p><strong>Mention :</strong> Très bien</p>
+                            <p><strong>Moyenne générale :</strong> 18/20</p>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <h3>Langues</h3>
+                        <div class="etat-civil-form">
+                            <p><strong>Langue :</strong> Français</p>
+                            <p><strong>Niveau langue :</strong> C1</p>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <h3>Expériences Professionnelles</h3>
+                        <div class="etat-civil-form">
+                            <p><strong>Expérience :</strong> Stage PFA</p>
+                            <p><strong>Établissement :</strong> Casag</p>
+                            <p><strong>Fonction :</strong> Stagiaire</p>
+                            <p><strong>Secteur :</strong> Technologie</p>
+                            <p><strong>Du :</strong> 12/05/2019</p>
+                            <p><strong>Au :</strong> 20/08/2019</p>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <h3>Documents scannés</h3>
+                        <div class="etat-civil-form">
+                            <p><strong><button (click)="openDocument('baccalaureat')" class="document-link">Baccalauréat scanné</button></strong></p>
+                            <p><strong><button (click)="openDocument('licence')" class="document-link">Licence scannée</button></strong></p>
+                            <p><strong><button (click)="openDocument('releve-licence')" class="document-link">Relevé de note licence scanné</button></strong></p>
+                            <p><strong><button (click)="openDocument('master')" class="document-link">Master scanné</button></strong></p>
+                            <p><strong><button (click)="openDocument('releve-master')" class="document-link">Relevé de note master scanné</button></strong></p>
+                            <p><strong><button (click)="openDocument('carte-nationale')" class="document-link">Carte nationale scannée</button></strong></p>
+                            <p><strong><button (click)="openDocument('cv')" class="document-link">CV scanné</button></strong></p>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+
+
+     <!-- Modal for Viewing Document -->
+     <div class="modal" [ngClass]="{'show-modal': showDocumentModal}" *ngIf="showDocumentModal">
+        <div class="modal-content">
+            <span class="close-button" (click)="closeDocumentModal()">&times;</span>
+            <div class="modal-header">
+                <h2>Document scanné</h2>
+            </div>
+            <div class="document-view">
+                <img [src]="selectedDocumentUrl" alt="Document scanné">
+            </div>
+        </div>
+    </div>
+    </main>
+
+    <!-- End of Main Content -->
+
+    <!-- Right Section -->
+    <div class="right-section">
+        <div class="nav">
+         
+           
+
+            <div class="profile">
+                <div class="info">
+                    <p>Hey, <b>Salma</b></p>
+                </div>
+                <div class="profile-photo">
+                    <img src="images/hero-banner-1.jpg">
+                </div>
+            </div>
+
+        </div>
+        <!-- End of Nav -->
+
+       
+
+    </div>
+
+
+</div>
+

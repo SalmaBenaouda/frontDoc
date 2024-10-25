@@ -51,8 +51,28 @@
 
     <!-- Main Content -->
     <main>
-        <h1>Accueil</h1>
-       
+        <h1>Planning des entretiens</h1>
+        <div id="calendar-container">
+            <div id="calendar">
+                <full-calendar [options]="calendarOptions"></full-calendar>
+            </div>
+            <div id="event-details">
+              <h3>Détails de l'entretien</h3>
+              <ng-container *ngIf="selectedEvents.length > 0; else noEvent">
+                <div *ngFor="let event of selectedEvents">
+                  <p><strong>Titre :</strong> {{ event.title }}</p>
+                  <p><strong>Date :</strong> {{ event.start | date: 'fullDate' }}</p>
+                  <p><strong>Heure :</strong> {{ event.start | date: 'shortTime' }} - {{ event.end | date: 'shortTime' }}</p>
+                  <hr />
+                </div>
+              </ng-container>
+              <ng-template #noEvent>
+                <p>Pas d'entretiens programmés pour ce jour.</p>
+              </ng-template>
+            </div>
+          </div>
+          
+          
     </main>
     <!-- End of Main Content -->
 

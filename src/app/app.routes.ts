@@ -22,6 +22,7 @@ import { PlanningPreselectionComponent } from './modules/professeur/planning-pre
 import { ProfilProfComponent } from './modules/professeur/profil-prof/profil-prof.component';
 import { SelectionComponent } from './modules/professeur/selection/selection.component';
 import { AjouterSujetComponent } from './modules/professeur/ajouter-sujet/ajouter-sujet.component';
+import { ProfilCandidatComponent } from './modules/professeur/profil-candidat/profil-candidat.component';
 
 
 export const routes: Routes = [ 
@@ -43,6 +44,7 @@ export const routes: Routes = [
     { path: 'Professeur/planning', component: PlanningPreselectionComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
     { path: 'Professeur/profil', component: ProfilProfComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
     { path: 'Professeur/selection', component: SelectionComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
+    { path: 'Professeur/profilCandidat', component: ProfilCandidatComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
 
 
     // Path de ced

@@ -51,8 +51,51 @@
 
     <!-- Main Content -->
     <main>
-        <h1>Accueil</h1>
-       
+        <h1>Mon Profil</h1><br><br>
+        
+        <div class="profile-container">
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="profile-details">
+                        <h2>Dr. Salma Benaouda</h2>
+                    </div>
+                    <button class="edit-profile-button" (click)="editProfile()">
+                        <span class="material-icons-sharp">edit</span>
+                    </button>
+                </div>
+                
+                <div class="profile-info2">
+                    <p><strong>Nom :</strong> Benaouda</p>
+                    <p><strong>Prénom :</strong> Salma</p>
+                    <p><strong>Email :</strong> salma.benaoudaexample.com</p>
+                    <p><strong>Établissement :</strong> Université Abdelmalek Essaadi</p>
+                    <p><strong>Structure de Recherche :</strong> STI</p>
+                    <p><strong>Domaine de Recherche :</strong> Intelligence Artificielle</p>
+                </div>
+            </div>
+        </div>
+        <div class="modal" [ngClass]="{'show-modal': showEditModal}" *ngIf="showEditModal">
+            <div class="modal-content">
+                <span class="close-button" (click)="closeEditModal()">&times;</span>
+                <div class="modal-banner">
+                    <img src="images/banner.png" alt="Banner Image" class="banner-image">
+                </div>
+                <div class="modal-header">
+                    <h2>Modifier Profil</h2>
+                </div>
+                <div class="profile-details">
+                    <div class="profile-info">
+                        <label>Nom :</label>
+                        <input type="text" [(ngModel)]="professeur.nom">
+                        <label>Prénom :</label>
+                        <input type="text" [(ngModel)]="professeur.prenom">
+                        <label>Mot de passe :</label>
+                        <input type="password" [(ngModel)]="professeur.nom">
+                    </div>
+                    <button class="save-structure-button" (click)="saveProfile()">Sauvegarder</button>
+                </div>
+            </div>
+        </div>
     </main>
     <!-- End of Main Content -->
 

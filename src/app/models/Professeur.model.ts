@@ -7,7 +7,7 @@ export class Professeur {
     prenom!: string;
     email!: string;
     centreId!: number;
-    structureRecherche?: StructureRecherche; 
+    structureRecherche!: StructureRecherche; 
     sujets?: Sujet[]; 
   
     

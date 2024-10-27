@@ -9,6 +9,7 @@ import { Diplome } from '../../../models/Diplome.model';
 import { DiplomeService } from '../../../services/diplome/diplome.service';
 import { ExperienceService } from '../../../services/experience/experience.service';
 import { ExperienceProf } from '../../../models/ExperienceProf.model';
+import { CandidatService } from '../../../services/candidat/candidat.service';
 
 @Component({
   selector: 'app-profil',
@@ -21,11 +22,10 @@ import { ExperienceProf } from '../../../models/ExperienceProf.model';
 export class ProfilComponent {
   constructor(
     private authService: AuthService,
-    private langueService: LangueService,
-    private diplomeService: DiplomeService,
-    private experienceService: ExperienceService,
+    private candidatService: CandidatService,
     private http: HttpClient
   ) {}
+
   langues: Langue[] = [
     { id: 0, langue: '', niveau: '', candidatId: 0 },
     { id: 0, langue: '', niveau: '', candidatId: 0 },
@@ -128,7 +128,7 @@ export class ProfilComponent {
     // Sauvegarder les informations des langues
     const languesRemplies = this.langues.filter((langue) => langue.langue && langue.niveau);
     if (languesRemplies.length > 0) {
-      this.langueService.addLangues(userIdNumber, languesRemplies).subscribe({
+      this.candidatService.addLangues(userIdNumber, languesRemplies).subscribe({
         next: (response) => {
           console.log('Langues sauvegardées :', response);
         },
@@ -143,7 +143,7 @@ export class ProfilComponent {
     const diplomesRemplis = this.diplomes.filter((diplome) => diplome.nomEtablissement && diplome.anneeObtention);
     
     if (diplomesRemplis.length > 0) {
-      this.diplomeService.addDiplomes(userIdNumber, diplomesRemplis).subscribe({
+      this.candidatService.addDiplomes(userIdNumber, diplomesRemplis).subscribe({
         next: (response) => {
           console.log('Diplômes sauvegardés :', response);
           this.successMessage = 'Toutes les informations ont été sauvegardées avec succès.';
@@ -159,7 +159,7 @@ export class ProfilComponent {
       (experience) => experience.experience && experience.etablissement && experience.dateDebut && experience.dateFin
     );
     if (experiencesRemplies.length > 0) {
-      this.experienceService.addExperiences(userIdNumber, experiencesRemplies).subscribe({
+      this.candidatService.addExperiences(userIdNumber, experiencesRemplies).subscribe({
         next: (response) => {
           console.log('Expériences sauvegardées :', response);
           this.successMessage = 'Toutes les informations ont été sauvegardées avec succès.';

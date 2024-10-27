@@ -13,7 +13,7 @@ export class Candidat {
     nationalite!: string;
     prenomArabe!: string;
     nomArabe!: string;
-    paysNaissance!: string;
+    payeNaissance!: string;
     adresse!: string;
     codePostal!: number;
     professionPere!: string;

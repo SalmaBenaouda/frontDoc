@@ -15,7 +15,7 @@ export class DiplomeService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`)
-      .set('Content-Type', 'application/json'); // Vérifiez bien que ce type est attendu
+      .set('Content-Type', 'application/json'); 
     return this.http.post(`${this.baseUrl}/addDiplome/${userId}`, diplomes, { headers, responseType: 'text' });
   }
   

@@ -31,8 +31,7 @@ export class AddProfComponent implements OnInit {
     const storedCedId = localStorage.getItem('userId');
     if (storedCedId) {
       this.cedId = +storedCedId;
-      this.professeur.centre_id = this.cedId;
-      this.fetchStructures();
+      this.fetchStructures(); // Charger les structures liées au CED
     }
   }
 
@@ -47,25 +46,31 @@ export class AddProfComponent implements OnInit {
       }
     );
   }
-onSubmit(): void {
-  // Associer la structureRechercheId à l'objet professeur
-  this.professeur.centre_id = this.structureRechercheId;
-
-  // Ajouter le professeur
-  this.cedService.addProfesseur(this.professeur).subscribe(
-    (response) => {
-      console.log('Professeur ajouté avec succès', response);
-      this.messageService.setSuccessMessage('Professeur ajouté avec succès');
-        this.router.navigate(['CED/gestionProfesseurs'], { state: { successMessage: 'Professeur ajouté avec succès' } });
-    },
-    (error) => {
-      console.error('Erreur lors de l’ajout du professeur', error);
-      this.errorMessage = error.error ? error.error.message : 'Erreur lors de l’ajout du professeur';
-
+  onSubmit(): void {
+    // Associer l'ID de la structure à l'objet professeur
+    if (this.structureRechercheId) {
+      this.professeur.centre_id = this.structureRechercheId; // Utiliser l'ID de la structure
+    } else {
+      console.error('Erreur : ID de la structure de recherche non sélectionné');
+      return;
     }
-  );
-}
-
+  
+    // Ajouter le professeur
+    this.cedService.addProfesseur(this.professeur).subscribe(
+      (response) => {
+        console.log('Professeur ajouté avec succès', response);
+        this.messageService.setSuccessMessage('Professeur ajouté avec succès');
+        this.router.navigate(['CED/gestionProfesseurs'], {
+          state: { successMessage: 'Professeur ajouté avec succès' },
+        });
+      },
+      (error) => {
+        console.error('Erreur lors de l’ajout du professeur', error);
+        this.errorMessage = error.error ? error.error.message : 'Erreur lors de l’ajout du professeur';
+      }
+    );
+  }
+  
   onLogout() {
     this.authService.logout();
   }

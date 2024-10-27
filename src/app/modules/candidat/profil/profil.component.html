@@ -1,439 +1,440 @@
 
 
-    <div class="container">
-        <!-- Sidebar Section -->
-        <aside>
-            <div class="logo-divider"></div>
+<div class="container">
+  <!-- Sidebar Section -->
+  
+  <aside>
+      <div class="logo-divider"></div>
 
-            <div class="sidebar">
-               <img src="  /images/logo.png">
-               
-                <div class="logo-divider"></div><br>
-                <a href="Candidat/dashboard">
-                    <span class="material-icons-sharp">
-                        dashboard
-                    </span>
-                    <h3>Accueil</h3>
-                </a>
-                <a href="Candidat/profil"  class="active">
-                    <span class="material-icons-sharp">
-                        person_outline
-                    </span>
-                    <h3>Profil</h3>
-                </a>
-                <a href="Candidat/choixSujet">
-                    <span class="material-icons-sharp">
-                        receipt_long
-                    </span>
-                    <h3>Sujets de thèse</h3>
-                </a>
-                <a href="Candidat/planning" >
-                  <span class="material-icons-sharp">
-                      event
-                      </span>
-                    <h3>Planning</h3>
-                </a>
-               
-                <a href="Candidat/bourse">
-                    <span class="material-icons-sharp">
-                      insights
-                    </span>
-                    <h3>Bourse</h3>
-                </a>
-                <a href="">
-                    <span class="material-icons-sharp">
-                        logout
-                    </span>
-                    <button (click)="onLogout()"><h3>Logout</h3></button>
-                </a>
-                <br><br><br><br><br><br><img src="  /images/hmama.svg">
-            </div>
-        </aside>
-        <!-- End of Sidebar Section -->
+      <div class="sidebar">
+         <img src="  /images/logo.png">
+         
+          <div class="logo-divider"></div><br>
+          <a href="Candidat/dashboard">
+              <span class="material-icons-sharp">
+                  dashboard
+              </span>
+              <h3>Accueil</h3>
+          </a>
+          <a href="Candidat/profil"  class="active">
+              <span class="material-icons-sharp">
+                  person_outline
+              </span>
+              <h3>Profil</h3>
+          </a>
+          <a href="Candidat/choixSujet">
+              <span class="material-icons-sharp">
+                  receipt_long
+              </span>
+              <h3>Sujets de thèse</h3>
+          </a>
+          <a href="Candidat/planning" >
+            <span class="material-icons-sharp">
+                event
+                </span>
+              <h3>Planning</h3>
+          </a>
+         
+          <a href="Candidat/bourse">
+              <span class="material-icons-sharp">
+                insights
+              </span>
+              <h3>Bourse</h3>
+          </a>
+          <a href="">
+              <span class="material-icons-sharp">
+                  logout
+              </span>
+              <button (click)="onLogout()"><h3>Logout</h3></button>
+          </a>
+          <br><br><br><br><br><br><img src="  /images/hmama.svg">
+      </div>
+  </aside>
+  <!-- End of Sidebar Section -->
 
-        <!-- Main Content -->
-        <main>
-            <h1>Mon profil</h1>
-            <!-- Analyses -->
-            
+  <!-- Main Content -->
+  <main>
+      <h1>Mon profil</h1>
+      <!-- Analyses -->
+      
 <br>
-            <!-- New Users Section -->
-            <div class="new-users">
-                <h2>État Civil</h2>
-                    <div class="etat-civil-form">
-                      <div class="form-row">
-                        <label>Nom*</label>
-                        <input type="text"  required>
-                      </div>
-                      <div class="form-row">
-                        <label>Prenom*</label>
-                        <input type="text"  required>
-                      </div>
-                      <div class="form-row">
-                        <label>Nom Arabe*</label>
-                        <input type="text"  required>
-                      </div>
-                      <div class="form-row">
-                        <label>Prenom Arabe*</label>
-                        <input type="text"  required>
-                      </div>
-                      <div class="form-row">
-                        <label>Téléphone*</label>
-                        <input type="text" required>
-                      </div>
-                        <div class="form-row">
-                          <label>Situation Familiale*</label>
-                          <select>
-                            <option value="celibataire">Célibataire</option>
-                            <option value="marie">Marié(e)</option>
-                            <option value="divorce">Divorcé(e)</option>
-                          </select>
-                        </div>
-                      
-                        <div class="form-row">
-                          <label>Nationalité*</label>
-                          <select>
-                            <option value="marocaine">Marocaine</option>
-                            <option value="etranger">Étranger</option>
-                          </select>
-                        </div>
-                      
-                        <div class="form-row">
-                          <label>CIN*</label>
-                          <input type="text" required>
-                        </div>
-                      
-                        <div class="form-row">
-                          <label>Pays de naissance*</label>
-                          <select>
-                            <option value="maroc">Maroc</option>
-                            <option value="france">France</option>
-                            <!-- Autres options -->
-                          </select>
-                        </div>
-                      
-                        <div class="form-row">
-                          <label >Adresse*</label>
-                          <input type="text">
-                        </div>
-                      
-                      
-                        <div class="form-row">
-                          <label>Code Postal*</label>
-                          <input type="number">
-                        </div>
-                      
-                      
-                        <div class="form-row">
-                          <label>Email</label>
-                          <input type="email">
-                        </div>
-                      
-
-                        <div class="form-row">
-                          <label>Profession du père*</label>
-                          <input type="text">
-                        </div>
-
-                        <div class="form-row">
-                          <label>Province du père*</label>
-                          <input type="text">
-                        </div>
-
-                        <div class="form-row">
-                          <label>Prefession de mère*</label>
-                          <input type="text">
-                        </div>
-
-                        <div class="form-row">
-                          <label>Province de mère*</label>
-                          <input type="text">
-                        </div>
-
-                        <div class="form-row">
-                          <label>Votre profession*</label>
-                          <input type="text">
-                        </div>
-
-                        <div class="form-row">
-                          <label>Votre photo*</label>
-                          <input type="file"  required>
-                        </div>
-
-
-                    
-                      
-                        
-                      </div>
-                      
+      <!-- New Users Section -->
+      <div class="new-users">
+          <h2>État Civil</h2>
+              <div class="etat-civil-form">
+                <div class="form-row">
+                  <label>Nom*</label>
+                  <input type="text"  required>
                 </div>
+                <div class="form-row">
+                  <label>Prenom*</label>
+                  <input type="text"  required>
+                </div>
+                <div class="form-row">
+                  <label>Nom Arabe*</label>
+                  <input type="text"  required>
+                </div>
+                <div class="form-row">
+                  <label>Prenom Arabe*</label>
+                  <input type="text"  required>
+                </div>
+                <div class="form-row">
+                  <label>Téléphone*</label>
+                  <input type="text" required>
+                </div>
+                  <div class="form-row">
+                    <label>Situation Familiale*</label>
+                    <select>
+                      <option value="celibataire">Célibataire</option>
+                      <option value="marie">Marié(e)</option>
+                      <option value="divorce">Divorcé(e)</option>
+                    </select>
+                  </div>
+                
+                  <div class="form-row">
+                    <label>Nationalité*</label>
+                    <select>
+                      <option value="marocaine">Marocaine</option>
+                      <option value="etranger">Étranger</option>
+                    </select>
+                  </div>
+                
+                  <div class="form-row">
+                    <label>CIN*</label>
+                    <input type="text" required>
+                  </div>
+                
+                  <div class="form-row">
+                    <label>Pays de naissance*</label>
+                    <select>
+                      <option value="maroc">Maroc</option>
+                      <option value="france">France</option>
+                      <!-- Autres options -->
+                    </select>
+                  </div>
+                
+                  <div class="form-row">
+                    <label >Adresse*</label>
+                    <input type="text">
+                  </div>
+                
+                
+                  <div class="form-row">
+                    <label>Code Postal*</label>
+                    <input type="number">
+                  </div>
+                
+                
+                  <div class="form-row">
+                    <label>Email</label>
+                    <input type="email">
+                  </div>
+                
+
+                  <div class="form-row">
+                    <label>Profession du père*</label>
+                    <input type="text">
+                  </div>
+
+                  <div class="form-row">
+                    <label>Province du père*</label>
+                    <input type="text">
+                  </div>
+
+                  <div class="form-row">
+                    <label>Prefession de mère*</label>
+                    <input type="text">
+                  </div>
+
+                  <div class="form-row">
+                    <label>Province de mère*</label>
+                    <input type="text">
+                  </div>
+
+                  <div class="form-row">
+                    <label>Votre profession*</label>
+                    <input type="text">
+                  </div>
+
+                  <div class="form-row">
+                    <label>Votre photo*</label>
+                    <input type="file"  required>
+                  </div>
+
+
+              
+                
+                  
+                </div>
+                
+          </div>
 
 
 <!-- Section Baccalauréat -->
 <div class="new-users">
-  <h2>Baccalauréat</h2>
-  <div class="etat-civil-form">
-    <div class="form-row">
-      <label>Nom du lycée*</label>
-      <input type="text" [(ngModel)]="diplomes[0].nomEtablissement" required />
-    </div>
-    <div class="form-row">
-      <label>Pays*</label>
-      <input type="text" [(ngModel)]="diplomes[0].pays" />
-    </div>
-    <div class="form-row">
-      <label>Académie*</label>
-      <input type="text" [(ngModel)]="diplomes[0].academie" required />
-    </div>
-    <div class="form-row">
-      <label>Statut*</label>
-      <select [(ngModel)]="diplomes[0].statut">
-        <option value="public">Public</option>
-        <option value="privee">Privée</option>
-      </select>
-    </div>
-    <div class="form-row">
-      <label>Filière de Bac*</label>
-      <input type="text" [(ngModel)]="diplomes[0].specialite" />
-    </div>
-    <div class="form-row">
-      <label>Année d'obtention*</label>
-      <input type="date" [(ngModel)]="diplomes[0].anneeObtention" required />
-    </div>
-    <div class="form-row">
-      <label>Mention*</label>
-      <select [(ngModel)]="diplomes[0].mention">
-        <option value="tbien">Très bien</option>
-        <option value="bien">Bien</option>
-        <option value="abien">Assez bien</option>
-        <option value="passable">Passable</option>
-      </select>
-    </div>
-    <div class="form-row">
-      <label>Moyenne générale /20*</label>
-      <input type="text" [(ngModel)]="diplomes[0].moyenne" required />
-    </div>
-  </div>
+<h2>Baccalauréat</h2>
+<div class="etat-civil-form">
+<div class="form-row">
+<label>Nom du lycée*</label>
+<input type="text" [(ngModel)]="diplomes[0].nomEtablissement" required />
+</div>
+<div class="form-row">
+<label>Pays*</label>
+<input type="text" [(ngModel)]="diplomes[0].pays" />
+</div>
+<div class="form-row">
+<label>Académie*</label>
+<input type="text" [(ngModel)]="diplomes[0].academie" required />
+</div>
+<div class="form-row">
+<label>Statut*</label>
+<select [(ngModel)]="diplomes[0].statut">
+  <option value="public">Public</option>
+  <option value="privee">Privée</option>
+</select>
+</div>
+<div class="form-row">
+<label>Filière de Bac*</label>
+<input type="text" [(ngModel)]="diplomes[0].specialite" />
+</div>
+<div class="form-row">
+<label>Année d'obtention*</label>
+<input type="date" [(ngModel)]="diplomes[0].anneeObtention" required />
+</div>
+<div class="form-row">
+<label>Mention*</label>
+<select [(ngModel)]="diplomes[0].mention">
+  <option value="tbien">Très bien</option>
+  <option value="bien">Bien</option>
+  <option value="abien">Assez bien</option>
+  <option value="passable">Passable</option>
+</select>
+</div>
+<div class="form-row">
+<label>Moyenne générale /20*</label>
+<input type="text" [(ngModel)]="diplomes[0].moyenne" required />
+</div>
+</div>
 </div>
 
 <!-- Section Licence -->
 <div class="new-users">
-  <h2>Licence</h2>
-  <div class="etat-civil-form">
-    <div class="form-row">
-      <label>Etablissement*</label>
-      <input type="text" [(ngModel)]="diplomes[1].nomEtablissement" required />
-    </div>
-    <div class="form-row">
-      <label>Pays*</label>
-      <input type="text" [(ngModel)]="diplomes[1].pays" />
-    </div>
-    <div class="form-row">
-      <label>Académie*</label>
-      <input type="text" [(ngModel)]="diplomes[1].academie" required />
-    </div>
-    <div class="form-row">
-      <label>Statut*</label>
-      <select [(ngModel)]="diplomes[1].statut">
-        <option value="public">Public</option>
-        <option value="privee">Privée</option>
-      </select>
-    </div>
-    <div class="form-row">
-      <label>Filière de Bac*</label>
-      <input type="text" [(ngModel)]="diplomes[1].specialite" />
-    </div>
-    <div class="form-row">
-      <label>Année d'obtention*</label>
-      <input type="date" [(ngModel)]="diplomes[1].anneeObtention" required />
-    </div>
-    <div class="form-row">
-      <label>Mention*</label>
-      <select [(ngModel)]="diplomes[1].mention">
-        <option value="tbien">Très bien</option>
-        <option value="bien">Bien</option>
-        <option value="abien">Assez bien</option>
-        <option value="passable">Passable</option>
-      </select>
-    </div>
-    <div class="form-row">
-      <label>Moyenne générale /20*</label>
-      <input type="text" [(ngModel)]="diplomes[1].moyenne" required />
-    </div>
-  </div>
+<h2>Licence</h2>
+<div class="etat-civil-form">
+<div class="form-row">
+<label>Etablissement*</label>
+<input type="text" [(ngModel)]="diplomes[1].nomEtablissement" required />
+</div>
+<div class="form-row">
+<label>Pays*</label>
+<input type="text" [(ngModel)]="diplomes[1].pays" />
+</div>
+<div class="form-row">
+<label>Académie*</label>
+<input type="text" [(ngModel)]="diplomes[1].academie" required />
+</div>
+<div class="form-row">
+<label>Statut*</label>
+<select [(ngModel)]="diplomes[1].statut">
+  <option value="public">Public</option>
+  <option value="privee">Privée</option>
+</select>
+</div>
+<div class="form-row">
+<label>Filière de Bac*</label>
+<input type="text" [(ngModel)]="diplomes[1].specialite" />
+</div>
+<div class="form-row">
+<label>Année d'obtention*</label>
+<input type="date" [(ngModel)]="diplomes[1].anneeObtention" required />
+</div>
+<div class="form-row">
+<label>Mention*</label>
+<select [(ngModel)]="diplomes[1].mention">
+  <option value="tbien">Très bien</option>
+  <option value="bien">Bien</option>
+  <option value="abien">Assez bien</option>
+  <option value="passable">Passable</option>
+</select>
+</div>
+<div class="form-row">
+<label>Moyenne générale /20*</label>
+<input type="text" [(ngModel)]="diplomes[1].moyenne" required />
+</div>
+</div>
 </div>
 <!-- Section Master -->
 <div class="new-users">
-  <h2>Master ou équivalent</h2>
-  <div class="etat-civil-form">
-    <div class="form-row">
-      <label>Nom du lycée*</label>
-      <input type="text" [(ngModel)]="diplomes[2].nomEtablissement" required />
-    </div>
-    <div class="form-row">
-      <label>Pays*</label>
-      <input type="text" [(ngModel)]="diplomes[2].pays" />
-    </div>
-    <div class="form-row">
-      <label>Académie*</label>
-      <input type="text" [(ngModel)]="diplomes[2].academie" required />
-    </div>
-    <div class="form-row">
-      <label>Statut*</label>
-      <select [(ngModel)]="diplomes[2].statut">
-        <option value="public">Public</option>
-        <option value="privee">Privée</option>
-      </select>
-    </div>
-    <div class="form-row">
-      <label>Filière de Bac*</label>
-      <input type="text" [(ngModel)]="diplomes[2].specialite" />
-    </div>
-    <div class="form-row">
-      <label>Année d'obtention*</label>
-      <input type="date" [(ngModel)]="diplomes[2].anneeObtention" required />
-    </div>
-    <div class="form-row">
-      <label>Mention*</label>
-      <select [(ngModel)]="diplomes[2].mention">
-        <option value="tbien">Très bien</option>
-        <option value="bien">Bien</option>
-        <option value="abien">Assez bien</option>
-        <option value="passable">Passable</option>
-      </select>
-    </div>
-    <div class="form-row">
-      <label>Moyenne générale /20*</label>
-      <input type="text" [(ngModel)]="diplomes[2].moyenne" required />
-    </div>
-  </div>
+<h2>Master ou équivalent</h2>
+<div class="etat-civil-form">
+<div class="form-row">
+<label>Nom du lycée*</label>
+<input type="text" [(ngModel)]="diplomes[2].nomEtablissement" required />
+</div>
+<div class="form-row">
+<label>Pays*</label>
+<input type="text" [(ngModel)]="diplomes[2].pays" />
+</div>
+<div class="form-row">
+<label>Académie*</label>
+<input type="text" [(ngModel)]="diplomes[2].academie" required />
+</div>
+<div class="form-row">
+<label>Statut*</label>
+<select [(ngModel)]="diplomes[2].statut">
+  <option value="public">Public</option>
+  <option value="privee">Privée</option>
+</select>
+</div>
+<div class="form-row">
+<label>Filière de Bac*</label>
+<input type="text" [(ngModel)]="diplomes[2].specialite" />
+</div>
+<div class="form-row">
+<label>Année d'obtention*</label>
+<input type="date" [(ngModel)]="diplomes[2].anneeObtention" required />
+</div>
+<div class="form-row">
+<label>Mention*</label>
+<select [(ngModel)]="diplomes[2].mention">
+  <option value="tbien">Très bien</option>
+  <option value="bien">Bien</option>
+  <option value="abien">Assez bien</option>
+  <option value="passable">Passable</option>
+</select>
+</div>
+<div class="form-row">
+<label>Moyenne générale /20*</label>
+<input type="text" [(ngModel)]="diplomes[2].moyenne" required />
+</div>
+</div>
 </div>
 
 
 
-             
+       
 <br>
 
 <!-- Section Langues -->
 <div class="new-users">
-  <div class="header">
-    <h2>Langues</h2>
-    <button (click)="ajouterNouvelleLangue()" class="btn-add-langue">+</button>
-  </div>
-  
-  <div class="etat-civil-form">
-    <div *ngFor="let langue of langues; let i = index" class="langue-group">
-      <div class="form-row">
-        <label>Langue {{ i + 1 }} <span *ngIf="i === 0" style="color: red">*</span></label>
-        <input type="text" [(ngModel)]="langue.langue" [required]="i === 0" />
-      </div>
-
-      <div class="form-row">
-        <label>Niveau langue {{ i + 1 }} <span *ngIf="i === 0" style="color: red">*</span></label>
-        <select [(ngModel)]="langue.niveau" [required]="i === 0">
-          <option value="a1">A1 Niveau Découverte</option>
-          <option value="a2">A2 Niveau Intermédiaire</option>
-          <option value="b1">B1 Niveau Seuil</option>
-          <option value="b2">B2 Niveau Avancé</option>
-          <option value="c1">C1 Niveau Autonome</option>
-          <option value="c2">C2 Niveau Maitrisé</option>
-        </select>
-      </div>
-    </div>
-
-   
-  </div>
+<div class="header">
+<h2>Langues</h2>
+<button (click)="ajouterNouvelleLangue()" class="btn-add-langue">+</button>
 </div>
 
-             
+<div class="etat-civil-form">
+<div *ngFor="let langue of langues; let i = index" class="langue-group">
+<div class="form-row">
+  <label>Langue {{ i + 1 }} <span *ngIf="i === 0" style="color: red">*</span></label>
+  <input type="text" [(ngModel)]="langue.langue" [required]="i === 0" />
+</div>
+
+<div class="form-row">
+  <label>Niveau langue {{ i + 1 }} <span *ngIf="i === 0" style="color: red">*</span></label>
+  <select [(ngModel)]="langue.niveau" [required]="i === 0">
+    <option value="a1">A1 Niveau Découverte</option>
+    <option value="a2">A2 Niveau Intermédiaire</option>
+    <option value="b1">B1 Niveau Seuil</option>
+    <option value="b2">B2 Niveau Avancé</option>
+    <option value="c1">C1 Niveau Autonome</option>
+    <option value="c2">C2 Niveau Maitrisé</option>
+  </select>
+</div>
+</div>
+
+
+</div>
+</div>
+
+       
 <br>
 
 <!-- Section Expériences Professionnelles -->
 <div class="new-users">
-  <h2>Expériences professionnelles</h2>
-  <button (click)="ajouterNouvelleExperience()" class="btn-add-langue">+</button>
-  <div *ngFor="let experience of experiences; let i = index" class="etat-civil-form">
-    <div class="form-row">
-      <label>Expérience {{ i + 1 }}*</label>
-      <input type="text" [(ngModel)]="experience.experience" required />
-    </div>
-    <div class="form-row">
-      <label>Etablissement {{ i + 1 }}*</label>
-      <input type="text" [(ngModel)]="experience.etablissement" required />
-    </div>
-    <div class="form-row">
-      <label>Fonction {{ i + 1 }}*</label>
-      <input type="text" [(ngModel)]="experience.fonction" />
-    </div>
-    <div class="form-row">
-      <label>Secteur {{ i + 1 }}*</label>
-      <input type="text" [(ngModel)]="experience.secteurActivite" />
-    </div>
-    <div class="form-row">
-      <label>Du*</label>
-      <input type="date" [(ngModel)]="experience.dateDebut" required />
-    </div>
-    <div class="form-row">
-      <label>Au*</label>
-      <input type="date" [(ngModel)]="experience.dateFin" required />
-    </div>
-  </div>
+<h2>Expériences professionnelles</h2>
+<button (click)="ajouterNouvelleExperience()" class="btn-add-langue">+</button>
+<div *ngFor="let experience of experiences; let i = index" class="etat-civil-form">
+<div class="form-row">
+<label>Expérience {{ i + 1 }}*</label>
+<input type="text" [(ngModel)]="experience.experience" required />
+</div>
+<div class="form-row">
+<label>Etablissement {{ i + 1 }}*</label>
+<input type="text" [(ngModel)]="experience.etablissement" required />
+</div>
+<div class="form-row">
+<label>Fonction {{ i + 1 }}*</label>
+<input type="text" [(ngModel)]="experience.fonction" />
+</div>
+<div class="form-row">
+<label>Secteur {{ i + 1 }}*</label>
+<input type="text" [(ngModel)]="experience.secteurActivite" />
+</div>
+<div class="form-row">
+<label>Du*</label>
+<input type="date" [(ngModel)]="experience.dateDebut" required />
+</div>
+<div class="form-row">
+<label>Au*</label>
+<input type="date" [(ngModel)]="experience.dateFin" required />
+</div>
+</div>
 </div>
 
-             
+       
 <br>
 
 
 <!-- New Users Section -->
 <div class="new-users">
-  <h2>Importation des documents</h2>
-      <div class="etat-civil-form">
+<h2>Importation des documents</h2>
+<div class="etat-civil-form">
 
-          <div class="form-row">
-            <label>Baccalaureat scanné*</label>
-            <input type="file"  required>
-          </div>
+    <div class="form-row">
+      <label>Baccalaureat scanné*</label>
+      <input type="file"  required>
+    </div>
 
-          <div class="form-row">
-            <label>Licence scannée*</label>
-            <input type="file"  required>
-          </div>
+    <div class="form-row">
+      <label>Licence scannée*</label>
+      <input type="file"  required>
+    </div>
 
-          <div class="form-row">
-            <label>Relevé de note licence scanné*</label>
-            <input type="file"  required>
-          </div>
-
-
-          <div class="form-row">
-            <label>Master scanné*</label>
-            <input type="file"  required>
-          </div>
-
-          <div class="form-row">
-            <label>Relevé de note master scanné*</label>
-            <input type="file"  required>
-          </div>
+    <div class="form-row">
+      <label>Relevé de note licence scanné*</label>
+      <input type="file"  required>
+    </div>
 
 
-          <div class="form-row">
-            <label>Carte nationnale scannée*</label>
-            <input type="file"  required>
-          </div>
+    <div class="form-row">
+      <label>Master scanné*</label>
+      <input type="file"  required>
+    </div>
 
-          <div class="form-row">
-            <label>CV scanné*</label>
-            <input type="file"  required>
-          </div>
+    <div class="form-row">
+      <label>Relevé de note master scanné*</label>
+      <input type="file"  required>
+    </div>
 
 
-      </div>
-        
+    <div class="form-row">
+      <label>Carte nationnale scannée*</label>
+      <input type="file"  required>
+    </div>
+
+    <div class="form-row">
+      <label>CV scanné*</label>
+      <input type="file"  required>
+    </div>
+
+
+</div>
+  
 </div>
 
-   <!-- Bouton Global pour Sauvegarder Tout -->
+<!-- Bouton Global pour Sauvegarder Tout -->
 <div class="save-all-section">
-  <button (click)="sauvegarderTout()">Sauvegarder Toutes les Informations</button>
+<button (click)="sauvegarderTout()">Sauvegarder Toutes les Informations</button>
 </div>
 <!-- Affichage des messages -->
 <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
@@ -442,33 +443,33 @@
 
 <br>
 
-           
-            
-        </main>
-        <!-- End of Main Content -->
+     
+      
+  </main>
+  <!-- End of Main Content -->
 
-        <!-- Right Section -->
-        <div class="right-section">
-            <div class="nav">
-             
-               
+  <!-- Right Section -->
+  <div class="right-section">
+      <div class="nav">
+       
+         
 
-                <div class="profile">
-                    <div class="info">
-                        <p>Hey, <b>Salma</b></p>
-                    </div>
-                    <div class="profile-photo">
-                        <img src="images/hero-banner-1.jpg">
-                    </div>
-                </div>
+          <div class="profile">
+              <div class="info">
+                  <p>Hey, <b>Salma</b></p>
+              </div>
+              <div class="profile-photo">
+                  <img src="images/hero-banner-1.jpg">
+              </div>
+          </div>
 
-            </div>
-            <!-- End of Nav -->
+      </div>
+      <!-- End of Nav -->
 
-           
+     
 
-        </div>
+  </div>
 
 
-    </div>
+</div>
 

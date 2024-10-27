@@ -55,7 +55,9 @@
     <h1>Gestion structures</h1><br>
     <a href="CED/gestionStructures" class="linkActive" ><span>Liste des structures</span></a>
     <span class="linkDisabled">> Ajouter structure</span><br><br>
-
+    <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
     <!-- Formulaire d'ajout de structure -->
     <form class="add-professor-form" (ngSubmit)="onSubmit()">
         <div class="form-group">

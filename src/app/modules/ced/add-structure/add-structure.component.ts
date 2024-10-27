@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { CedService } from '../../../services/ced/ced.service';
 import { StructureRecherche } from '../../../models/StructureRecherche.model';
+import { Router } from '@angular/router';
+import { MessageService } from '../../../services/message/message.service';
 
 @Component({
   selector: 'app-add-structure',
@@ -15,8 +17,10 @@ import { StructureRecherche } from '../../../models/StructureRecherche.model';
 
 })
 export class AddStructureComponent implements OnInit{
-  constructor(private cedService: CedService, private authService: AuthService) {}
-
+  constructor(private cedService: CedService, private authService: AuthService,
+    private router: Router,private messageService: MessageService
+  ) {}
+  errorMessage: string | null = null;
   onLogout() {
     this.authService.logout();
   }
@@ -37,9 +41,12 @@ export class AddStructureComponent implements OnInit{
     this.cedService.addStructure(this.structure).subscribe(
       response => {
         console.log('Réponse du backend:', response);
+        this.messageService.setSuccessMessage('Structure ajoutée avec succès');
+        this.router.navigate(['CED/gestionStructures']);
       },
       error => {
         console.error('Erreur lors de l`ajout de la structure:', error);
+        this.errorMessage = error.error ? error.error.message : 'Erreur lors de l`ajout de la structure';
       }
     );
   }

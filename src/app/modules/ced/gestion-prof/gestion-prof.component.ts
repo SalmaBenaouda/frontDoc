@@ -3,6 +3,9 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { Professeur } from '../../../models/Professeur.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CedService } from '../../../services/ced/ced.service';
+import { Router } from '@angular/router';
+import { MessageService } from '../../../services/message/message.service';
 
 @Component({
   selector: 'app-gestion-prof',
@@ -13,108 +16,52 @@ import { FormsModule } from '@angular/forms';
   encapsulation: ViewEncapsulation.None, 
 })
 export class GestionProfComponent implements OnInit {
-  constructor(private authService: AuthService) {}
-  professors: Professeur[] = [
-    // Liste de professeurs (données fictives)
-    {
-      id: 1,
-      nom: 'Professeur 1',
-      prenom: 'Prenom 1',
-      email: 'prof1@example.com',
-      centreId: 1,
-      structureRecherche: {
-        id: 1,
-        nom: 'Structure A',
-        domaine: 'Informatique',
-        etablissement: 'Etablissement 1',
-        ced_id: 1
-      }
-    },
-    {
-      id: 2,
-      nom: 'Professeur 2',
-      prenom: 'Prenom 2',
-      email: 'prof2@example.com',
-      centreId: 2,
-      structureRecherche: {
-        id: 2,
-        nom: 'Structure B',
-        domaine: 'Mathématiques',
-        etablissement: 'Etablissement 2',
-        ced_id: 2
-      }
-    },
-    {
-      id: 1,
-      nom: 'Professeur 1',
-      prenom: 'Prenom 1',
-      email: 'prof1@example.com',
-      centreId: 1,
-      structureRecherche: {
-        id: 1,
-        nom: 'Structure A',
-        domaine: 'Informatique',
-        etablissement: 'Etablissement 1',
-        ced_id: 1
-      }
-    },
-    {
-      id: 1,
-      nom: 'Professeur 1',
-      prenom: 'Prenom 1',
-      email: 'prof1@example.com',
-      centreId: 1,
-      structureRecherche: {
-        id: 1,
-        nom: 'Structure A',
-        domaine: 'Informatique',
-        etablissement: 'Etablissement 1',
-        ced_id: 1
-      }
-    },
-    {
-      id: 1,
-      nom: 'Professeur 1',
-      prenom: 'Prenom 1',
-      email: 'prof1@example.com',
-      centreId: 1,
-      structureRecherche: {
-        id: 1,
-        nom: 'Structure A',
-        domaine: 'Informatique',
-        etablissement: 'Etablissement 1',
-        ced_id: 1
-      }
-    },
-    {
-      id: 1,
-      nom: 'Professeur 1',
-      prenom: 'Prenom 1',
-      email: 'prof1@example.com',
-      centreId: 1,
-      structureRecherche: {
-        id: 1,
-        nom: 'Structure A',
-        domaine: 'Informatique',
-        etablissement: 'Etablissement 1',
-        ced_id: 1
-      }
-    },
-    // Ajouter d'autres professeurs...
-  ];
+  constructor(private authService: AuthService, private cedService: CedService,
+    private router: Router,private messageService: MessageService) {}
+  successMessage: string | null = null;
 
+  professors: Professeur[] = [];
   filteredProfessors: Professeur[] = [];
   paginatedProfessors: Professeur[] = [];
   selectedProfessor: Professeur | null = null;
-    showModal: boolean = false;
+  showModal: boolean = false;
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalPages: number[] = [];
+  etablissements: string[] = [];
 
   ngOnInit(): void {
-    this.filteredProfessors = this.professors;
-    this.calculateTotalPages();
-    this.updatePaginatedProfessors();
+    this.fetchProfessors();
+      // Vérifier si un message de succès est disponible dans l'état de navigation
+      this.successMessage = this.messageService.getSuccessMessage();
+
+      // Effacer le message après l'affichage
+      this.messageService.clearSuccessMessage();
+    
+  }
+
+  // Récupérer la liste des professeurs depuis le backend
+  fetchProfessors(): void {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      this.cedService.getProfesseursByCedId(parseInt(userId)).subscribe(
+        (data: Professeur[]) => {
+          this.professors = data;
+          this.filteredProfessors = data;
+          this.extractEtablissements();
+          this.calculateTotalPages();
+          this.updatePaginatedProfessors();
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des professeurs :', error);
+        }
+      );
+    }
+  }
+
+  extractEtablissements(): void {
+    const etabs = this.professors.map(professor => professor.etablissement ?? '').filter((etab, index, self) => etab && self.indexOf(etab) === index);
+    this.etablissements = etabs;
   }
 
   onSearchChange(event: Event): void {
@@ -132,7 +79,7 @@ export class GestionProfComponent implements OnInit {
     const selectedEtablissement = (event.target as HTMLSelectElement).value;
     if (selectedEtablissement) {
       this.filteredProfessors = this.professors.filter(professor =>
-        professor.structureRecherche?.etablissement === selectedEtablissement
+        professor.etablissement === selectedEtablissement
       );
     } else {
       this.filteredProfessors = this.professors;
@@ -166,8 +113,8 @@ export class GestionProfComponent implements OnInit {
     this.showModal = false;
     this.selectedProfessor = null;
   }
+  
   onLogout() {
     this.authService.logout();
   }
-
 }

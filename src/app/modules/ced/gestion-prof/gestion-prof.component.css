@@ -583,3 +583,23 @@ tbody tr:hover {
     font-size: 1.2em;
     margin-bottom: 15px;
 }
+
+.success-message {
+    color: #270;
+    background-color: #DFF2BF;
+    margin: 10px 0;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 12px;
+    border-radius: 5px;
+  }
+  
+  .error-message {
+    color: #D8000C;
+              background-color: #FFBABA;
+        margin: 10px 0;
+        padding: 10px;
+   
+    border-radius: 5px;
+  }
+  

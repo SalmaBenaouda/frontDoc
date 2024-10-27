@@ -6,9 +6,11 @@ export class Professeur {
     nom!: string;
     prenom!: string;
     email!: string;
-    centreId!: number;
-    structureRecherche!: StructureRecherche; 
+    centre_id!: number;
+    structureRecherche?: StructureRecherche; 
     sujets?: Sujet[]; 
+    structnom?: string; // Nom de la structure de recherche
+  etablissement?: string; 
   
     
   }

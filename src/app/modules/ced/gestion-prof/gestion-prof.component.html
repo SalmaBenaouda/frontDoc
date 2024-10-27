@@ -56,15 +56,17 @@
         <h1>Gestion professeurs</h1><br>
         <span class="linkDisabled">Liste des professeurs  > </span>
         <a href="CED/ajouterProfesseur" class="linkActive"><span>Ajouter professeur</span></a><br><br>
-        
+        <div *ngIf="successMessage" class="success-message">
+            {{ successMessage }}
+          </div>
         <!-- Search and Filter Section -->
         <div class="search-filter">
             <input type="text" placeholder="Rechercher par nom" (input)="onSearchChange($event)">
             <select (change)="onFilterChange($event)">
                 <option value="">Tous les établissements</option>
-                <option value="Etablissement 1">Etablissement 1</option>
-                <option value="Etablissement 2">Etablissement 2</option>
-                <option value="Etablissement 3">Etablissement 3</option>
+                <option *ngFor="let etablissement of etablissements" [value]="etablissement">
+                    {{ etablissement }}
+                </option>
             </select>
         </div><br>
         
@@ -72,55 +74,33 @@
         <table class="professors-table">
             <thead>
                 <tr>
-                    <th>Nom complet</th>
-                    <th>CED</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Email</th>
                     <th>Structure de recherche</th>
                     <th>Établissement</th>
-                    <th>Détails</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let professor of paginatedProfessors">
                     <td>{{ professor.nom }}</td>
-                    <td>CED-STSM</td>
-                    <td>{{ professor.structureRecherche.nom }}</td>
-                    <td>{{ professor.structureRecherche.etablissement }}</td>
-                    <td>
-                        <button (click)="viewProfile(professor)" class="view-profile-button">
-                            <span class="material-icons-sharp">visibility</span>
-                        </button>
-                    </td>
+                    <td>{{professor.prenom}}</td>
+                    <td>{{professor.email}}</td>
+                    <td>{{ professor.structnom }}</td>
+                    <td>{{ professor.etablissement }}</td>
+                 
                 </tr>
             </tbody>
         </table>
 
-    <!-- Modal for Professor Profile -->
-    <!-- Modal for Professor Profile -->
-    <div class="modal" [ngClass]="{'show-modal': showModal}" *ngIf="selectedProfessor">
-        <div class="modal-content">
-            <span class="close-button" (click)="closeModal()">&times;</span>
-            <div class="modal-banner">
-                <img src="images/banner.png" alt="Banner Image" class="banner-image">
-            </div>
-            <div class="modal-header">
-                <h2>{{ selectedProfessor.nom }} {{ selectedProfessor.prenom }}</h2>
-            </div>
-            <div class="profile-details">
-                <div class="profile-info">
-                    <p><strong>Email :</strong> {{ selectedProfessor.email }}</p>
-                    <p><strong>Structure de recherche :</strong> {{ selectedProfessor.structureRecherche.nom }}</p>
-                    <p><strong>Établissement :</strong> {{ selectedProfessor.structureRecherche.etablissement }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-        
         <!-- Pagination Section -->
-        <div class="pagination">
-            <button *ngFor="let page of totalPages; let i = index" (click)="goToPage(i + 1)" [class.active]="currentPage === (i + 1)">
-                {{ i + 1 }}
-            </button>
-        </div>
+       <!-- Pagination Section -->
+<div class="pagination" *ngIf="totalPages.length > 1">
+    <button *ngFor="let page of totalPages; let i = index" (click)="goToPage(i + 1)" [class.active]="currentPage === (i + 1)">
+        {{ i + 1 }}
+    </button>
+</div>
+
         
     </main>
     <!-- End of Main Content -->

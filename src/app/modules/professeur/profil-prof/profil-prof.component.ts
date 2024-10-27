@@ -30,7 +30,7 @@ export class ProfilProfComponent {
       ced_id: 0,
     },
     id: 0,
-    centreId: 0
+    centre_id: 0
   };
 
   showEditModal: boolean = false;

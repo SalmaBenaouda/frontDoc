@@ -56,15 +56,17 @@
     <h1>Gestion structures</h1><br>
     <span class="linkDisabled">Liste des structures > </span>
     <a href="CED/ajouterStructure" class="linkActive"><span>Ajouter structure</span></a><br><br>
-
+    <div *ngIf="successMessage" class="success-message">
+        {{ successMessage }}
+      </div>
     <!-- Search and Filter Section -->
     <div class="search-filter">
         <input type="text" placeholder="Rechercher par nom" (input)="onSearchChange($event)">
         <select (change)="onFilterChange($event)">
             <option value="">Tous les établissements</option>
-            <option value="Etablissement 1">Etablissement 1</option>
-            <option value="Etablissement 2">Etablissement 2</option>
-            <option value="Etablissement 3">Etablissement 3</option>
+            <option *ngFor="let etablissement of etablissements" [value]="etablissement">
+                {{ etablissement }}
+            </option>
         </select>
     </div><br>
 
@@ -87,9 +89,10 @@
                     <button (click)="editStructure(i)" class="edit-structure-button">
                         <span class="material-icons-sharp">edit</span>
                     </button>&nbsp;&nbsp;
-                    <button (click)="deleteStructure(i)" class="delete-structure-button">
+                    <button (click)="confirmDelete(i)" class="delete-structure-button">
                         <span class="material-icons-sharp">delete</span>
-                    </button>
+                      </button>
+                      
                 </td>
             </tr>
         </tbody>

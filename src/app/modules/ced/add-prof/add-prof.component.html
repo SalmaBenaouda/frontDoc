@@ -56,7 +56,9 @@
         <h1>Gestion professeurs</h1><br>
         <a href="CED/gestionProfesseurs" class="linkActive"><span>Liste des professeurs</span></a>
         <span class="linkDisabled">> Ajouter professeur</span><br><br>
-        
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
         <!-- Formulaire d'ajout de professeur -->
         <form class="add-professor-form" (ngSubmit)="onSubmit()">
           <div class="form-group">

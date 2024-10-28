@@ -1,15 +1,13 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Langue } from '../../../models/Langue.model';
-import { LangueService } from '../../../services/langue/langue.service';
 import { Diplome } from '../../../models/Diplome.model';
-import { DiplomeService } from '../../../services/diplome/diplome.service';
-import { ExperienceService } from '../../../services/experience/experience.service';
 import { ExperienceProf } from '../../../models/ExperienceProf.model';
 import { CandidatService } from '../../../services/candidat/candidat.service';
+import { Candidatdetails } from '../../../models/Candidatdetails.model';
 
 @Component({
   selector: 'app-profil',
@@ -19,73 +17,115 @@ import { CandidatService } from '../../../services/candidat/candidat.service';
   styleUrl: './profil.component.css',
   encapsulation: ViewEncapsulation.None, 
 })
-export class ProfilComponent {
+export class ProfilComponent implements OnInit{
+  candidatdetails: Candidatdetails = new Candidatdetails(); // Définir la propriété
+
   constructor(
     private authService: AuthService,
     private candidatService: CandidatService,
     private http: HttpClient
   ) {}
+  Langues: Langue[] = [];
+diplomes: Diplome[] = [];
+experiences: ExperienceProf[] = [];
+ngOnInit(): void {
+  const userId = localStorage.getItem('userId');
+  if (userId) {
+    const userIdNumber = parseInt(userId, 10);
+    this.candidatService.getCandidatDetails(userIdNumber).subscribe({
+      next: (details: Candidatdetails) => {
+        // Assigner les langues, diplômes, et expériences uniquement s'ils existent
+        this.Langues = details.langues && details.langues.length > 0 ? details.langues : [{ id: 0, langue: '', niveau: '', candidatId: 0 }];
+        this.diplomes = [
+          {
+            id: 0,
+            nomEtablissement: '',
+            pays: '',
+            academie: '',
+            statut: '',
+            specialite: '',
+            anneeObtention: '',
+            mention: '',
+            moyenne: 0,
+            type: 'Baccalaureat',
+            candidatId: userIdNumber,
+          },
+          {
+            id: 0,
+            nomEtablissement: '',
+            pays: '',
+            academie: '',
+            statut: '',
+            specialite: '',
+            anneeObtention: '',
+            mention: '',
+            moyenne: 0,
+            type: 'Licence',
+            candidatId: userIdNumber,
+          },
+          {
+            id: 0,
+            nomEtablissement: '',
+            pays: '',
+            academie: '',
+            statut: '',
+            specialite: '',
+            anneeObtention: '',
+            mention: '',
+            moyenne: 0,
+            type: 'Master',
+            candidatId: userIdNumber,
+          },
+        ];
 
-  langues: Langue[] = [
-    { id: 0, langue: '', niveau: '', candidatId: 0 },
-    { id: 0, langue: '', niveau: '', candidatId: 0 },
-    { id: 0, langue: '', niveau: '', candidatId: 0 },
-  ];
+        // Parcourir les diplômes récupérés et mettre à jour la liste
+        details.diplomes.forEach((diplome) => {
+          const index = this.diplomes.findIndex((d) => d.type.toLowerCase() === diplome.type.toLowerCase());
+          if (index !== -1) {
+            this.diplomes[index] = diplome;
+          }
+        });
+        this.experiences = details.experiences && details.experiences.length > 0 ? details.experiences : [{
+          id: 0,
+          experience: '',
+          etablissement: '',
+          fonction: '',
+          secteurActivite: '',
+          dateDebut: '',
+          dateFin: '',
+          candidatId: 0
+        }];
 
-  diplomes: Diplome[] = [
-    {
-      id: 0,
-      nomEtablissement: '',
-      pays: '',
-      academie: '',
-      statut: '',
-      specialite: '',
-      anneeObtention: '',
-      mention: '',
-      moyenne: 0,
-      type: 'Baccalaureat',
-      candidatId: 0,
-    },
-    {
-      id: 0,
-      nomEtablissement: '',
-      pays: '',
-      academie: '',
-      statut: '',
-      specialite: '',
-      anneeObtention: '',
-      mention: '',
-      moyenne: 0,
-      type: 'Licence',
-      candidatId: 0,
-    },
-    {
-      id: 0,
-      nomEtablissement: '',
-      pays: '',
-      academie: '',
-      statut: '',
-      specialite: '',
-      anneeObtention: '',
-      mention: '',
-      moyenne: 0,
-      type: 'Master',
-      candidatId: 0,
-    },
-  ];
+        // Assigner les autres détails
+        this.candidatdetails.nom = details.nom;
+        this.candidatdetails.prenom = details.prenom;
+        this.candidatdetails.email = details.email;
+        this.candidatdetails.telephone = details.telephone;
+        this.candidatdetails.cin = details.cin;
+        this.candidatdetails.situationFamiliale = details.situationFamiliale;
+        this.candidatdetails.nationalite = details.nationalite;
+        this.candidatdetails.prenomArabe = details.prenomArabe;
+        this.candidatdetails.nomArabe = details.nomArabe;
+        this.candidatdetails.payeNaissance = details.payeNaissance;
+        this.candidatdetails.adresse = details.adresse;
+        this.candidatdetails.codePostal = details.codePostal;
+        this.candidatdetails.handicap = details.handicap;
+        this.candidatdetails.professionPere = details.professionPere;
+        this.candidatdetails.professionMere = details.professionMere;
+        this.candidatdetails.provincePere = details.provincePere;
+        this.candidatdetails.provinceMere = details.provinceMere;
+        this.candidatdetails.profession = details.profession;
+        this.candidatdetails.dateNaissance = details.dateNaissance;
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération des détails du candidat :', err);
+      }
+    });
+  }
+}
 
-  experiences: ExperienceProf[] = [
-    {
-      id: 0,
-      experience: '',
-      etablissement: '',
-      fonction: '',
-      secteurActivite: '',
-      dateDebut: '',
-      dateFin: '',
-      candidatId: 0,
-    },
-  ];
+  
+
 
   ajouterNouvelleExperience() {
     this.experiences.push({
@@ -107,8 +147,51 @@ export class ProfilComponent {
 
   // Méthode pour ajouter une nouvelle langue au tableau
   ajouterNouvelleLangue() {
-    this.langues.push({ id: 0, langue: '', niveau: '', candidatId: 0 });
+    this.Langues.push({ id: 0, langue: '', niveau: '', candidatId: 0 });
   }
+
+
+  sauvegarderEtatCivil() {
+    const userId = localStorage.getItem('userId');
+  
+    if (!userId) {
+      this.errorMessage = 'Utilisateur non authentifié. Veuillez vous reconnecter.';
+      return;
+    }
+  
+    const userIdNumber = parseInt(userId, 10);
+  
+    // Construire la requête pour l'état civil
+    const candidatDetailsRequest = {
+      situationFamiliale: this.candidatdetails.situationFamiliale,
+      nationalite: this.candidatdetails.nationalite,
+      prenomArabe: this.candidatdetails.prenomArabe,
+      nomArabe: this.candidatdetails.nomArabe,
+      payeNaissance: this.candidatdetails.payeNaissance,
+      adresse: this.candidatdetails.adresse,
+      codePostal: this.candidatdetails.codePostal,
+      handicap: this.candidatdetails.handicap,
+      professionPere: this.candidatdetails.professionPere,
+      professionMere: this.candidatdetails.professionMere,
+      provincePere: this.candidatdetails.provincePere,
+      provinceMere: this.candidatdetails.provinceMere,
+      profession: this.candidatdetails.profession,
+      dateNaissance: this.candidatdetails.dateNaissance,
+    };
+  
+    // Sauvegarder les détails de l'état civil via le service candidat
+    this.candidatService.addDetails(userIdNumber, candidatDetailsRequest).subscribe({
+      next: (response) => {
+        console.log('Détails de l\'état civil sauvegardés :', response);
+        this.successMessage = 'État civil sauvegardé avec succès.';
+      },
+      error: (err) => {
+        console.error('Erreur lors de la sauvegarde des détails de l\'état civil :', err);
+        this.errorMessage = 'Une erreur est survenue lors de la sauvegarde de l\'état civil. Veuillez réessayer.';
+      },
+    });
+  }
+  
 
   // Méthode pour sauvegarder toutes les informations
   sauvegarderTout() {
@@ -126,52 +209,28 @@ export class ProfilComponent {
     this.successMessage = '';
 
     // Sauvegarder les informations des langues
-    const languesRemplies = this.langues.filter((langue) => langue.langue && langue.niveau);
-    if (languesRemplies.length > 0) {
-      this.candidatService.addLangues(userIdNumber, languesRemplies).subscribe({
-        next: (response) => {
-          console.log('Langues sauvegardées :', response);
-        },
-        error: (err) => {
-          console.error('Erreur lors de la sauvegarde des langues :', err);
-          this.errorMessage = 'Une erreur est survenue lors de la sauvegarde des langues. Veuillez réessayer.';
-        },
-      });
-    }
+    
 
     // Sauvegarder les informations des diplômes
-    const diplomesRemplis = this.diplomes.filter((diplome) => diplome.nomEtablissement && diplome.anneeObtention);
-    
-    if (diplomesRemplis.length > 0) {
-      this.candidatService.addDiplomes(userIdNumber, diplomesRemplis).subscribe({
-        next: (response) => {
-          console.log('Diplômes sauvegardés :', response);
-          this.successMessage = 'Toutes les informations ont été sauvegardées avec succès.';
-        },
-        error: (err) => {
-          console.error('Erreur lors de la sauvegarde des diplômes :', err);
-          this.errorMessage = 'Une erreur est survenue lors de la sauvegarde des diplômes. Veuillez réessayer.';
-        },
-      });
-    }
+   
      // Sauvegarder les expériences professionnelles
-     const experiencesRemplies = this.experiences.filter(
-      (experience) => experience.experience && experience.etablissement && experience.dateDebut && experience.dateFin
-    );
-    if (experiencesRemplies.length > 0) {
-      this.candidatService.addExperiences(userIdNumber, experiencesRemplies).subscribe({
-        next: (response) => {
-          console.log('Expériences sauvegardées :', response);
-          this.successMessage = 'Toutes les informations ont été sauvegardées avec succès.';
-        },
-        error: (err) => {
-          console.error('Erreur lors de la sauvegarde des expériences :', err);
-          this.errorMessage = 'Une erreur est survenue lors de la sauvegarde des expériences. Veuillez réessayer.';
-        },
-      });
-    }
-  
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   onLogout() {
     this.authService.logout();
   }

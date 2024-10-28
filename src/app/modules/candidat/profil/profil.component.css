@@ -437,11 +437,11 @@ main .new-users .user-list:hover{
   
   .submit-btn {
     grid-column: span 3; /* Make the submit button span all columns */
-    background-color: #2d4d94;
+    background-color: #95acdd;
     color: white;
-    padding: 10px 20px;
+    padding: 5px 15px;
     border: none;
-    border-radius: 5px;
+    border-radius: 2px;
     cursor: pointer;
   }
   
@@ -450,4 +450,15 @@ main .new-users .user-list:hover{
   }
   
   /************************************/
+  .success-message {
+    grid-column: span 3; 
+    color: green;
+    margin-top: 10px;
+  }
+  
+  .error-message {
+    grid-column: span 3; 
+    color: red;
+    margin-top: 10px;
+  }
   

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Sujet } from '../../../models/Sujet.model';
 import { ProfesseurService } from '../../../services/prof/professeur.service';
+import { MessageService } from '../../../services/message/message.service';
 
 @Component({
   selector: 'app-depot-sujet',
@@ -16,8 +17,9 @@ import { ProfesseurService } from '../../../services/prof/professeur.service';
 export class DepotSujetComponent implements OnInit {
   constructor(
     private authService: AuthService,
-    private professeurService: ProfesseurService
-  ) {}
+    private professeurService: ProfesseurService,private messageService: MessageService) {}
+    successMessage: string | null = null;
+  
 
   sujets: Sujet[] = [];
   filteredSujets: Sujet[] = [];
@@ -31,6 +33,10 @@ export class DepotSujetComponent implements OnInit {
   totalPages: number[] = [];
 
   ngOnInit(): void {
+    this.successMessage = this.messageService.getSuccessMessage();
+
+      // Effacer le message après l'affichage
+      this.messageService.clearSuccessMessage();
     const professeurId = localStorage.getItem('userId');
     if (professeurId) {
       const professeurIdNumber = parseInt(professeurId, 10);

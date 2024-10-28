@@ -3,26 +3,26 @@ export class ProfesseurDTO {
     prenom: string;
     email: string;
     centre_id: number;
-    structureNom: string;
+    structnom: string;
     etablissement: string;
-    structureId: number;
+    structid: number;
   
     constructor(
       nom: string,
       prenom: string,
       email: string,
       centre_id: number,
-      structureNom: string,
+      structnom: string,
       etablissement: string,
-      structureId: number
+      structid: number
     ) {
       this.nom = nom;
       this.prenom = prenom;
       this.email = email;
       this.centre_id = centre_id;
-      this.structureNom = structureNom;
+      this.structnom = structnom;
       this.etablissement = etablissement;
-      this.structureId = structureId;
+      this.structid = structid;
     }
   }
   

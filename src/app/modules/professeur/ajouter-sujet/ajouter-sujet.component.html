@@ -50,20 +50,20 @@
     <!-- End of Sidebar Section -->
 
     <!-- Main Content -->
-    <main>
+    <main >
         <h1>Sujets</h1><br>
         <a href="Professeur/depotSujet" class="linkActive"><span>Liste des sujets</span></a>
         <span class="linkDisabled">> Ajouter sujet</span><br><br>
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
          <!-- Formulaire d'ajout de sujet -->
          <form class="add-professor-form" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-              <label for="ced">Centre ID (CED)</label>
-              <input type="text" id="ced" name="ced" [value]="cedId" readonly>
-            </div>
+           
           
             <div class="form-group">
               <label for="structure">Structure de recherche</label>
-              <input type="text" id="structure" name="structure" [value]="structureRecherchenom" readonly>
+              <input type="text" id="structure" name="structure" [(ngModel)]="structnom" readonly>
             </div>
           
             <div class="form-group">

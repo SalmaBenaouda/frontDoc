@@ -439,3 +439,23 @@ aside .sidebar .message-count{
  .add-professor-form .btn-submit:hover {
     background-color: #004494;
   }
+
+  
+  .success-message {
+    color: #270;
+    background-color: #DFF2BF;
+    margin: 10px 0;
+    padding: 10px;
+    
+    border-radius: 5px;
+  }
+  
+  .error-message {
+    color: #D8000C;
+              background-color: #FFBABA;
+        margin: 10px 0;
+        padding: 10px;
+   
+    border-radius: 5px;
+  }
+  

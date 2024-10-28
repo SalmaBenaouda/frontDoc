@@ -54,7 +54,9 @@
         <h1>Sujets</h1><br>
         <span class="linkDisabled">Liste des sujets > </span>
         <a href="Professeur/ajouterSujet" class="linkActive"><span>Ajouter sujet</span></a><br><br>
-
+        <div *ngIf="successMessage" class="success-message">
+            {{ successMessage }}
+          </div>
         <!-- Search and Filter Section -->
         <div class="search-filter">
             <input type="text" placeholder="Rechercher par titre" (input)="onSearchChange($event)">

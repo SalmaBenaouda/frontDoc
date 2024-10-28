@@ -24,5 +24,12 @@ export class ProfesseurService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post<string>(`${this.apiUrl}/updateSujet/${id}`, sujet, { headers});
   }
+  addSujet(sujet: Sujet): Observable<string> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.apiUrl}/addSujet`, sujet, { headers, responseType: 'text' });
+  }
+  
+  
   
 }

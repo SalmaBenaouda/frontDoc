@@ -154,7 +154,15 @@
 <!-- Section Baccalauréat -->
 <div class="new-users" *ngIf="diplomes && diplomes.length > 0">
 <h2>Baccalauréat</h2>
+
 <div class="etat-civil-form" *ngIf="diplomes[0]">
+  
+<div *ngIf="successMessageDiplome" class="success-message">
+  {{ successMessageDiplome }}
+</div>
+<div *ngIf="errorMessageDiplome" class="error-message">
+  {{ errorMessageDiplome }}
+</div>
 <div class="form-row">
 <label>Nom du lycée*</label>
 <input type="text" [(ngModel)]="diplomes[0].nomEtablissement" required />
@@ -288,10 +296,14 @@
 <label>Moyenne générale /20*</label>
 <input type="text" [(ngModel)]="diplomes[2].moyenne" required />
 </div>
+<button (click)="sauvegarderDiplomes()" class="btn-save-langues">Enregistrer les diplômes</button>
+
 </div>
+
 </div>
 
 
+<!-- Bouton pour enregistrer les diplômes -->
 
        
 <br>

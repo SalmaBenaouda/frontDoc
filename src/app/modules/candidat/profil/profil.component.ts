@@ -47,7 +47,7 @@ ngOnInit(): void {
             anneeObtention: '',
             mention: '',
             moyenne: 0,
-            type: 'Baccalaureat',
+            type: 'Bac',
             candidatId: userIdNumber,
           },
           {
@@ -149,6 +149,8 @@ ngOnInit(): void {
   errorMessageExp: string = '';
   successMessageCivil: string = '';
   errorMessageCivil: string = '';
+  successMessageDiplome: string = '';
+  errorMessageDiplome: string = '';
 
   // Méthode pour ajouter une nouvelle langue au tableau
   ajouterNouvelleLangue() {
@@ -273,7 +275,55 @@ ngOnInit(): void {
     }
   }
   
-  
+  sauvegarderDiplomes(): void {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      this.errorMessageDiplome = 'Utilisateur non authentifié. Veuillez vous reconnecter.';
+      return;
+    }
+
+    const userIdNumber = parseInt(userId, 10);
+
+    // Créer une copie des diplômes existants avant de les sauvegarder
+    const nouveauxDiplomes: Diplome[] = [];
+    this.diplomes.forEach((diplome) => {
+      if (!diplome.id || diplome.id === 0) {
+        // Si le diplôme n'a pas d'identifiant, il est considéré comme nouveau
+        nouveauxDiplomes.push(diplome);
+      } else {
+        // Sinon, il existe déjà et on ne l'ajoute pas à nouveau
+        const index = this.diplomes.findIndex((d) => d.id === diplome.id);
+        if (index !== -1) {
+          this.diplomes[index] = diplome; // Mise à jour du diplôme existant
+        }
+      }
+    });
+
+    // Appeler le service pour ajouter uniquement les nouveaux diplômes
+    if (nouveauxDiplomes.length > 0) {
+      this.candidatService.addDiplomes(userIdNumber, nouveauxDiplomes).subscribe({
+        next: (response: string) => {
+          console.log('Nouveaux diplômes sauvegardés avec succès :', response);
+          this.successMessageDiplome = 'Diplômes sauvegardés avec succès.';
+          setTimeout(() => {
+            this.successMessageDiplome = '';
+          }, 5000); // Effacer le message de succès après 5 secondes
+        },
+        error: (err) => {
+          console.error('Erreur lors de la sauvegarde des diplômes :', err);
+          this.errorMessageDiplome = 'Une erreur est survenue lors de la sauvegarde des diplômes. Veuillez réessayer.';
+          setTimeout(() => {
+            this.errorMessageDiplome = '';
+          }, 5000); // Effacer le message d'erreur après 5 secondes
+        },
+      });
+    } else {
+      this.successMessageDiplome = 'Aucun nouveau diplôme à ajouter.';
+      setTimeout(() => {
+        this.successMessageDiplome = '';
+      }, 5000); // Effacer le message de succès après 5 secondes
+    }
+  }
 
   // Méthode pour sauvegarder toutes les informations
   sauvegarderTout() {

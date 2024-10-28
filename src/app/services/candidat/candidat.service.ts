@@ -49,4 +49,17 @@ export class CandidatService {
     return this.http.post(`${this.baseUrl}/addLangue/${userId}`, langues, { headers, responseType: 'text' });
   }
   
+  uploadGeneralDocuments(userId: number, formData: FormData): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.baseUrl}/addDocuments/${userId}`, formData, { headers, responseType: 'text' });
+  }
+
+  uploadDiplomeFiles(userId: number, formData: FormData): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.baseUrl}/AdddiplomesFiles/${userId}`, formData, { headers, responseType: 'text' });
+  }
+
+  
 }

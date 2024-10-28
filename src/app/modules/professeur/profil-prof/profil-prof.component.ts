@@ -43,16 +43,5 @@ export class ProfilProfComponent implements OnInit {
     this.authService.logout();
   }
 
-  editProfile(): void {
-    this.showEditModal = true;
-  }
 
-  closeEditModal(): void {
-    this.showEditModal = false;
-  }
-
-  saveProfile(): void {
-    console.log('Profil mis à jour : ', this.professeur);
-    this.closeEditModal();
-  }
 }

@@ -154,7 +154,15 @@
 <!-- Section Baccalauréat -->
 <div class="new-users" *ngIf="diplomes && diplomes.length > 0">
 <h2>Baccalauréat</h2>
+
 <div class="etat-civil-form" *ngIf="diplomes[0]">
+  
+<div *ngIf="successMessageDiplome" class="success-message">
+  {{ successMessageDiplome }}
+</div>
+<div *ngIf="errorMessageDiplome" class="error-message">
+  {{ errorMessageDiplome }}
+</div>
 <div class="form-row">
 <label>Nom du lycée*</label>
 <input type="text" [(ngModel)]="diplomes[0].nomEtablissement" required />
@@ -288,10 +296,14 @@
 <label>Moyenne générale /20*</label>
 <input type="text" [(ngModel)]="diplomes[2].moyenne" required />
 </div>
+<button (click)="sauvegarderDiplomes()" class="btn-save-langues">Enregistrer les diplômes</button>
+
 </div>
+
 </div>
 
 
+<!-- Bouton pour enregistrer les diplômes -->
 
        
 <br>
@@ -383,15 +395,71 @@
        
 <br>
 
+<div class="new-users">
+  <h2>Importation des documents</h2>
+  <div class="etat-civil-form">
+
+    <div *ngIf="successMessageDocument" class="success-message">
+      {{ successMessageDocument }}
+    </div>
+    <div *ngIf="errorMessageDocument" class="error-message">
+      {{ errorMessageDocument }}
+    </div>
+    <!-- Photo -->
+    <div class="form-row">
+      <label>Votre photo*</label>
+      <input type="file" (change)="onFileChange($event, 'photo')" accept="image/*" required>
+    </div>
+
+    <!-- Carte nationale -->
+    <div class="form-row">
+      <label>Carte nationale scannée*</label>
+      <input type="file" (change)="onFileChange($event, 'cin')" accept=".pdf" required>
+    </div>
+
+    <!-- CV -->
+    <div class="form-row">
+      <label>CV scanné*</label>
+      <input type="file" (change)="onFileChange($event, 'cv')" accept=".pdf" required>
+    </div>
+
+    <!-- Bac -->
+    <div class="form-row">
+      <label>Baccalauréat scanné*</label>
+      <input type="file" (change)="onFileChange($event, 'bacscanne')" accept=".pdf" required>
+    </div>
+
+    <!-- Licence -->
+    <div class="form-row">
+      <label>Licence scannée*</label>
+      <input type="file" (change)="onFileChange($event, 'lisencescanne')" accept=".pdf" required>
+    </div>
+    <div class="form-row">
+      <label>Relevé de notes Licence*</label>
+      <input type="file" (change)="onFileChange($event, 'licensereleve')" accept=".pdf" required>
+    </div>
+
+    <!-- Master -->
+    <div class="form-row">
+      <label>Master scanné*</label>
+      <input type="file" (change)="onFileChange($event, 'masterscanne')" accept=".pdf" required>
+    </div>
+    <div class="form-row">
+      <label>Relevé de notes Master*</label>
+      <input type="file" (change)="onFileChange($event, 'masterreleve')" accept=".pdf" required>
+    </div>
+    <button (click)="uploadAllDocuments()" class="btn-save-langues">Enregistrer les documents</button>
+
+  </div>
 
 
-<!-- Bouton Global pour Sauvegarder Tout -->
-<div class="save-all-section">
-<button (click)="sauvegarderTout()">Sauvegarder Toutes les Informations</button>
 </div>
-<!-- Affichage des messages -->
-<div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+
+
+
+
+
 
 
 <br>

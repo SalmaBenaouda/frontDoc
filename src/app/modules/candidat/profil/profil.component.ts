@@ -8,6 +8,7 @@ import { Diplome } from '../../../models/Diplome.model';
 import { ExperienceProf } from '../../../models/ExperienceProf.model';
 import { CandidatService } from '../../../services/candidat/candidat.service';
 import { Candidatdetails } from '../../../models/Candidatdetails.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profil',
@@ -49,7 +50,7 @@ ngOnInit(): void {
             anneeObtention: '',
             mention: '',
             moyenne: 0,
-            type: 'Baccalaureat',
+            type: 'Bac',
             candidatId: userIdNumber,
           },
           {
@@ -167,6 +168,21 @@ fetchCandidatDetails() {
   errorMessageExp: string = '';
   successMessageCivil: string = '';
   errorMessageCivil: string = '';
+  successMessageDiplome: string = '';
+  errorMessageDiplome: string = '';
+  successMessageDocument: string = '';
+  errorMessageDocument: string = '';
+  
+  uploadedFiles: any = {
+    photo: null,
+    cin: null,
+    cv: null,
+    bacscanne: null,
+    lisencescanne: null,
+    licensereleve: null,
+    masterscanne: null,
+    masterreleve: null
+  };
 
   // Méthode pour ajouter une nouvelle langue au tableau
   ajouterNouvelleLangue() {
@@ -291,33 +307,143 @@ fetchCandidatDetails() {
     }
   }
   
-  
-
-  // Méthode pour sauvegarder toutes les informations
-  sauvegarderTout() {
+  sauvegarderDiplomes(): void {
     const userId = localStorage.getItem('userId');
-
     if (!userId) {
-      this.errorMessage = 'Utilisateur non authentifié. Veuillez vous reconnecter.';
+      this.errorMessageDiplome = 'Utilisateur non authentifié. Veuillez vous reconnecter.';
       return;
     }
 
     const userIdNumber = parseInt(userId, 10);
 
-    // Réinitialiser les messages d'erreur
-    this.errorMessage = '';
-    this.successMessage = '';
+    // Créer une copie des diplômes existants avant de les sauvegarder
+    const nouveauxDiplomes: Diplome[] = [];
+    this.diplomes.forEach((diplome) => {
+      if (!diplome.id || diplome.id === 0) {
+        // Si le diplôme n'a pas d'identifiant, il est considéré comme nouveau
+        nouveauxDiplomes.push(diplome);
+      } else {
+        // Sinon, il existe déjà et on ne l'ajoute pas à nouveau
+        const index = this.diplomes.findIndex((d) => d.id === diplome.id);
+        if (index !== -1) {
+          this.diplomes[index] = diplome; // Mise à jour du diplôme existant
+        }
+      }
+    });
 
-    // Sauvegarder les informations des langues
-    
-
-    // Sauvegarder les informations des diplômes
-   
-     // Sauvegarder les expériences professionnelles
+    // Appeler le service pour ajouter uniquement les nouveaux diplômes
+    if (nouveauxDiplomes.length > 0) {
+      this.candidatService.addDiplomes(userIdNumber, nouveauxDiplomes).subscribe({
+        next: (response: string) => {
+          console.log('Nouveaux diplômes sauvegardés avec succès :', response);
+          this.successMessageDiplome = 'Diplômes sauvegardés avec succès.';
+          setTimeout(() => {
+            this.successMessageDiplome = '';
+          }, 5000); // Effacer le message de succès après 5 secondes
+        },
+        error: (err) => {
+          console.error('Erreur lors de la sauvegarde des diplômes :', err);
+          this.errorMessageDiplome = 'Une erreur est survenue lors de la sauvegarde des diplômes. Veuillez réessayer.';
+          setTimeout(() => {
+            this.errorMessageDiplome = '';
+          }, 5000); // Effacer le message d'erreur après 5 secondes
+        },
+      });
+    } else {
+      this.successMessageDiplome = 'Aucun nouveau diplôme à ajouter.';
+      setTimeout(() => {
+        this.successMessageDiplome = '';
+      }, 5000); // Effacer le message de succès après 5 secondes
+    }
   }
 
+  
+
+ // Fonction pour récupérer le fichier sélectionné
+onFileChange(event: any, fileType: string): void {
+  const file = event.target.files[0];
+  if (file) {
+    this.uploadedFiles[fileType] = file;
+  }
+}
+
+// Fonction pour uploader tous les fichiers
+uploadAllDocuments(): void {
+  const userId = localStorage.getItem('userId');
+  if (!userId) {
+    this.errorMessageDocument = 'Utilisateur non authentifié. Veuillez vous reconnecter.';
+    return;
+  }
+
+  const userIdNumber = parseInt(userId, 10);
+
+  // Envoyer les documents généraux (photo, cin, cv)
+  this.uploadGeneralDocuments(userIdNumber).subscribe({
+    next: (response: string) => {
+      console.log('Documents généraux téléchargés avec succès :', response);
+      // Appeler ensuite l'envoi des fichiers de diplômes après le succès des documents généraux
+      this.uploadDiplomeFiles(userIdNumber);
+    },
+    error: (err) => {
+      console.error('Erreur lors du téléchargement des documents généraux :', err);
+      this.errorMessageDocument = 'Erreur lors de l\'enregistrement des documents généraux. Veuillez réessayer.';
+    }
+  });
+}
+
+// Fonction pour uploader les documents généraux
+uploadGeneralDocuments(userId: number): Observable<any> {
+  const formData: FormData = new FormData();
+  if (this.uploadedFiles.photo) {
+    formData.append('photo', this.uploadedFiles.photo);
+  }
+  if (this.uploadedFiles.cin) {
+    formData.append('cin', this.uploadedFiles.cin);
+  }
+  if (this.uploadedFiles.cv) {
+    formData.append('cv', this.uploadedFiles.cv);
+  }
+
+  return this.candidatService.uploadGeneralDocuments(userId, formData);
+}
+
+// Fonction pour uploader les fichiers des diplômes
+uploadDiplomeFiles(userId: number): void {
+  const formData: FormData = new FormData();
+  if (this.uploadedFiles.bacscanne) {
+    formData.append('bacscanne', this.uploadedFiles.bacscanne);
+  }
+  if (this.uploadedFiles.lisencescanne) {
+    formData.append('lisencescanne', this.uploadedFiles.lisencescanne);
+  }
+  if (this.uploadedFiles.licensereleve) {
+    formData.append('licensereleve', this.uploadedFiles.licensereleve);
+  }
+  if (this.uploadedFiles.masterscanne) {
+    formData.append('masterscanne', this.uploadedFiles.masterscanne);
+  }
+  if (this.uploadedFiles.masterreleve) {
+    formData.append('masterreleve', this.uploadedFiles.masterreleve);
+  }
+
+  this.candidatService.uploadDiplomeFiles(userId, formData).subscribe({
+    next: (response: string) => {
+      console.log('Fichiers des diplômes téléchargés avec succès :', response);
+      this.successMessageDocument = 'Tous les documents ont été enregistrés avec succès.';
+      setTimeout(() => {
+        this.successMessageDocument = '';
+      }, 5000);
+    },
+    error: (err) => {
+      console.error('Erreur lors du téléchargement des fichiers des diplômes :', err);
+      this.errorMessageDocument = 'Erreur lors de l\'enregistrement des fichiers des diplômes. Veuillez réessayer.';
+    }
+  });
+}
 
 
+
+  
 
   onLogout() {
     this.authService.logout();

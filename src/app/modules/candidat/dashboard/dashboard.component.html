@@ -112,7 +112,7 @@
                 <div class="user-list">
                     
                     <a href="Candidat/profil"><div class="user">
-                        <img src="images/hero-banner-1.jpg">
+                        <img *ngIf="photoUrl" [src]="photoUrl" alt="Profile Photo">
                         <h2>Mon dossier</h2>
                     </div></a>
                     <a href="Candidat/choixSujet"><div class="user">

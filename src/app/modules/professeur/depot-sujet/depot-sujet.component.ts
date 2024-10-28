@@ -3,16 +3,15 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Sujet } from '../../../models/Sujet.model';
-import { Professeur } from '../../../models/Professeur.model';
 import { ProfesseurService } from '../../../services/prof/professeur.service';
 
 @Component({
   selector: 'app-depot-sujet',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './depot-sujet.component.html',
   styleUrl: './depot-sujet.component.css',
-  encapsulation: ViewEncapsulation.None, 
+  encapsulation: ViewEncapsulation.None,
 })
 export class DepotSujetComponent implements OnInit {
   constructor(
@@ -24,7 +23,7 @@ export class DepotSujetComponent implements OnInit {
   filteredSujets: Sujet[] = [];
   paginatedSujets: Sujet[] = [];
   selectedSujet: Sujet | null = null;
-  sujetToEdit: Sujet | null = null;
+  sujetToEdit: Sujet | null = null;  
   showModal: boolean = false;
   showEditModal: boolean = false;
   currentPage: number = 1;
@@ -108,7 +107,7 @@ export class DepotSujetComponent implements OnInit {
   }
 
   editSujet(sujet: Sujet): void {
-    this.sujetToEdit = sujet;
+    this.sujetToEdit = { ...sujet }; // Copie du sujet pour édition
     this.showEditModal = true;
   }
 
@@ -119,11 +118,29 @@ export class DepotSujetComponent implements OnInit {
 
   saveSujet(): void {
     if (this.sujetToEdit) {
-      this.updatePaginatedSujets();
-      this.closeEditModal();
+      this.professeurService.updateSujet(this.sujetToEdit.id, this.sujetToEdit).subscribe({
+        next: (response: string) => {
+          console.log(response);
+          // Mise à jour de la liste des sujets
+          const index = this.sujets.findIndex((s) => s.id === this.sujetToEdit!.id);
+          if (index !== -1) {
+            // Créez un nouvel objet Sujet en utilisant les propriétés de sujetToEdit
+            this.sujets[index] = {
+              ...this.sujets[index], // Conserve les autres propriétés déjà existantes
+              ...this.sujetToEdit,   // Remplace uniquement les propriétés mises à jour
+            };
+          }
+          this.updatePaginatedSujets();
+          this.closeEditModal();
+        },
+        error: (err) => {
+          console.error('Erreur lors de la mise à jour du sujet :', err);
+        }
+      });
     }
   }
-
+  
+  
   deleteSujet(index: number): void {
     if (confirm("Voulez-vous vraiment supprimer ce sujet?")) {
       this.sujets.splice(index, 1);

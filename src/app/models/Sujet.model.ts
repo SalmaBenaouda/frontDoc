@@ -4,6 +4,7 @@ import { StructureRecherche } from "./StructureRecherche.model";
 
 
 export class Sujet {
+  id!:number;
   titre!: string;
   description!: string;
   thematique?: string;

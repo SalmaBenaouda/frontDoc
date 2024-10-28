@@ -48,7 +48,7 @@ export class InscriptionDoctorantComponent {
       },
       idSujet: 201,
       sujet: {
-        titre: 'Sujet 1',
+        id:0,titre: 'Sujet 1',
         structureRecherche: {
           id: 0,
           nom: '',
@@ -91,7 +91,7 @@ export class InscriptionDoctorantComponent {
       },
       idSujet: 202,
       sujet: {
-        titre: 'Sujet 2',
+        id:0,titre: 'Sujet 2',
         structureRecherche: {
           id: 0,
           nom: '',

@@ -47,7 +47,7 @@ export class SelectionComponent {
       },
       idSujet: 201,
       sujet: {
-        titre: 'Sujet 1', structureRecherche: {
+        id: 0,titre: 'Sujet 1', structureRecherche: {
           id: 0,
           nom: '',
           domaine: '',
@@ -89,7 +89,7 @@ export class SelectionComponent {
       },
       idSujet: 202,
       sujet: {
-        titre: 'Sujet 2', structureRecherche: {
+        id: 0,titre: 'Sujet 2', structureRecherche: {
           id: 0,
           nom: '',
           domaine: '',

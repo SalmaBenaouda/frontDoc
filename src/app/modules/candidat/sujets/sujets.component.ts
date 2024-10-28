@@ -33,6 +33,7 @@ export class SujetsComponent {
   sujetsDisponibles: { [formation: string]: Sujet[] } = {
     'IA': [
       {
+        id:0,
         titre: 'Réseaux de Neurones',
         description: 'Sujet sur l’apprentissage profond.',
         thematique: 'Sciences Humaines et Sociales',
@@ -42,6 +43,7 @@ export class SujetsComponent {
         structureRecherche: {} as StructureRecherche,
       },
       {
+        id:0,
         titre: 'Systèmes Experts',
         description: 'Étude des systèmes basés sur des règles.',
         thematique: 'Technologies et Sciences',
@@ -53,6 +55,7 @@ export class SujetsComponent {
     ],
     'Sécurité': [
       {
+        id:0,
         titre: 'Cryptographie Avancée',
         description: 'Sécurisation par chiffrement.',
         thematique: 'Mathématiques Appliquées',

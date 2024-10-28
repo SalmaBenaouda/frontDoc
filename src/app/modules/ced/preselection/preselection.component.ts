@@ -49,7 +49,7 @@ export class PreselectionComponent implements OnInit{
         },
         idSujet: 201,
         sujet: {
-          titre: 'Sujet 1', structureRecherche: {
+          id: 0,titre: 'Sujet 1', structureRecherche: {
             id: 0,
             nom: '',
             domaine: '',
@@ -91,7 +91,7 @@ export class PreselectionComponent implements OnInit{
         },
         idSujet: 202,
         sujet: {
-          titre: 'Sujet 2', structureRecherche: {
+          id: 0,titre: 'Sujet 2', structureRecherche: {
             id: 0,
             nom: '',
             domaine: '',

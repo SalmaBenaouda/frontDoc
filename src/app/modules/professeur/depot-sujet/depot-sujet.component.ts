@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { Sujet } from '../../../models/Sujet.model';
 import { ProfesseurService } from '../../../services/prof/professeur.service';
 import { MessageService } from '../../../services/message/message.service';
+import { ProfesseurDTO } from '../../../models/ProfesseurDTO.model';
+
 
 @Component({
   selector: 'app-depot-sujet',
@@ -15,6 +17,7 @@ import { MessageService } from '../../../services/message/message.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class DepotSujetComponent implements OnInit {
+  professeur: ProfesseurDTO = new ProfesseurDTO('', '', '', 0, '', '','',0); // Initialisation complète
   constructor(
     private authService: AuthService,
     private professeurService: ProfesseurService,private messageService: MessageService) {}
@@ -35,7 +38,7 @@ export class DepotSujetComponent implements OnInit {
 
   ngOnInit(): void {
     this.successMessage = this.messageService.getSuccessMessage();
-
+    this.loadProfesseurData();
       // Effacer le message après l'affichage
       this.messageService.clearSuccessMessage();
     const professeurId = localStorage.getItem('userId');
@@ -54,6 +57,22 @@ export class DepotSujetComponent implements OnInit {
       });
     }
   }
+  loadProfesseurData(): void {
+    const userId = Number(localStorage.getItem('userId')); // Récupère `userId` depuis localStorage
+    if (userId) {
+      this.professeurService.findProfesseurById(userId).subscribe(
+        (data: ProfesseurDTO) => {
+          this.professeur = data;
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des données du professeur:', error);
+        }
+      );
+    } else {
+      console.error('userId introuvable dans localStorage');
+    }
+  }
+
 
   onLogout() {
     this.authService.logout();

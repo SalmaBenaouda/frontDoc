@@ -6,6 +6,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth/auth.service';
 import { FormsModule } from '@angular/forms';
+import { ProfesseurService } from '../../../services/prof/professeur.service';
+import { ProfesseurDTO } from '../../../models/ProfesseurDTO.model';
 
 @Component({
   selector: 'app-planning-preselection',
@@ -15,8 +17,10 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './planning-preselection.component.css',
   encapsulation: ViewEncapsulation.None, 
 })
-export class PlanningPreselectionComponent {
-  constructor(private authService: AuthService) {}
+export class PlanningPreselectionComponent implements OnInit{
+
+  professeur: ProfesseurDTO = new ProfesseurDTO('', '', '', 0, '', '','',0); // Initialisation complète
+  constructor(private professeurService: ProfesseurService, private authService: AuthService) {}
 
   onLogout() {
     this.authService.logout();
@@ -84,7 +88,25 @@ export class PlanningPreselectionComponent {
   ngOnInit() {
     const today = new Date().toISOString().slice(0, 10);
     this.filterEventsByDate(today);
+    this.loadProfesseurData();
   }
+  loadProfesseurData(): void {
+    const userId = Number(localStorage.getItem('userId')); // Récupère `userId` depuis localStorage
+    if (userId) {
+      this.professeurService.findProfesseurById(userId).subscribe(
+        (data: ProfesseurDTO) => {
+          this.professeur = data;
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des données du professeur:', error);
+        }
+      );
+    } else {
+      console.error('userId introuvable dans localStorage');
+    }
+  }
+
+  
 
   filterEventsByDate(date: string) {
     this.selectedEvents = this.events.filter((event: any) => {

@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation,OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Sujet } from '../../../models/Sujet.model';
@@ -6,6 +6,8 @@ import { Candidature } from '../../../models/candidature.model';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Professeur } from '../../../models/Professeur.model';
 import { StructureRecherche } from '../../../models/StructureRecherche.model';
+import { CandidatService } from '../../../services/candidat/candidat.service';
+import { Candidatdetails } from '../../../models/Candidatdetails.model';
 
 @Component({
   selector: 'app-sujets',
@@ -16,9 +18,13 @@ import { StructureRecherche } from '../../../models/StructureRecherche.model';
   encapsulation: ViewEncapsulation.None, 
 })
 
-export class SujetsComponent {
-  constructor(private authService: AuthService) {}
+export class SujetsComponent implements OnInit{
+  candidatDetails!: Candidatdetails; // Variable pour stocker les détails du candidat
 
+  constructor(private candidatService: CandidatService, private authService: AuthService) {}
+  ngOnInit() {
+    this.fetchCandidatDetails(); // Appel de la méthode pour récupérer les détails du candidat
+  }
   onLogout() {
     this.authService.logout();
   }
@@ -85,7 +91,23 @@ export class SujetsComponent {
   fermerModale() {
     this.sujetActuel = null;
   }
+  fetchCandidatDetails() {
+    const userId = Number(localStorage.getItem('userId')); // Récupérez l'ID de l'utilisateur depuis localStorage
 
+    if (userId) {
+      this.candidatService.getCandidatDetails(userId).subscribe(
+        (details) => {
+          this.candidatDetails = details; // Stockez tous les détails récupérés
+          console.log(this.candidatDetails.nom); // Affichez le nom dans la console
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des détails du candidat:', error);
+        }
+      );
+    } else {
+      console.error('userId non trouvé dans localStorage');
+    }
+  }
   selectSujet(sujet: Sujet) {
     if (this.sujetsSelectionnes.length < 3) {
       if (!this.sujetsSelectionnes.some(selected => selected.titre === sujet.titre)) {

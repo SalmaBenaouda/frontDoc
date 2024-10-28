@@ -7,7 +7,7 @@ import { Langue } from '../../models/Langue.model';
   providedIn: 'root',
 })
 export class LangueService {
-  private baseUrl = 'http://localhost:8081/Candidat'; 
+  private baseUrl = 'http://localhost:8082/Candidat'; 
 
   constructor(private http: HttpClient) {}
 

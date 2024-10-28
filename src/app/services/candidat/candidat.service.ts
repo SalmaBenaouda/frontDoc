@@ -9,11 +9,12 @@ import { ExperienceProf } from '../../models/ExperienceProf.model';
 import { AddCandidatedetailsRequest } from '../../models/AddCandidatedetailsRequest.model';
 import { Candidatdetails } from '../../models/Candidatdetails.model';
 
+
 @Injectable({
   providedIn: 'root',
 })
 export class CandidatService {
-  private baseUrl = 'http://localhost:8081/Candidat';
+  private baseUrl = 'http://localhost:8082/Candidat';
 
   constructor(private http: HttpClient) {}
 

@@ -19,7 +19,8 @@ import { Candidatdetails } from '../../../models/Candidatdetails.model';
 })
 export class ProfilComponent implements OnInit{
   candidatdetails: Candidatdetails = new Candidatdetails(); // Définir la propriété
-
+  candidatDetails!: Candidatdetails;
+  
   constructor(
     private authService: AuthService,
     private candidatService: CandidatService,
@@ -29,6 +30,7 @@ export class ProfilComponent implements OnInit{
 diplomes: Diplome[] = [];
 experiences: ExperienceProf[] = [];
 ngOnInit(): void {
+  this.fetchCandidatDetails();
   const userId = localStorage.getItem('userId');
   if (userId) {
     const userIdNumber = parseInt(userId, 10);
@@ -125,7 +127,23 @@ ngOnInit(): void {
 }
 
   
+fetchCandidatDetails() {
+  const userId = Number(localStorage.getItem('userId')); // Récupérez l'ID de l'utilisateur depuis localStorage
 
+  if (userId) {
+    this.candidatService.getCandidatDetails(userId).subscribe(
+      (details) => {
+        this.candidatDetails = details; // Stockez tous les détails récupérés
+        console.log(this.candidatDetails.nom); // Affichez le nom dans la console
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des détails du candidat:', error);
+      }
+    );
+  } else {
+    console.error('userId non trouvé dans localStorage');
+  }
+}
 
   ajouterNouvelleExperience() {
     this.experiences.push({

@@ -8,7 +8,7 @@ import { ProfesseurDTO } from '../../models/ProfesseurDTO.model';
   providedIn: 'root',
 })
 export class ProfesseurService {
-  private apiUrl = 'http://localhost:8082/Professeur';
+  private apiUrl = 'http://localhost:8081/Professeur';
 
   constructor(private http: HttpClient) {}
 

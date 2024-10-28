@@ -13,7 +13,7 @@ import { Candidatdetails } from '../../models/Candidatdetails.model';
   providedIn: 'root',
 })
 export class CandidatService {
-  private baseUrl = 'http://localhost:8082/Candidat';
+  private baseUrl = 'http://localhost:8081/Candidat';
 
   constructor(private http: HttpClient) {}
 

@@ -7,7 +7,7 @@ import { Diplome } from '../../models/Diplome.model';
   providedIn: 'root',
 })
 export class DiplomeService {
-  private baseUrl = 'http://localhost:8082/Candidat';
+  private baseUrl = 'http://localhost:8081/Candidat';
 
   constructor(private http: HttpClient) {}
 

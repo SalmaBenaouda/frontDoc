@@ -60,13 +60,13 @@
       <h2>État Civil</h2>
       <div class="etat-civil-form">
                 <!-- Afficher le message de succès s'il existe -->
-<div *ngIf="successMessage" class="success-message">
-  {{ successMessage }}
+<div *ngIf="successMessageCivil" class="success-message">
+  {{ successMessageCivil }}
 </div>
 
 <!-- Afficher le message d'erreur s'il existe -->
-<div *ngIf="errorMessage" class="error-message">
-  {{ errorMessage }}
+<div *ngIf="errorMessageCivil" class="error-message">
+  {{ errorMessageCivil }}
 </div>
         <div class="form-row">
           <label>Nom*</label>
@@ -298,12 +298,20 @@
 
 <!-- Section Langues -->
 <!-- Section Langues -->
- <div class="new-users">
+<div class="new-users">
   <div class="header">
     <h2>Langues</h2>
     <button (click)="ajouterNouvelleLangue()" class="btn-add-langue">+</button>
   </div>
   <div class="etat-civil-form">
+    
+<div *ngIf="successMessageLangue" class="success-message">
+  {{ successMessageLangue }}
+</div>
+<div *ngIf="errorMessageLangue" class="error-message">
+  {{ errorMessageLangue }}
+</div>
+
     <div *ngFor="let langue of Langues; let i = index" class="langue-group">
       <div class="form-row">
         <label>Langue {{ i + 1 }} <span *ngIf="i === 0" style="color: red">*</span></label>
@@ -320,7 +328,10 @@
           <option value="c2">C2 Niveau Maitrisé</option>
         </select>
       </div>
+
     </div>
+    <button (click)="sauvegarderLangues()" class="btn-save-langues">Sauvegarder les langues</button>
+
   </div>
 </div>
 
@@ -333,6 +344,12 @@
   <h2>Expériences professionnelles</h2>
   <button (click)="ajouterNouvelleExperience()" class="btn-add-langue">+</button>
   <div *ngFor="let experience of experiences; let i = index" class="etat-civil-form">
+    <div *ngIf="successMessageExp" class="success-message">
+      {{ successMessageExp }}
+    </div>
+    <div *ngIf="errorMessageExp" class="error-message">
+      {{ errorMessageExp }}
+    </div>
     <div class="form-row">
       <label>Expérience {{ i + 1 }}*</label>
       <input type="text" [(ngModel)]="experience.experience" required>
@@ -357,7 +374,10 @@
       <label>Au*</label>
       <input type="date" [(ngModel)]="experience.dateFin" required>
     </div>
+
   </div>
+<div class="etat-civil-form2">  <button (click)="sauvegarderExperiences()" class="btn-save-langues">Sauvegarder les expériences</button>
+</div>
 </div>
 
        

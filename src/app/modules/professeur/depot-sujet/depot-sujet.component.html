@@ -57,6 +57,10 @@
         <div *ngIf="successMessage" class="success-message">
             {{ successMessage }}
           </div>
+          <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
+          
         <!-- Search and Filter Section -->
         <div class="search-filter">
             <input type="text" placeholder="Rechercher par titre" (input)="onSearchChange($event)">
@@ -95,26 +99,24 @@
         <!-- Modal for Edit Sujet -->
         <div class="modal" [ngClass]="{'show-modal': showEditModal}" *ngIf="sujetToEdit">
             <div class="modal-content">
-                <span class="close-button" (click)="closeEditModal()">&times;</span>
-                <div class="modal-banner">
-                    <img src="images/banner.png" alt="Banner Image" class="banner-image">
+              <span class="close-button" (click)="closeEditModal()">&times;</span>
+              <div class="modal-header">
+                <h2>Modifier Sujet</h2>
+              </div>
+              <div class="profile-details">
+                <div class="profile-info">
+                  <label>Titre :</label>
+                  <input type="text" [(ngModel)]="sujetToEdit.titre">
+                  <label>Thématique :</label>
+                  <input type="text" [(ngModel)]="sujetToEdit.thematique">
+                  <label>Description :</label>
+                  <input type="text" [(ngModel)]="sujetToEdit.description">
                 </div>
-                <div class="modal-header">
-                    <h2>Modifier Sujet</h2>
-                </div>
-                <div class="profile-details">
-                    <div class="profile-info">
-                        <label>Titre :</label>
-                        <input type="text" [(ngModel)]="sujetToEdit.titre">
-                        <label>Thématique :</label>
-                        <input type="text" [(ngModel)]="sujetToEdit.thematique">
-                        <label>Description :</label>
-                        <input type="text" [(ngModel)]="sujetToEdit.description">
-                    </div>
-                    <button (click)="saveSujet()" class="save-structure-button">Sauvegarder</button>
-                </div>
+                <button (click)="saveSujet()" class="save-structure-button">Sauvegarder</button>
+              </div>
             </div>
-        </div>
+          </div>
+          
 
         <!-- Pagination Section -->
         <div class="pagination">

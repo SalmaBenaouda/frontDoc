@@ -19,6 +19,7 @@ export class DepotSujetComponent implements OnInit {
     private authService: AuthService,
     private professeurService: ProfesseurService,private messageService: MessageService) {}
     successMessage: string | null = null;
+    errorMessage: string | null = null;
   
 
   sujets: Sujet[] = [];
@@ -124,34 +125,71 @@ export class DepotSujetComponent implements OnInit {
 
   saveSujet(): void {
     if (this.sujetToEdit) {
-      this.professeurService.updateSujet(this.sujetToEdit.id, this.sujetToEdit).subscribe({
+      // Prépare un objet Sujet complet en utilisant les propriétés existantes de sujetToEdit
+      const updatedSujet: Sujet = {
+        ...this.sujetToEdit, // Conserve les propriétés existantes (comme id, professeur_id, structureRecherche_id, etc.)
+        titre: this.sujetToEdit.titre,
+        thematique: this.sujetToEdit.thematique,
+        description: this.sujetToEdit.description,
+      };
+  
+      this.professeurService.updateSujet(this.sujetToEdit.id, updatedSujet).subscribe({
         next: (response: string) => {
           console.log(response);
-          // Mise à jour de la liste des sujets
+  
+          // Mise à jour de la liste des sujets avec les nouvelles valeurs
           const index = this.sujets.findIndex((s) => s.id === this.sujetToEdit!.id);
           if (index !== -1) {
-            // Créez un nouvel objet Sujet en utilisant les propriétés de sujetToEdit
             this.sujets[index] = {
               ...this.sujets[index], // Conserve les autres propriétés déjà existantes
-              ...this.sujetToEdit,   // Remplace uniquement les propriétés mises à jour
+              ...updatedSujet,       // Met à jour uniquement les propriétés modifiées
             };
           }
+  
           this.updatePaginatedSujets();
           this.closeEditModal();
+       
         },
         error: (err) => {
           console.error('Erreur lors de la mise à jour du sujet :', err);
-        }
+  
+        },
       });
     }
   }
   
   
+  
   deleteSujet(index: number): void {
     if (confirm("Voulez-vous vraiment supprimer ce sujet?")) {
-      this.sujets.splice(index, 1);
-      this.calculateTotalPages();
-      this.updatePaginatedSujets();
+      const sujetId = this.paginatedSujets[index].id;
+  
+      this.professeurService.deleteSujet(sujetId).subscribe({
+        next: (response: string) => {
+          console.log(response);
+  
+          // Supprimer le sujet de la liste côté front-end
+          const originalIndex = this.sujets.findIndex((s) => s.id === sujetId);
+          if (originalIndex !== -1) {
+            this.sujets.splice(originalIndex, 1);
+            this.filteredSujets = [...this.sujets];
+            this.calculateTotalPages();
+            this.updatePaginatedSujets();
+          }
+  
+          // Afficher un message de succès
+          this.successMessage = 'Sujet supprimé avec succès';
+          setTimeout(() => {
+            this.successMessage = null;
+          }, 5000);
+        },
+        error: (err) => {
+          console.error('Erreur lors de la suppression du sujet :', err);
+          this.errorMessage = 'Erreur lors de la suppression du sujet. Veuillez réessayer.';
+          setTimeout(() => {
+            this.errorMessage = null;
+          }, 5000);
+        }
+      });
     }
-  }
-}
+  }}

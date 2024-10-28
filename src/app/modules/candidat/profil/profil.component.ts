@@ -140,10 +140,15 @@ ngOnInit(): void {
     });
   }
 
-  
-
+  // Messages
   successMessage: string = '';
   errorMessage: string = '';
+  successMessageLangue: string = '';
+  errorMessageLangue: string = '';
+  successMessageExp: string = '';
+  errorMessageExp: string = '';
+  successMessageCivil: string = '';
+  errorMessageCivil: string = '';
 
   // Méthode pour ajouter une nouvelle langue au tableau
   ajouterNouvelleLangue() {
@@ -155,7 +160,7 @@ ngOnInit(): void {
     const userId = localStorage.getItem('userId');
   
     if (!userId) {
-      this.errorMessage = 'Utilisateur non authentifié. Veuillez vous reconnecter.';
+      this.errorMessageCivil = 'Utilisateur non authentifié. Veuillez vous reconnecter.';
       return;
     }
   
@@ -183,14 +188,91 @@ ngOnInit(): void {
     this.candidatService.addDetails(userIdNumber, candidatDetailsRequest).subscribe({
       next: (response) => {
         console.log('Détails de l\'état civil sauvegardés :', response);
-        this.successMessage = 'État civil sauvegardé avec succès.';
+        this.successMessageCivil = 'État civil sauvegardé avec succès.';
       },
       error: (err) => {
         console.error('Erreur lors de la sauvegarde des détails de l\'état civil :', err);
-        this.errorMessage = 'Une erreur est survenue lors de la sauvegarde de l\'état civil. Veuillez réessayer.';
+        this.errorMessageCivil = 'Une erreur est survenue lors de la sauvegarde de l\'état civil. Veuillez réessayer.';
       },
     });
   }
+  
+  sauvegarderLangues(): void {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      this.errorMessageLangue = 'Utilisateur non authentifié. Veuillez vous reconnecter.';
+      return;
+    }
+  
+    const userIdNumber = parseInt(userId, 10);
+    this.candidatService.addLangues(userIdNumber, this.Langues).subscribe({
+      next: (response: string) => {
+        console.log('Langues sauvegardées avec succès :', response);
+        this.successMessageLangue = 'Langues sauvegardées avec succès.';
+        setTimeout(() => {
+          this.successMessageLangue = '';
+        }, 5000); // Effacer le message de succès après 5 secondes
+      },
+      error: (err) => {
+        console.error('Erreur lors de la sauvegarde des langues :', err);
+        this.errorMessageLangue = 'Une erreur est survenue lors de la sauvegarde des langues. Veuillez réessayer.';
+        setTimeout(() => {
+          this.errorMessageLangue = '';
+        }, 5000); // Effacer le message d'erreur après 5 secondes
+      },
+    });
+  }
+  
+  sauvegarderExperiences(): void {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      this.errorMessageExp = 'Utilisateur non authentifié. Veuillez vous reconnecter.';
+      return;
+    }
+  
+    const userIdNumber = parseInt(userId, 10);
+  
+    // Créer une copie des expériences existantes avant de les sauvegarder
+    const nouvellesExperiences: ExperienceProf[] = [];
+    this.experiences.forEach((experience) => {
+      if (!experience.id || experience.id === 0) {
+        // Si l'expérience n'a pas d'identifiant, elle est considérée comme nouvelle
+        nouvellesExperiences.push(experience);
+      } else {
+        // Sinon, elle existe déjà et on ne l'ajoute pas à nouveau
+        const index = this.experiences.findIndex((exp) => exp.id === experience.id);
+        if (index !== -1) {
+          this.experiences[index] = experience; // Mise à jour de l'expérience existante
+        }
+      }
+    });
+  
+    // Appeler le service pour ajouter uniquement les nouvelles expériences
+    if (nouvellesExperiences.length > 0) {
+      this.candidatService.addExperiences(userIdNumber, nouvellesExperiences).subscribe({
+        next: (response: string) => {
+          console.log('Nouvelles expériences sauvegardées avec succès :', response);
+          this.successMessageExp = 'Expériences sauvegardées avec succès.';
+          setTimeout(() => {
+            this.successMessageExp = '';
+          }, 5000); // Effacer le message de succès après 5 secondes
+        },
+        error: (err) => {
+          console.error('Erreur lors de la sauvegarde des expériences :', err);
+          this.errorMessageExp = 'Une erreur est survenue lors de la sauvegarde des expériences. Veuillez réessayer.';
+          setTimeout(() => {
+            this.errorMessageExp = '';
+          }, 5000); // Effacer le message d'erreur après 5 secondes
+        },
+      });
+    } else {
+      this.successMessageExp = 'Aucune nouvelle expérience à ajouter.';
+      setTimeout(() => {
+        this.successMessageExp = '';
+      }, 5000); // Effacer le message de succès après 5 secondes
+    }
+  }
+  
   
 
   // Méthode pour sauvegarder toutes les informations
@@ -215,18 +297,6 @@ ngOnInit(): void {
    
      // Sauvegarder les expériences professionnelles
   }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

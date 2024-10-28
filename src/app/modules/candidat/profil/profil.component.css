@@ -414,6 +414,14 @@ main .new-users .user-list:hover{
     grid-template-columns: repeat(3, 1fr); /* Adjust to have 3 columns */
     gap: 15px; /* Adjust the space between fields */
   }
+  .etat-civil-form2 {
+    max-width: 3000px; /* Adjust width as needed */
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Adjust to have 3 columns */
+    gap: 15px; /* Adjust the space between fields */
+  }
+  
   
   .form-row {
     display: flex;
@@ -433,6 +441,19 @@ main .new-users .user-list:hover{
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
+  }
+  .btn-save-langues {
+    grid-column: span 3;
+        background-color: #95acdd; /* Couleur bleue */
+    color: #ffffff; /* Texte en blanc */
+    border: none; /* Supprimer les bordures par défaut */
+    padding: 5px 15px;
+    cursor: pointer; /* Changer le curseur lors du survol */
+    border-radius: 2px; /* Coins arrondis */
+  }
+  
+  .btn-save-langues:hover {
+    background-color: #1e3872; /* Couleur légèrement plus sombre au survol */
   }
   
   .submit-btn {

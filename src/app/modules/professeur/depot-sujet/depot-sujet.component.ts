@@ -1,9 +1,10 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Sujet } from '../../../models/Sujet.model';
 import { Professeur } from '../../../models/Professeur.model';
+import { ProfesseurService } from '../../../services/prof/professeur.service';
 
 @Component({
   selector: 'app-depot-sujet',
@@ -13,106 +14,13 @@ import { Professeur } from '../../../models/Professeur.model';
   styleUrl: './depot-sujet.component.css',
   encapsulation: ViewEncapsulation.None, 
 })
-export class DepotSujetComponent {
-  constructor(private authService: AuthService) {}
+export class DepotSujetComponent implements OnInit {
+  constructor(
+    private authService: AuthService,
+    private professeurService: ProfesseurService
+  ) {}
 
-  onLogout() {
-    this.authService.logout();
-  }
-
-  sujets: Sujet[] = [
-    {
-      titre: 'Sujet 1',
-      thematiques: 'Technologies et Sciences',
-      structureRecherche: {
-        id: 0,
-        nom: 'STI',
-        domaine: '',
-        etablissement: 'Tetouan',
-        ced_id: 0,
-      },
-      description: 'Étude des systèmes basés sur des règles.',
-      professeur_id: 0,
-      structureRecherche_id: 0,
-      professeur: new Professeur(),
-    },
-    {
-      titre: 'Réseaux de Neurones',
-      thematiques: 'Sciences Humaines et Sociales',
-      structureRecherche: {
-        id: 0,
-        nom: 'STI',
-        domaine: '',
-        etablissement: 'Tanger',
-        ced_id: 0,
-      },
-      description: 'Sujet sur l’apprentissage profond.',
-      professeur_id: 0,
-      structureRecherche_id: 0,
-      professeur: new Professeur(),
-    },
-    {
-      titre: 'Systèmes Experts',
-      thematiques: 'Technologies et Sciences',
-      structureRecherche: {
-        id: 0,
-        nom: 'STI',
-        domaine: '',
-        etablissement: 'Tanger',
-        ced_id: 0,
-      },
-      description: 'Étude des systèmes basés sur des règles.',
-      professeur_id: 0,
-      structureRecherche_id: 0,
-      professeur: new Professeur(),
-    },
-    {
-      titre: 'a 1',
-      thematiques: 'Technologies et Sciences',
-      structureRecherche: {
-        id: 0,
-        nom: 'STI',
-        domaine: '',
-        etablissement: 'Tetouan',
-        ced_id: 0,
-      },
-      description: 'Étude des systèmes basés sur des règles.',
-      professeur_id: 0,
-      structureRecherche_id: 0,
-      professeur: new Professeur(),
-    },
-    {
-      titre: 'u 1',
-      thematiques: 'Technologies et Sciences',
-      structureRecherche: {
-        id: 0,
-        nom: 'STI',
-        domaine: '',
-        etablissement: 'Tetouan',
-        ced_id: 0,
-      },
-      description: 'Étude des systèmes basés sur des règles.',
-      professeur_id: 0,
-      structureRecherche_id: 0,
-      professeur: new Professeur(),
-    },
-    {
-      titre: 'Sujet 2',
-      thematiques: 'Technologies et Sciences',
-      structureRecherche: {
-        id: 0,
-        nom: 'STI',
-        domaine: '',
-        etablissement: 'Tetouan',
-        ced_id: 0,
-      },
-      description: 'Étude des systèmes basés sur des règles.',
-      professeur_id: 0,
-      structureRecherche_id: 0,
-      professeur: new Professeur(),
-    },
-  ];
-
+  sujets: Sujet[] = [];
   filteredSujets: Sujet[] = [];
   paginatedSujets: Sujet[] = [];
   selectedSujet: Sujet | null = null;
@@ -124,9 +32,25 @@ export class DepotSujetComponent {
   totalPages: number[] = [];
 
   ngOnInit(): void {
-    this.filteredSujets = this.sujets;
-    this.calculateTotalPages();
-    this.updatePaginatedSujets();
+    const professeurId = localStorage.getItem('userId');
+    if (professeurId) {
+      const professeurIdNumber = parseInt(professeurId, 10);
+      this.professeurService.getSujetsByProfesseurId(professeurIdNumber).subscribe({
+        next: (sujets: Sujet[]) => {
+          this.sujets = sujets;
+          this.filteredSujets = sujets;
+          this.calculateTotalPages();
+          this.updatePaginatedSujets();
+        },
+        error: (err) => {
+          console.error('Erreur lors de la récupération des sujets :', err);
+        }
+      });
+    }
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 
   onSearchChange(event: Event): void {
@@ -187,7 +111,6 @@ export class DepotSujetComponent {
     this.sujetToEdit = sujet;
     this.showEditModal = true;
   }
-  
 
   closeEditModal(): void {
     this.showEditModal = false;

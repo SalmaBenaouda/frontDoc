@@ -58,12 +58,7 @@
         <!-- Search and Filter Section -->
         <div class="search-filter">
             <input type="text" placeholder="Rechercher par titre" (input)="onSearchChange($event)">
-            <select (change)="onFilterChange($event)">
-                <option value="">Toutes les établissements</option>
-                <option value="Tetouan">Tetouan</option>
-                <option value="Tanger">Tanger</option>
-                <option value="Rabat">Rabat</option>
-            </select>
+            
         </div><br>
 
         <!-- Sujets Table -->
@@ -72,21 +67,16 @@
                 <tr>
                     <th>Sujet</th>
                     <th>Thématique</th>
-                    <th>Établissement</th>
-                    <th>Détails</th>
+                    <th>Description</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let sujet of paginatedSujets; let i = index">
                     <td>{{ sujet.titre }}</td>
-                    <td>{{ sujet.thematiques }}</td>
-                    <td>{{ sujet.structureRecherche.etablissement }}</td>
-                    <td>
-                        <button (click)="viewSujetDetails(sujet)" class="view-profile-button">
-                            <span class="material-icons-sharp">visibility</span>
-                        </button>
-                    </td>
+                    <td>{{ sujet.thematique }}</td>
+                    <td>{{ sujet.description }}</td>
+                   
                     <td>
                         <button (click)="editSujet(sujet)" class="edit-structure-button">
                             <span class="material-icons-sharp">edit</span>
@@ -99,24 +89,7 @@
             </tbody>
         </table>
 
-        <!-- Modal for Sujet Details -->
-        <div class="modal" [ngClass]="{'show-modal': showModal}" *ngIf="selectedSujet">
-            <div class="modal-content">
-                <span class="close-button" (click)="closeModal()">&times;</span>
-                <div class="modal-header">
-                    <h2>{{ selectedSujet.titre }}</h2>
-                </div>
-                <div class="profile-details">
-                    <div class="profile-info">
-                        <p><strong>Thématique :</strong> {{ selectedSujet.thematiques }}</p>
-                        <p><strong>Description :</strong> {{ selectedSujet.description }}</p>
-                        <p><strong>Structure de recherche :</strong> {{ selectedSujet.structureRecherche.nom }}</p>
-                        <p><strong>Établissement :</strong> {{ selectedSujet.structureRecherche.etablissement }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+     
         <!-- Modal for Edit Sujet -->
         <div class="modal" [ngClass]="{'show-modal': showEditModal}" *ngIf="sujetToEdit">
             <div class="modal-content">
@@ -132,7 +105,7 @@
                         <label>Titre :</label>
                         <input type="text" [(ngModel)]="sujetToEdit.titre">
                         <label>Thématique :</label>
-                        <input type="text" [(ngModel)]="sujetToEdit.thematiques">
+                        <input type="text" [(ngModel)]="sujetToEdit.thematique">
                         <label>Description :</label>
                         <input type="text" [(ngModel)]="sujetToEdit.description">
                     </div>

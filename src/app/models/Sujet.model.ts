@@ -6,7 +6,7 @@ import { StructureRecherche } from "./StructureRecherche.model";
 export class Sujet {
   titre!: string;
   description!: string;
-  thematiques?: string;
+  thematique?: string;
   professeur_id!:number;
   structureRecherche_id!:number;
   professeur!: Professeur;

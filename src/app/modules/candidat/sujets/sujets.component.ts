@@ -35,7 +35,7 @@ export class SujetsComponent {
       {
         titre: 'Réseaux de Neurones',
         description: 'Sujet sur l’apprentissage profond.',
-        thematiques: 'Sciences Humaines et Sociales',
+        thematique: 'Sciences Humaines et Sociales',
         professeur: { nom: 'Dr. Dupont' } as Professeur,
         professeur_id: 1,
         structureRecherche_id: 1,
@@ -44,7 +44,7 @@ export class SujetsComponent {
       {
         titre: 'Systèmes Experts',
         description: 'Étude des systèmes basés sur des règles.',
-        thematiques: 'Technologies et Sciences',
+        thematique: 'Technologies et Sciences',
         professeur: { nom: 'Dr. Martin' } as Professeur,
         professeur_id: 2,
         structureRecherche_id: 2,
@@ -55,7 +55,7 @@ export class SujetsComponent {
       {
         titre: 'Cryptographie Avancée',
         description: 'Sécurisation par chiffrement.',
-        thematiques: 'Mathématiques Appliquées',
+        thematique: 'Mathématiques Appliquées',
         professeur: { nom: 'Prof. Lemoine' } as Professeur,
         professeur_id: 3,
         structureRecherche_id: 3,

@@ -70,7 +70,7 @@
                     <p>Hey, <b>{{candidatDetails.prenom}}</b></p>
                 </div>
                 <div class="profile-photo">
-                    <img src="images/hero-banner-1.jpg">
+                    <img *ngIf="photoUrl" [src]="photoUrl" alt="Profile Photo">
                 </div>
             </div>
 

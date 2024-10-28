@@ -7,19 +7,34 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth/auth.service';
 import { CandidatService } from '../../../services/candidat/candidat.service';
 import { Candidatdetails } from '../../../models/Candidatdetails.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-planning',
   standalone: true,
-  imports: [FullCalendarModule, CommonModule],
+  imports: [FullCalendarModule,FormsModule, CommonModule],
   templateUrl: './planning.component.html',
   styleUrls: ['./planning.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
 export class PlanningComponent implements OnInit {
   candidatDetails!: Candidatdetails; // Variable pour stocker les détails du candidat
-
+  photoUrl: string | undefined;
   constructor(private candidatService: CandidatService, private authService: AuthService) {}
+  loadPhoto(userId: number): void {
+    this.candidatService.getPhoto(userId).subscribe({
+      next: (blob) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+          this.photoUrl = reader.result as string;
+        };
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement de la photo :', err);
+      }
+    });
+  }
   onLogout() {
     this.authService.logout();
   }
@@ -87,6 +102,8 @@ export class PlanningComponent implements OnInit {
     const today = new Date().toISOString().slice(0, 10);
     this.filterEventsByDate(today);
     this.fetchCandidatDetails();
+    const userIdNumber = Number(localStorage.getItem('userId')); 
+    this.loadPhoto(userIdNumber);
   }
   fetchCandidatDetails() {
     const userId = Number(localStorage.getItem('userId')); // Récupérez l'ID de l'utilisateur depuis localStorage

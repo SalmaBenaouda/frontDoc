@@ -470,26 +470,20 @@
   <!-- End of Main Content -->
 
   <!-- Right Section -->
-  <div class="right-section">
-      <div class="nav">
-       
-         
-
-          <div class="profile">
-              <div class="info">
-                  <p>Hey, <b>{{candidatDetails.prenom}}</b></p>
-              </div>
-              <div class="profile-photo">
-                  <img src="images/hero-banner-1.jpg">
-              </div>
-          </div>
-
+  <div class="right-section"> 
+    <div class="nav">
+      <div class="profile">
+        <div class="info">
+          <p>Hey, <b>{{candidatdetails.prenom}}</b></p>
+        </div>
+        <div class="profile-photo">
+          <img *ngIf="photoUrl" [src]="photoUrl" alt="Profile Photo">
+        </div>
       </div>
-      <!-- End of Nav -->
-
-     
-
+    </div>
+    <!-- End of Nav -->
   </div>
+  
 
 
 </div>

@@ -30,11 +30,14 @@ export class ProfilComponent implements OnInit{
   Langues: Langue[] = [];
 diplomes: Diplome[] = [];
 experiences: ExperienceProf[] = [];
+photoUrl: string | undefined;
+
 ngOnInit(): void {
   this.fetchCandidatDetails();
   const userId = localStorage.getItem('userId');
   if (userId) {
     const userIdNumber = parseInt(userId, 10);
+    this.loadPhoto(userIdNumber);
     this.candidatService.getCandidatDetails(userIdNumber).subscribe({
       next: (details: Candidatdetails) => {
         // Assigner les langues, diplômes, et expériences uniquement s'ils existent
@@ -125,6 +128,8 @@ ngOnInit(): void {
       }
     });
   }
+  
+
 }
 
   
@@ -442,7 +447,20 @@ uploadDiplomeFiles(userId: number): void {
 }
 
 
-
+loadPhoto(userId: number): void {
+  this.candidatService.getPhoto(userId).subscribe({
+    next: (blob) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = () => {
+        this.photoUrl = reader.result as string;
+      };
+    },
+    error: (err) => {
+      console.error('Erreur lors du chargement de la photo :', err);
+    }
+  });
+}
   
 
   onLogout() {

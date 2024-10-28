@@ -13,12 +13,15 @@ import { Candidatdetails } from '../../../models/Candidatdetails.model';
   encapsulation: ViewEncapsulation.None,
 })
 export class BourseComponent implements OnInit {
-  candidatDetails!: Candidatdetails; // Variable pour stocker les détails du candidat
+  candidatDetails!: Candidatdetails;
+  photoUrl: string | undefined;
 
   constructor(private candidatService: CandidatService, private authService: AuthService) {}
 
   ngOnInit() {
-    this.fetchCandidatDetails(); // Appel de la méthode pour récupérer les détails du candidat
+    this.fetchCandidatDetails(); 
+    const userIdNumber = Number(localStorage.getItem('userId')); 
+    this.loadPhoto(userIdNumber);
   }
 
   fetchCandidatDetails() {
@@ -39,7 +42,20 @@ export class BourseComponent implements OnInit {
     }
   }
 
-
+  loadPhoto(userId: number): void {
+    this.candidatService.getPhoto(userId).subscribe({
+      next: (blob) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+          this.photoUrl = reader.result as string;
+        };
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement de la photo :', err);
+      }
+    });
+  }
   onLogout() {
     this.authService.logout();
   }

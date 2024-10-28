@@ -5,8 +5,10 @@ export class ProfesseurDTO {
     centre_id: number;
     structnom: string;
     etablissement: string;
+    domaine: string ;
     structid: number;
-  
+    
+
     constructor(
       nom: string,
       prenom: string,
@@ -14,7 +16,9 @@ export class ProfesseurDTO {
       centre_id: number,
       structnom: string,
       etablissement: string,
-      structid: number
+      domaine: string,
+      structid: number ,
+     
     ) {
       this.nom = nom;
       this.prenom = prenom;
@@ -22,7 +26,10 @@ export class ProfesseurDTO {
       this.centre_id = centre_id;
       this.structnom = structnom;
       this.etablissement = etablissement;
+      this.domaine = domaine;
       this.structid = structid;
+      
+      
     }
   }
   

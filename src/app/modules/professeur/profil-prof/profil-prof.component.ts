@@ -1,41 +1,47 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ProfesseurService } from '../../../services/prof/professeur.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Professeur } from '../../../models/Professeur.model';
+import { ProfesseurDTO } from '../../../models/ProfesseurDTO.model';
 
 @Component({
   selector: 'app-profil-prof',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './profil-prof.component.html',
-  styleUrl: './profil-prof.component.css',
-  encapsulation: ViewEncapsulation.None, 
+  styleUrls: ['./profil-prof.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
-export class ProfilProfComponent {
-  constructor(private authService: AuthService) {}
+export class ProfilProfComponent implements OnInit {
+  professeur: ProfesseurDTO = new ProfesseurDTO('', '', '', 0, '', '','',0); // Initialisation complète
+  showEditModal: boolean = false;
+
+  constructor(private professeurService: ProfesseurService, private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.loadProfesseurData();
+  }
+
+  loadProfesseurData(): void {
+    const userId = Number(localStorage.getItem('userId')); // Récupère `userId` depuis localStorage
+    if (userId) {
+      this.professeurService.findProfesseurById(userId).subscribe(
+        (data: ProfesseurDTO) => {
+          this.professeur = data;
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des données du professeur:', error);
+        }
+      );
+    } else {
+      console.error('userId introuvable dans localStorage');
+    }
+  }
 
   onLogout() {
     this.authService.logout();
   }
-  professeur: Professeur = {
-    nom: 'Salma ',
-    prenom: 'Benaouda',
-    email: 'salma.benaouda@gmail.com',
-    structureRecherche: {
-      id: 0,
-      nom: 'STI',
-      domaine: '',
-      etablissement: 'Université Abdelmalek Essaadi',
-      ced_id: 0,
-    },
-    id: 0,
-    centre_id: 0
-  };
-
-  showEditModal: boolean = false;
-
-  ngOnInit(): void {}
 
   editProfile(): void {
     this.showEditModal = true;
@@ -46,7 +52,6 @@ export class ProfilProfComponent {
   }
 
   saveProfile(): void {
-    // Logique pour sauvegarder les changements du profil (statique pour le moment)
     console.log('Profil mis à jour : ', this.professeur);
     this.closeEditModal();
   }

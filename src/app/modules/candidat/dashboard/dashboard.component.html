@@ -65,9 +65,7 @@
                             <svg>
                                 <circle cx="38" cy="38" r="36"></circle>
                             </svg>
-                            <div class="percentage">
-                                <p>0 %</p>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -75,18 +73,19 @@
                     <div class="status">
                         <div class="info">
                             <h3>Total candidatures</h3>
-                            <h1>0/3</h1>
+                            <h1>{{ totalCandidatures }}/3</h1> <!-- Afficher le nombre total de candidatures -->
                         </div>
                         <div class="progresss">
                             <svg>
                                 <circle cx="38" cy="38" r="36"></circle>
                             </svg>
                             <div class="percentage">
-                                <p>-48%</p>
+                                <p>{{ candidaturePercentage | number:'1.0-0'}}%</p> <!-- Afficher le pourcentage -->
                             </div>
                         </div>
                     </div>
                 </div>
+                
                 <div class="searches">
                     <div class="status">
                         <div class="info">
@@ -142,29 +141,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Réseaux de Neurones</td>
-                            <td>Sciences Humaines et Sociales</td>
-                            <td>Faculté des Sciences</td>
-                            <td>En cours</td>
-                        </tr>
-                        <tr>
-                            <td>Systèmes Experts</td>
-                            <td>Technologies et Sciences</td>
-                            <td>Faculté des Sciences</td>
-                            <td>Préselection</td>
-                        </tr>
-                        <tr>
-                            <td>Cryptographie Avancée</td>
-                            <td>Mathématiques Appliquées</td>
-                            <td>Faculté des Sciences</td>
-                            <td>Acceptée</td>
+                        <tr *ngFor="let candidature of candidatures">
+                            <td>{{ candidature.sujetNom }}</td>
+                            <td>{{ candidature.thematique }}</td>
+                            <td>{{ candidature.etablissement }}</td>
+                            <td>{{ candidature.statuts }}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <!-- End of Recent Orders -->
-
+            
         </main>
         <!-- End of Main Content -->
 

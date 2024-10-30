@@ -10,13 +10,13 @@ import { AddCandidatedetailsRequest } from '../../models/AddCandidatedetailsRequ
 import { Candidatdetails } from '../../models/Candidatdetails.model';
 import { Sujet } from '../../models/Sujet.model';
 import { CandidatureDetails } from '../../models/CandidatureDetails.model';
-
+import { candidaturedashboard } from '../../models/candidaturedashboard.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CandidatService {
-  private baseUrl = 'http://localhost:8081/Candidat';
+  private baseUrl = 'http://localhost:8082/Candidat';
 
   constructor(private http: HttpClient) {}
 
@@ -97,6 +97,13 @@ export class CandidatService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post(`${this.baseUrl}/deleteCandidature/${candidatureId}`, null, { headers, responseType: 'text' });
   }
+  
+  fetchCandidatures(userId: number): Observable<candidaturedashboard[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<candidaturedashboard[]>(`${this.baseUrl}/getCandidatures/${userId}`, { headers });
+  }
+  
   
   
   

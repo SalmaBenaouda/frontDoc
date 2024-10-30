@@ -11,7 +11,7 @@ import { CandidatureDetailsDTO } from '../../models/CandidatureDetailsDTO.model'
 })
 export class CedService {
 
-  private apiUrl = 'http://localhost:8081/CED'; // Remplacer par l'URL de votre backend
+  private apiUrl = 'http://localhost:8082/CED'; // Remplacer par l'URL de votre backend
 
   constructor(private http: HttpClient) {}
   getProfesseursByCedId(cedId: number): Observable<Professeur[]> {

@@ -8,6 +8,8 @@ import { Diplome } from '../../models/Diplome.model';
 import { ExperienceProf } from '../../models/ExperienceProf.model';
 import { AddCandidatedetailsRequest } from '../../models/AddCandidatedetailsRequest.model';
 import { Candidatdetails } from '../../models/Candidatdetails.model';
+import { Sujet } from '../../models/Sujet.model';
+import { CandidatureDetails } from '../../models/CandidatureDetails.model';
 
 
 @Injectable({
@@ -66,6 +68,36 @@ export class CandidatService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(`${this.baseUrl}/getPhoto/${userId}`, { headers, responseType: 'blob' });
   }
+  
+  getCEDDetails(): Observable<any[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any[]>(`${this.baseUrl}/GetCED`, { headers });
+  }
+  
+  getSujetsByStructureId(structureId: number): Observable<Sujet[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Sujet[]>(`${this.baseUrl}/structure/${structureId}`, { headers });
+  }
+
+  addCandidature(candidatureRequest: { sujet_id: number; candidat_id: number }): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.baseUrl}/addCandidature`, candidatureRequest, { headers, responseType: 'text' });
+  }
+  
+  getCandidatures(userId: number): Observable<CandidatureDetails[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<CandidatureDetails[]>(`${this.baseUrl}/getCandidatures/${userId}`, { headers });
+  }
+  removeCandidature(candidatureId: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.baseUrl}/deleteCandidature/${candidatureId}`, null, { headers, responseType: 'text' });
+  }
+  
   
   
 }

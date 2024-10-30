@@ -57,12 +57,7 @@
         <!-- Search and Filter Section -->
         <div class="search-filter">
             <input type="text" placeholder="Rechercher par nom" (input)="onSearchChange($event)">
-            <select (change)="onFilterChange($event)">
-                <option value="">Tous les établissements</option>
-                <option value="Tetouan">Tetouan</option>
-                <option value="Tanger">Tanger</option>
-                <option value="Etablissement 3">Rabat</option>
-            </select>
+           
         </div><br>
     
         <!-- Candidates Table -->
@@ -76,11 +71,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let candidature of paginatedCandidatures; let i = index">
-                    <td>{{ candidature.candidat.nom }}</td>
-                    <td>{{ candidature.sujet.titre }}</td>
-                    <td>{{ candidature.sujet.structureRecherche.etablissement }}</td>
-                    
+                <tr *ngFor="let candidature of paginatedCandidatures">
+                    <td>{{ candidature.nomPrenom }}</td>
+                    <td>{{ candidature.sujet_nom }}</td>
+                    <td>{{ candidature.etablissement }}</td>
                     <td>
                         <a href="Professeur/profilCandidat"><button  class="view-candidature-button">
                             <span class="material-icons-sharp">visibility</span>
@@ -102,6 +96,7 @@
             </button>
         </div>
     </main>
+    
     <!-- End of Main Content -->
 
     <!-- Right Section -->

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Sujet } from '../../models/Sujet.model';
 import { ProfesseurDTO } from '../../models/ProfesseurDTO.model';
+import { CandidatureDTO } from '../../models/CandidatureDTO.model';
 
 @Injectable({
   providedIn: 'root',
@@ -36,6 +37,10 @@ export class ProfesseurService {
     return this.http.post(`${this.apiUrl}/addSujet`, sujet, { headers, responseType: 'text' });
   }
   
-  
+  getCandidaturesByProfId(professeurId: number): Observable<CandidatureDTO[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<CandidatureDTO[]>(`${this.apiUrl}/candidature/${professeurId}`);
+  }
   
 }

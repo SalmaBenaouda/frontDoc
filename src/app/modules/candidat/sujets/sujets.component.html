@@ -58,36 +58,42 @@
             <div class="form-container">
                 <span class="selection-icon-container" (click)="ouvrirCart()">
                     <i class="fas fa-book" style="font-size: 20px;"></i>
-                    <span>{{ sujetsSelectionnes.length }} / 3</span>
+                    <span>{{ candidatures.length }} / 3</span>
                 </span>
                 <form>
                   <div class="form-group">
                     <label for="ced">Choisir un CED :</label>
-                    <select id="ced" [(ngModel)]="cedSelectionne" name="ced">
-                      <option *ngFor="let ced of ceds" [value]="ced">{{ ced }}</option>
+                    <select id="ced" [(ngModel)]="cedSelectionne" name="ced" (change)="onCedChange()">
+                      <option *ngFor="let ced of ceds" [ngValue]="ced">{{ ced.ced_name }}</option>
                     </select>
+                    
                   </div>
+                  
               
-                  <div class="form-group" *ngIf="cedSelectionne">
-                    <label for="formation">Choisir une formation :</label>
-                    <select id="formation" [(ngModel)]="formationSelectionnee" (change)="onFormationChange()" name="formation">
-                      <option *ngFor="let formation of formations[cedSelectionne]" [value]="formation">
-                        {{ formation }}
+                  <div class="form-group" *ngIf="formations && formations.length > 0">
+                    <label for="formation">Choisir un domaine :</label>
+                    <select id="formation" [(ngModel)]="formationSelectionnee" name="formation" (change)="onFormationChange()">
+                      <option *ngFor="let formation of formations" [value]="formation.id">
+                        {{ formation.domaine }}
                       </option>
                     </select>
                   </div>
+                  
                 </form>
               
-                <div *ngIf="formationSelectionnee">
+                <div *ngIf="formationSelectionnee !== null">
                   <h2>Sujets :</h2>
                   <div *ngIf="sujets.length > 0" class="subject-grid">
-                    <div class="subject-card" *ngFor="let sujet of sujets" [ngClass]="{'selected': isSelected(sujet)}" (click)="ouvrirModale(sujet)">
+                    <div class="subject-card" *ngFor="let sujet of sujets" (click)="ouvrirModale(sujet)">
                       <h3>{{ sujet.titre }}</h3>
-                      <p>{{ sujet.structureRecherche.etablissement }}</p>
+                      <p>{{ sujet.thematique }}</p>
                     </div>
+                    
                   </div>
                   <p *ngIf="sujets.length === 0">Aucun sujet disponible pour cette formation.</p>
                 </div>
+                
+                
               
                 <!-- Modale -->
                 <div class="modal" *ngIf="sujetActuel">
@@ -99,12 +105,8 @@
                       <p>{{ sujetActuel.titre }}</p>
                     </div>
                     <div class="modal-section">
-                      <h4>Thématiques prioritaires RS</h4>
+                      <h4>Thématiques</h4>
                       <p>{{ sujetActuel.thematique }}</p>
-                    </div>
-                    <div class="modal-section">
-                      <h4>Enseignant</h4>
-                      <p>{{ sujetActuel.professeur.nom }}</p>
                     </div>
                     <div class="modal-section">
                       <h4>Description du sujet</h4>
@@ -114,24 +116,27 @@
                   </div>
                 </div>
               
-                <!-- Cart Modal -->
-                <div class="cart-modal" *ngIf="showCart">
-                  <div class="modal-content">
-                    <div class="cart-modal-header">
-                      <h3>Sujets sélectionnés</h3>
-                      <span class="close-icon" (click)="fermerCart()">&times;</span>
-                    </div>
-                    <div *ngFor="let sujet of sujetsSelectionnes" class="cart-item" [ngClass]="{'non-removable': sujet.candidature?.statut !== 'En cours'}">
-                      <div>
-                        <h4>{{ sujet.titre }}</h4>
-                        <p><strong>Établissement:</strong> {{ sujet.structureRecherche.etablissement }}</p>
-                        <p><strong>Statut:</strong> {{ sujet.candidature?.statut }}</p>
-                      </div>
-                      <button class="button2" *ngIf="sujet.candidature?.statut === 'En cours'" (click)="retirerSujet(sujet)">Retirer</button>
-                    </div>
-                    <p *ngIf="sujetsSelectionnes.length === 0">Aucun sujet selectionné pour le moment.</p>
-                  </div>
-                </div>
+           <!-- Cart Modal -->
+<div class="cart-modal" *ngIf="showCart">
+  <div class="modal-content">
+    <div class="cart-modal-header">
+      <h3>Sujets sélectionnés</h3>
+      <span class="close-icon" (click)="fermerCart()">&times;</span>
+    </div>
+    <div *ngFor="let candidature of candidatures" class="cart-item" [ngClass]="{'non-removable': candidature.statuts !== 'Encours'}">
+      <div>
+        <h4>{{ candidature.sujetNom }}</h4>
+        <p><strong>Établissement:</strong> {{ candidature.etablissement }}</p>
+        <p><strong>Thématique:</strong> {{ candidature.thematique }}</p>
+        <p><strong>Statut:</strong> {{ candidature.statuts }}</p>
+      </div>
+      <button class="button2" *ngIf="candidature.statuts === 'Encours'" (click)="retirerSujet(candidature)">Retirer</button>
+    </div>
+    <p *ngIf="candidatures.length === 0">Aucun sujet sélectionné pour le moment.</p>
+  </div>
+</div>
+
+
               </div>
 <br>
 
@@ -149,7 +154,7 @@
 
                 <div class="profile">
                     <div class="info">
-                        <p>Hey, <b>{{candidatDetails.prenom}}</b></p>
+                        <p>Hey, <b>Salma</b></p>
                     </div>
                     <div class="profile-photo">
                       <img *ngIf="photoUrl" [src]="photoUrl" alt="Profile Photo">

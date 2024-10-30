@@ -397,8 +397,17 @@ select:focus {
     color: #333;
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
     text-align: left;
-    overflow-y: auto;
+    overflow-y: auto; /* Pour activer le défilement vertical */
     max-height: 80vh;
+}
+
+.modal-content p {
+    line-height: 1.6;
+    color: #555;
+    font-size: 1.1em;
+    word-wrap: break-word; /* Permet au texte de couper les mots longs */
+    overflow-wrap: break-word; /* Coupe le texte lorsqu'il devient trop long pour l'espace */
+    white-space: normal; /* Permet au texte de revenir à la ligne automatiquement */
 }
 
 .modal-content h2 {
@@ -420,11 +429,7 @@ select:focus {
     color: rgba(0, 0, 0, 0.719);
 }
 
-.modal-content p {
-    line-height: 1.6;
-    color: #555;
-    font-size: 1.1em;
-}
+
 
 .close-icon {
     position: absolute;

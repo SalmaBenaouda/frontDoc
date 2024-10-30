@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation,OnInit } from '@angular/core';
+import { Component, ViewEncapsulation,OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Sujet } from '../../../models/Sujet.model';
@@ -8,6 +8,7 @@ import { Professeur } from '../../../models/Professeur.model';
 import { StructureRecherche } from '../../../models/StructureRecherche.model';
 import { CandidatService } from '../../../services/candidat/candidat.service';
 import { Candidatdetails } from '../../../models/Candidatdetails.model';
+import { CandidatureDetails } from '../../../models/CandidatureDetails.model';
 
 @Component({
   selector: 'app-sujets',
@@ -21,12 +22,44 @@ import { Candidatdetails } from '../../../models/Candidatdetails.model';
 export class SujetsComponent implements OnInit{
   candidatDetails!: Candidatdetails; // Variable pour stocker les détails du candidat
   photoUrl: string | undefined;
-  constructor(private candidatService: CandidatService, private authService: AuthService) {}
+  constructor(private candidatService: CandidatService, private authService: AuthService,
+    private cdr: ChangeDetectorRef) {}
+
+  ceds: any[] = [];  // Liste des CED
+  formations: StructureRecherche[] = [];  // Liste des structures
+  cedSelectionne: any; // Ou mieux : cedSelectionne: CEDDETAILS | null = null;
+  formationSelectionnee: number | null = null;
+  sujets: Sujet[] = [];
+  sujetActuel: Sujet | null = null;
+  candidatures: CandidatureDetails[] = [];
+  sujetsOriginaux: Sujet[] = []; // Liste pour conserver les sujets originaux
+  showCart: boolean = false;
+  
   ngOnInit() {
-    this.fetchCandidatDetails(); 
     const userIdNumber = Number(localStorage.getItem('userId')); 
     this.loadPhoto(userIdNumber);
+
+    // Charger la liste des CED
+    this.candidatService.getCEDDetails().subscribe({
+      next: (data) => {
+        this.ceds = data; // Charger tous les CED disponibles
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des CED :', err);
+      }
+    });
+  
+    // Charger la liste des candidatures pour le candidat
+    this.candidatService.getCandidatures(userIdNumber).subscribe({
+      next: (candidatures) => {
+        this.candidatures = candidatures; // Récupère les candidatures depuis le backend
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des candidatures :', err);
+      }
+    });
   }
+  
   loadPhoto(userId: number): void {
     this.candidatService.getPhoto(userId).subscribe({
       next: (blob) => {
@@ -41,63 +74,40 @@ export class SujetsComponent implements OnInit{
       }
     });
   }
+
   onLogout() {
     this.authService.logout();
   }
-  ceds = ['CED Informatique', 'CED Mathématiques', 'CED Physique'];
 
-  formations: { [key: string]: string[] } = {
-    'CED Informatique': ['IA', 'Sécurité', 'Développement Web'],
-    'CED Mathématiques': ['Algèbre', 'Analyse', 'Statistiques'],
-    'CED Physique': ['Optique', 'Mécanique', 'Astrophysique'],
-  };
+  onCedChange(): void {
+    if (this.cedSelectionne) {
+      const ced = this.ceds.find(c => c.id == this.cedSelectionne.id);
+      if (ced) {
+        this.formations = ced.structuresname; // Remplir les formations pour le CED sélectionné
+      } else {
+        this.formations = [];
+      }
+    }
+  }
 
-  sujetsDisponibles: { [formation: string]: Sujet[] } = {
-    'IA': [
-      {
-        id:0,
-        titre: 'Réseaux de Neurones',
-        description: 'Sujet sur l’apprentissage profond.',
-        thematique: 'Sciences Humaines et Sociales',
-        professeur: { nom: 'Dr. Dupont' } as Professeur,
-        professeur_id: 1,
-        structureRecherche_id: 1,
-        structureRecherche: {} as StructureRecherche,
-      },
-      {
-        id:0,
-        titre: 'Systèmes Experts',
-        description: 'Étude des systèmes basés sur des règles.',
-        thematique: 'Technologies et Sciences',
-        professeur: { nom: 'Dr. Martin' } as Professeur,
-        professeur_id: 2,
-        structureRecherche_id: 2,
-        structureRecherche: {} as StructureRecherche,
-      },
-    ],
-    'Sécurité': [
-      {
-        id:0,
-        titre: 'Cryptographie Avancée',
-        description: 'Sécurisation par chiffrement.',
-        thematique: 'Mathématiques Appliquées',
-        professeur: { nom: 'Prof. Lemoine' } as Professeur,
-        professeur_id: 3,
-        structureRecherche_id: 3,
-        structureRecherche: {} as StructureRecherche,
-      },
-    ],
-  };
-  cedSelectionne: string = '';
-  formationSelectionnee: string = '';
-  sujets: Sujet[] = [];
-  sujetActuel: Sujet | null = null;
-  sujetsSelectionnes: Sujet[] = JSON.parse(localStorage.getItem('sujetsSelectionnes') || '[]');
-  showCart: boolean = false;
-
-  onFormationChange() {
-    this.sujets = this.sujetsDisponibles[this.formationSelectionnee] || [];
-    this.sujets = this.sujets.filter((sujet) => !this.sujetsSelectionnes.some(selected => selected.titre === sujet.titre));
+  onFormationChange(): void {
+    if (this.formationSelectionnee !== null) {
+      this.candidatService.getSujetsByStructureId(this.formationSelectionnee).subscribe({
+        next: (data) => {
+          // Filtrer les sujets qui sont déjà dans la liste des candidatures
+          const sujetsSelectionnesNoms = this.candidatures.map(candidature => candidature.sujetNom);
+          this.sujets = data.filter(sujet => !sujetsSelectionnesNoms.includes(sujet.titre));
+          // Conserver une copie des sujets originaux
+          this.sujetsOriginaux = data;
+        },
+        error: (err) => {
+          console.error('Erreur lors du chargement des sujets :', err);
+          this.sujets = [];
+        }
+      });
+    } else {
+      this.sujets = [];
+    }
   }
 
   ouvrirModale(sujet: Sujet) {
@@ -107,47 +117,48 @@ export class SujetsComponent implements OnInit{
   fermerModale() {
     this.sujetActuel = null;
   }
-  fetchCandidatDetails() {
-    const userId = Number(localStorage.getItem('userId')); // Récupérez l'ID de l'utilisateur depuis localStorage
 
-    if (userId) {
-      this.candidatService.getCandidatDetails(userId).subscribe(
-        (details) => {
-          this.candidatDetails = details; // Stockez tous les détails récupérés
-          console.log(this.candidatDetails.nom); // Affichez le nom dans la console
-        },
-        (error) => {
-          console.error('Erreur lors de la récupération des détails du candidat:', error);
-        }
-      );
-    } else {
-      console.error('userId non trouvé dans localStorage');
-    }
-  }
   selectSujet(sujet: Sujet) {
-    if (this.sujetsSelectionnes.length < 3) {
-      if (!this.sujetsSelectionnes.some(selected => selected.titre === sujet.titre)) {
-        const newCandidature = new Candidature({
-          id: Date.now(),
-          idCandidat: 123,  // Exemple de valeur
-          idSujet: Date.now(),  // Exemple de valeur
-          statut: 'En cours',
-          dateEntretien: '',
-        });
-        sujet.candidature = newCandidature;
-        this.sujetsSelectionnes.push(sujet);
-        this.sujets = this.sujets.filter((s) => s.titre !== sujet.titre);
-        localStorage.setItem('sujetsSelectionnes', JSON.stringify(this.sujetsSelectionnes));
-      }
-      this.fermerModale();
+    if (this.candidatures.length < 3) {
+      const userId = Number(localStorage.getItem('userId'));
+  
+      const candidatureRequest = {
+        sujet_id: sujet.id,
+        candidat_id: userId,
+      };
+  
+      this.candidatService.addCandidature(candidatureRequest).subscribe({
+        next: (response) => {
+          console.log('Candidature ajoutée avec succès :', response);
+  
+          // Retirer le sujet sélectionné de la liste des sujets immédiatement après la sélection
+          this.sujets = this.sujets.filter((s) => s.id !== sujet.id);
+  
+          // Mettre à jour la liste des candidatures après l'ajout
+          this.candidatService.getCandidatures(userId).subscribe({
+            next: (candidatures) => {
+              this.candidatures = candidatures;
+            },
+            error: (err) => {
+              console.error('Erreur lors de la mise à jour des candidatures :', err);
+            }
+          });
+  
+          // Forcer la détection des changements pour mettre à jour l'affichage
+          this.cdr.detectChanges();
+  
+          // Fermer la modale après la sélection
+          this.fermerModale();
+        },
+        error: (err) => {
+          console.error("Erreur lors de l'ajout de la candidature :", err);
+        },
+      });
     } else {
       alert('Vous ne pouvez sélectionner que 3 sujets au maximum.');
     }
   }
-
-  isSelected(sujet: Sujet): boolean {
-    return this.sujetsSelectionnes.some(selected => selected.titre === sujet.titre);
-  }
+  
 
   ouvrirCart() {
     this.showCart = true;
@@ -157,15 +168,28 @@ export class SujetsComponent implements OnInit{
     this.showCart = false;
   }
 
-  retirerSujet(sujet: Sujet) {
-    if (sujet.candidature?.statut === 'En cours') {
-      const index = this.sujetsSelectionnes.findIndex(selected => selected.titre === sujet.titre);
-      if (index !== -1) {
-        this.sujetsSelectionnes.splice(index, 1);
-        delete sujet.candidature;
-        this.sujets.push(sujet);
-        localStorage.setItem('sujetsSelectionnes', JSON.stringify(this.sujetsSelectionnes));
-      }
+  retirerSujet(candidature: CandidatureDetails) {
+    if (candidature.statuts === 'Encours') {
+      this.candidatService.removeCandidature(candidature.candidature_id).subscribe({
+        next: () => {
+          // Mise à jour de la liste des candidatures après suppression
+          this.candidatures = this.candidatures.filter(c => c.candidature_id !== candidature.candidature_id);
+          console.log('Candidature retirée avec succès');
+  
+          // Restaurer le sujet depuis la liste des sujets originaux
+          const sujetRestored = this.sujetsOriginaux.find(s => s.id === candidature.candidature_id);
+          if (sujetRestored) {
+            this.sujets.push(sujetRestored);
+          }
+  
+          // Forcer la détection des changements pour mettre à jour l'affichage
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error("Erreur lors de la suppression de la candidature :", err);
+        }
+      });
     }
   }
+  
 }

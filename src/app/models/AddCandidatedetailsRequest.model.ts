@@ -1,4 +1,4 @@
-// src/app/models/AddCandidatedetailsRequest.model.ts
+
 
 export class AddCandidatedetailsRequest {
   situationFamiliale: string = '';

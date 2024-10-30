@@ -1,4 +1,3 @@
-// src/app/models/CandidatureDetails.model.ts
 export interface CandidatureDetails {
     sujetNom: string;
     thematique: string;

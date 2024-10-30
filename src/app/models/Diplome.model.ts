@@ -9,7 +9,7 @@ export class Diplome {
     mention!: string;
     moyenne!: number;
     type!: string;
-    candidatId!: number;
+    candidat_id!: number;
     DiplomeScanne?: string;
     RelevetNoteScanne?: string;
   }

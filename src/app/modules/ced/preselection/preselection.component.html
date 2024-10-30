@@ -55,18 +55,17 @@
     <main>
         <h1>Préselection</h1><br>
         <span class="linkDisabled">Liste des candidatures > </span><br><br>
-    
+      
         <!-- Search and Filter Section -->
-        <div class="search-filter">
-            <input type="text" placeholder="Rechercher par nom" (input)="onSearchChange($event)">
-            <select (change)="onFilterChange($event)">
-                <option value="">Tous les établissements</option>
-                <option value="Tetouan">Tetouan</option>
-                <option value="Tanger">Tanger</option>
-                <option value="Etablissement 3">Rabat</option>
-            </select>
-        </div><br>
-    
+<div class="search-filter">
+    <input type="text" placeholder="Rechercher par nom" (input)="onSearchChange($event)">
+    <select (change)="onFilterChange($event)">
+        <option value="">Tous les établissements</option>
+        <option *ngFor="let etablissement of etablissements" [value]="etablissement">{{ etablissement }}</option>
+    </select>
+</div><br>
+
+      
         <!-- Candidates Table -->
         <table class="professors-table">
             <thead>
@@ -78,10 +77,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let candidature of paginatedCandidatures; let i = index">
-                    <td>{{ candidature.candidat.nom }}</td>
-                    <td>{{ candidature.sujet.structureRecherche.etablissement }}</td>
-                    <td>{{ candidature.sujet.titre }}</td>
+                <tr *ngFor="let candidature of paginatedCandidatures">
+                    <td>{{ candidature.nomPrenom }}</td>
+                    <td>{{ candidature.etablissement }}</td>
+                    <td>{{ candidature.sujet_nom }}</td>
                     <td>
                         <a href="CED/candidature"><button  class="view-candidature-button">
                             <span class="material-icons-sharp">visibility</span>
@@ -95,15 +94,15 @@
                 </tr>
             </tbody>
         </table>
-    
+      
         <!-- Pagination Section -->
         <div class="pagination">
             <button *ngFor="let page of totalPages; let i = index" (click)="goToPage(i + 1)" [class.active]="currentPage === (i + 1)">
                 {{ i + 1 }}
             </button>
         </div>
-    </main>
-    
+      </main>
+      
 
     
     <!-- End of Main Content -->

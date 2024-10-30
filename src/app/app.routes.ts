@@ -44,7 +44,7 @@ export const routes: Routes = [
     { path: 'Professeur/planning', component: PlanningPreselectionComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
     { path: 'Professeur/profil', component: ProfilProfComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
     { path: 'Professeur/selection', component: SelectionComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
-    { path: 'Professeur/profilCandidat', component: ProfilCandidatComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
+    { path: 'Professeur/profilCandidat/:id', component: ProfilCandidatComponent, canActivate: [RoleGuard], data: { role: 'Professeur' } },
 
 
     // Path de ced

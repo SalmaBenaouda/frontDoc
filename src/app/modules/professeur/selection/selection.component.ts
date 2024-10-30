@@ -2,11 +2,11 @@ import { Component, ViewEncapsulation,OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Candidature } from '../../../models/candidature.model';
-import { Professeur } from '../../../models/Professeur.model';
 import { ProfesseurDTO } from '../../../models/ProfesseurDTO.model';
 import { ProfesseurService } from '../../../services/prof/professeur.service';
 import { CandidatureDTO } from '../../../models/CandidatureDTO.model';
+import { Router } from '@angular/router';
+import { MessageService } from '../../../services/message/message.service';
 @Component({
   selector: 'app-selection',
   standalone: true,
@@ -23,13 +23,19 @@ export class SelectionComponent implements OnInit{
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalPages: number[] = [];
-  uniqueEtablissements: string[] = [];
+  successMessage: string | null = null;
 
-  constructor(private professeurService: ProfesseurService, private authService: AuthService) {}
+
+  constructor(private professeurService: ProfesseurService, private authService: AuthService,
+    private router: Router,private messageService: MessageService  ) {}
 
   ngOnInit(): void {
     this.loadProfesseurData();
     this.loadCandidatures(); // Charge les candidatures au démarrage
+    this.successMessage = this.messageService.getSuccessMessage();
+
+      // Effacer le message après l'affichage
+      this.messageService.clearSuccessMessage();
   }
 
   loadCandidatures(): void {
@@ -49,6 +55,11 @@ export class SelectionComponent implements OnInit{
     } else {
         console.error('userId introuvable dans localStorage');
     }
+}
+
+voirProfil(candidature: CandidatureDTO): void {
+  const candidatId = candidature.id; // Assurez-vous que `candidatId` est la propriété correcte
+  this.router.navigate(['/Professeur/profilCandidat', candidatId]);
 }
 
 

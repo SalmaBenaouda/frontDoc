@@ -53,7 +53,7 @@ ngOnInit(): void {
             mention: '',
             moyenne: 0,
             type: 'Bac',
-            candidatId: userIdNumber,
+            candidat_id: userIdNumber,
           },
           {
             id: 0,
@@ -66,7 +66,7 @@ ngOnInit(): void {
             mention: '',
             moyenne: 0,
             type: 'Licence',
-            candidatId: userIdNumber,
+            candidat_id: userIdNumber,
           },
           {
             id: 0,
@@ -79,7 +79,7 @@ ngOnInit(): void {
             mention: '',
             moyenne: 0,
             type: 'Master',
-            candidatId: userIdNumber,
+            candidat_id: userIdNumber,
           },
         ];
 

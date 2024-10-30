@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StructureRecherche } from '../../models/StructureRecherche.model';
 import { Professeur } from '../../models/Professeur.model';
+import { CandidatureDTO } from '../../models/CandidatureDTO.model';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,13 @@ export class CedService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post(`${this.apiUrl}/addStructure`, structure, { headers, responseType: 'text' });
+  }
+
+  // Récupérer les candidatures par ID de CED
+  getCandidaturesByCedId(id: number): Observable<CandidatureDTO[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<CandidatureDTO[]>(`${this.apiUrl}/candidature/${id}`, { headers });
   }
 }
 

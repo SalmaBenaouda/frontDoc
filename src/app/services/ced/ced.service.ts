@@ -20,7 +20,6 @@ export class CedService {
     return this.http.get<Professeur[]>(`${this.apiUrl}/professeur/${cedId}`, { headers });
   }
 
-  // Nouvelle méthode pour récupérer les structures par CED ID
   getStructuresByCedId(cedId: number): Observable<StructureRecherche[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

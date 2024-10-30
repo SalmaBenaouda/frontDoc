@@ -56,24 +56,25 @@
         <div class="analyse">
             <div class="sales">
                 <div class="status">
-                    <div class="info">
-                        <h3>Candidatures acceptées</h3>
-                        <h1>0</h1>
+                  <div class="info">
+                    <h3>Candidatures non traitées</h3>
+                    <h1>{{ candidaturesNonTraitees }}</h1>
+                  </div>
+                  <div class="progresss">
+                    <svg>
+                      <circle cx="38" cy="38" r="36"></circle>
+                    </svg>
+                    <div class="percentage">
+                      <p>{{ candidaturesNonTraitees }} %</p>
                     </div>
-                    <div class="progresss">
-                        <svg>
-                            <circle cx="38" cy="38" r="36"></circle>
-                        </svg>
-                        <div class="percentage">
-                            <p>0 %</p>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-            </div>
+              </div>
+              
             <div class="visits">
                 <div class="status">
                     <div class="info">
-                        <h3>Total candidatures</h3>
+                        <h3>Candidats préselectionnés</h3>
                         <h1>0/3</h1>
                     </div>
                     <div class="progresss">
@@ -88,20 +89,21 @@
             </div>
             <div class="searches">
                 <div class="status">
-                    <div class="info">
-                        <h3>Candidatures refusées</h3>
-                        <h1>2</h1>
+                  <div class="info">
+                    <h3>Total sujets</h3>
+                    <h1>{{ totalSujets }}/{{ maxSujets }}</h1>
+                  </div>
+                  <div class="progresss">
+                    <svg>
+                      <circle cx="38" cy="38" r="36"></circle>
+                    </svg>
+                    <div class="percentage">
+                      <p>+21%</p>
                     </div>
-                    <div class="progresss">
-                        <svg>
-                            <circle cx="38" cy="38" r="36"></circle>
-                        </svg>
-                        <div class="percentage">
-                            <p>+21%</p>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-            </div>
+              </div>
+              
         </div>
         <!-- End of Analyses -->
 
@@ -121,7 +123,7 @@
                 
                 <a href="Professeur/selection"><div class="user">
                     <img src="images/resultats.png">
-                    <h2>Résultats</h2>
+                    <h2>Selection</h2>
                 </div></a>
             </div>
         </div>

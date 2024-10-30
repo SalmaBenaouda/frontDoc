@@ -58,20 +58,21 @@
         <div class="analyse">
             <div class="sales">
                 <div class="status">
-                    <div class="info">
-                        <h3>Total candidatures</h3>
-                        <h1>0</h1>
+                  <div class="info">
+                    <h3>Total candidatures</h3>
+                    <h1>{{ totalCandidatures }}</h1>
+                  </div>
+                  <div class="progresss">
+                    <svg>
+                      <circle cx="38" cy="38" r="36"></circle>
+                    </svg>
+                    <div class="percentage">
+                      <p>{{ calculatePercentage(totalCandidatures) }} %</p>
                     </div>
-                    <div class="progresss">
-                        <svg>
-                            <circle cx="38" cy="38" r="36"></circle>
-                        </svg>
-                        <div class="percentage">
-                            <p>0 %</p>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-            </div>
+              </div>
+              
             <div class="visits">
                 <div class="status">
                     <div class="info">
@@ -90,22 +91,41 @@
             </div>
             <div class="searches">
                 <div class="status">
-                    <div class="info">
-                        <h3>Total structures</h3>
-                        <h1>2</h1>
+                  <div class="info">
+                    <h3>Total structures</h3>
+                    <h1>{{ totalStructures }}</h1>
+                  </div>
+                  <div class="progresss">
+                    <svg>
+                      <circle cx="38" cy="38" r="36"></circle>
+                    </svg>
+                    <div class="percentage">
+                      <p>{{ calculateStructuresGrowthPercentage(totalStructures) }} %</p>
                     </div>
-                    <div class="progresss">
-                        <svg>
-                            <circle cx="38" cy="38" r="36"></circle>
-                        </svg>
-                        <div class="percentage">
-                            <p>+21%</p>
-                        </div>
-                    </div>
+                  </div>
                 </div>
+              </div>
+              
+        </div>
+        <div class="new-users">
+            <h2>Mes informations</h2>
+            <div class="user-list">
+                
+                <a href="CED/gestionProfesseurs"><div class="user">
+                    <img src="images/hero-banner-1.jpg">
+                    <h2>Gestion professeurs</h2>
+                </div></a>
+                <a href="CED/gestionStructures"><div class="user">
+                    <img src="images/sujets.jpg">
+                    <h2>Gestion structures</h2>
+                </div></a>
+                
+                <a href="CED/preselection"><div class="user">
+                    <img src="images/resultats.png">
+                    <h2>Préselection</h2>
+                </div></a>
             </div>
         </div>
-     
 
     </main>
     <!-- End of Main Content -->

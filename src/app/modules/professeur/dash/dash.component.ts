@@ -14,11 +14,16 @@ import { ProfesseurService } from '../../../services/prof/professeur.service';
   encapsulation: ViewEncapsulation.None, 
 })
 export class DashComponent implements OnInit {
-  professeur: ProfesseurDTO = new ProfesseurDTO('', '', '', 0, '', '','',0); // Initialisation complète
+  professeur: ProfesseurDTO = new ProfesseurDTO('', '', '', 0, '', '','',0);
+  candidaturesNonTraitees: number = 0;
+  totalSujets: number = 0;
+  maxSujets: number = 9;
   constructor(private professeurService: ProfesseurService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loadProfesseurData();
+    this.loadCandidaturesNonTraitees();
+    this.loadTotalSujets();
   }
 
   loadProfesseurData(): void {
@@ -34,6 +39,36 @@ export class DashComponent implements OnInit {
       );
     } else {
       console.error('userId introuvable dans localStorage');
+    }
+  }
+  loadCandidaturesNonTraitees(): void {
+    const professeurId = Number(localStorage.getItem('userId')); 
+    if (professeurId) {
+      this.professeurService.getCandidaturesByProfId(professeurId).subscribe({
+        next: (candidatures) => {
+          this.candidaturesNonTraitees = candidatures.length; // Compter le nombre total de candidatures
+        },
+        error: (err) => {
+          console.error('Erreur lors de la récupération des candidatures :', err);
+        }
+      });
+    } else {
+      console.error("Impossible de trouver l'id du professeur.");
+    }
+  }
+  loadTotalSujets(): void {
+    const professeurId = Number(localStorage.getItem('userId')); 
+    if (professeurId) {
+      this.professeurService.getSujetsByProfesseurId(professeurId).subscribe({
+        next: (sujets) => {
+          this.totalSujets = sujets.length; // Compter le nombre total de sujets
+        },
+        error: (err) => {
+          console.error('Erreur lors de la récupération des sujets :', err);
+        }
+      });
+    } else {
+      console.error("Impossible de trouver l'id du professeur.");
     }
   }
 

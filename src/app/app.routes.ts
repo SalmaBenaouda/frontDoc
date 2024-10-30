@@ -55,8 +55,7 @@ export const routes: Routes = [
     { path: 'CED/gestionStructures', component: GestionStructureComponent, canActivate: [RoleGuard], data: { role: 'CED' } },
    
     { path: 'CED/preselection', component: PreselectionComponent, canActivate: [RoleGuard], data: { role: 'CED' } },
-    { path: 'CED/candidature', component: DetailsCandidatureComponent, canActivate: [RoleGuard], data: { role: 'CED' } },
-   // { path: 'CED/candidature/:id ', component: DetailsCandidatureComponent, canActivate: [RoleGuard], data: { role: 'CED' } },
+    { path: 'CED/candidature/:id', component: DetailsCandidatureComponent, canActivate: [RoleGuard], data: { role: 'CED' } },
    { path: 'CED/bourse', component: InscriptionDoctorantComponent, canActivate: [RoleGuard], data: { role: 'CED' } },
    { path: 'CED/doctorant', component: DetailsBourseComponent, canActivate: [RoleGuard], data: { role: 'CED' } },
 

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Professeur } from '../../../models/Professeur.model';
 import { CandidatureDTO } from '../../../models/CandidatureDTO.model';
 import { CedService } from '../../../services/ced/ced.service';
+import { MessageService } from '../../../services/message/message.service';
 
 @Component({
   selector: 'app-preselection',
@@ -24,44 +25,41 @@ export class PreselectionComponent implements OnInit{
   constructor(
     private router: Router,
     private authService: AuthService,
-    private cedService: CedService // Injection correcte de CedService
+    private cedService: CedService,
+    private messageService: MessageService
   ) {}
   onLogout() {
     this.authService.logout();
   }
-    
-   
     selectedCandidature: Candidature | null = null;
     showModal: boolean = false;
     currentPage: number = 1;
     itemsPerPage: number = 5;
     totalPages: number[] = [];
-    etablissements: string[] = [];
+    successMessage: string | null = null;
 
     ngOnInit(): void {
       // Récupérer userId depuis le localStorage
       const userId = localStorage.getItem('userId');
       const cedId = userId ? Number(userId) : null; // Convertir en nombre ou définir à null
-    
+      this.successMessage = this.messageService.getSuccessMessage();
+      // Effacer le message après l'affichage
+      this.messageService.clearSuccessMessage();
+
       // Initialiser les candidatures filtrées et paginées
       this.filteredCandidatures = this.candidatures;
       this.calculateTotalPages();
       this.updatePaginatedCandidatures();
     
       if (cedId !== null) {
-        // Appeler le service pour récupérer les candidatures
         this.cedService.getCandidaturesByCedId(cedId).subscribe((data: CandidatureDTO[]) => {
           this.candidatures = data;
           this.filteredCandidatures = data;
           this.calculateTotalPages();
           this.updatePaginatedCandidatures();
-          
-          // Obtenir les établissements uniques après récupération des données
-          this.etablissements = this.getUniqueEtablissements();
         });
       } else {
         console.error("User ID not found in localStorage.");
-        // Gérez le cas où userId n'est pas disponible (redirection, message d'erreur, etc.)
       }
     }
     
@@ -75,24 +73,7 @@ export class PreselectionComponent implements OnInit{
       this.calculateTotalPages();
       this.updatePaginatedCandidatures();
     }
-    onFilterChange(event: Event): void {
-      const selectedEtablissement = (event.target as HTMLSelectElement).value;
   
-      if (selectedEtablissement) {
-          // Filtrer les candidatures par établissement sélectionné
-          this.filteredCandidatures = this.candidatures.filter(candidature =>
-              candidature.etablissement === selectedEtablissement
-          );
-      } else {
-          // Si aucun établissement n'est sélectionné, afficher toutes les candidatures
-          this.filteredCandidatures = this.candidatures;
-      }
-  
-      // Réinitialiser la pagination et mettre à jour les candidatures paginées
-      this.currentPage = 1;
-      this.calculateTotalPages();
-      this.updatePaginatedCandidatures();
-  }
   
 
     calculateTotalPages(): void {
@@ -104,23 +85,16 @@ export class PreselectionComponent implements OnInit{
       const endIndex = startIndex + this.itemsPerPage;
       this.paginatedCandidatures = this.filteredCandidatures.slice(startIndex, endIndex);
     }
-    getUniqueEtablissements(): string[] {
-      const etablissementSet = new Set<string>();
-      this.candidatures.forEach(candidature => {
-          if (candidature.etablissement) {
-              etablissementSet.add(candidature.etablissement);
-          }
-      });
-      return Array.from(etablissementSet);
-  }
+   
   
     goToPage(page: number): void {
       this.currentPage = page;
       this.updatePaginatedCandidatures();
     }
-    /*viewCandidatureProfile(idCandidat: number): void {
-      this.router.navigate([`/ced/candidature`, idCandidat]);
-    }*/
     
+    voirProfil(candidature: CandidatureDTO): void {
+      const candidatId = candidature.id; // Assurez-vous que `candidatId` est la propriété correcte
+      this.router.navigate(['/CED/candidature', candidatId]);
+    }
   }
 

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { StructureRecherche } from '../../models/StructureRecherche.model';
 import { Professeur } from '../../models/Professeur.model';
 import { CandidatureDTO } from '../../models/CandidatureDTO.model';
+import { CandidatureDetailsDTO } from '../../models/CandidatureDetailsDTO.model';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,71 @@ export class CedService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<CandidatureDTO[]>(`${this.apiUrl}/candidature/${id}`, { headers });
+  }
+  getCandidatureDetails(candidatId: number): Observable<CandidatureDetailsDTO> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<CandidatureDetailsDTO>(`${this.apiUrl}/candidatureDetails/${candidatId}`, { headers });
+  }
+  getCin(candidatId: number): Observable<Blob> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}/getCin/${candidatId}`, { headers, responseType: 'blob' });
+  }
+  
+
+  getCv(candidatId: number): Observable<Blob> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}/getcv/${candidatId}`, { headers, responseType: 'blob' });
+  }
+
+  getDiplomeBac(candidatId: number): Observable<Blob> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}/GetDiplomesBacFiles/${candidatId}`, { headers, responseType: 'blob' });
+  }
+
+  getDiplomeLicence(candidatId: number): Observable<Blob> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}/GetDiplomesLicenceFiles/${candidatId}`, { headers, responseType: 'blob' });
+  }
+
+  getDiplomeMaster(candidatId: number): Observable<Blob> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}/GetDiplomesMasterFiles/${candidatId}`, { headers, responseType: 'blob' });
+  }
+
+  getLicenceReleve(candidatId: number): Observable<Blob> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}/GetDiplomesLicenceReleveFiles/${candidatId}`, { headers, responseType: 'blob' });
+  }
+
+  getMasterReleve(candidatId: number): Observable<Blob> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}/GetDiplomesMasterReleveFiles/${candidatId}`, { headers, responseType: 'blob' });
+  }
+
+  getPhoto(candidatId: number): Observable<Blob> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}/getPhoto/${candidatId}`, { headers, responseType: 'blob' });
+  }
+
+  refuserCandidature(candidatureId: number): Observable<string> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.apiUrl}/refuseCandidature/${candidatureId}`, {}, { headers, responseType: 'text' });
+  }
+
+  accepterCandidature(candidatureId: number): Observable<string> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.apiUrl}/acceptCandidature/${candidatureId}`, {}, { headers, responseType: 'text' });
   }
 }
 

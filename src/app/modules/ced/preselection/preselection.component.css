@@ -415,7 +415,7 @@ aside .sidebar .message-count{
 .search-filter input[type="text"] {
     padding: 10px 0.5px 10px 30px;
     border: 1px solid #ccc;
-    margin-left: 58%;
+    margin-left: 80%;
     border-radius: 5px;
     font-size: 1em;
     background: url('../../../../../public/images/search-icon.png') no-repeat left 10px center;
@@ -499,3 +499,22 @@ tbody tr:hover {
     background-color: #f2f2f2;
 }
 /**************************************/
+
+.info-message {
+    color: #059;
+    background-color: #BEF;
+    margin: 10px 0;
+    padding: 10px;
+    
+    border-radius: 5px;
+  }
+  
+  .error-message {
+    color: #D8000C;
+              background-color: #FFBABA;
+        margin: 10px 0;
+        padding: 10px;
+   
+    border-radius: 5px;
+  }
+  

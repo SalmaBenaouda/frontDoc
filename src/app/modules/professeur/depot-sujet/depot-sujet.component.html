@@ -53,7 +53,8 @@
     <main>
         <h1>Sujets</h1><br>
         <span class="linkDisabled">Liste des sujets > </span>
-        <a href="Professeur/ajouterSujet" class="linkActive"><span>Ajouter sujet</span></a><br><br>
+        <a style="cursor: pointer;" (click)="onAddSujet()" [class.linkActive]="sujets.length <= 9" [class.linkDisabled]="sujets.length > 9">
+            <span>Ajouter sujet</span></a><br><br>
         <div *ngIf="successMessage" class="success-message">
             {{ successMessage }}
           </div>
@@ -138,7 +139,7 @@
                     <p>Hey, <b>{{ professeur.prenom }}</b></p>
                 </div>
                 <div class="profile-photo">
-                    <img src="images/hero-banner-1.jpg">
+                    <img src="images/profimage.jpg">
                 </div>
             </div>
 

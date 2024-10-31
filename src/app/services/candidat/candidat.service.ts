@@ -11,12 +11,13 @@ import { Candidatdetails } from '../../models/Candidatdetails.model';
 import { Sujet } from '../../models/Sujet.model';
 import { CandidatureDetails } from '../../models/CandidatureDetails.model';
 import { candidaturedashboard } from '../../models/candidaturedashboard.model';
+import { DTOgene } from '../../models/DTOgene.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CandidatService {
-  private baseUrl = 'http://localhost:8082/Candidat';
+  private baseUrl = 'http://localhost:8081/Candidat';
 
   constructor(private http: HttpClient) {}
 
@@ -106,5 +107,10 @@ export class CandidatService {
   
   
   
-  
+  getCandidatureAccepteeByCandidatId(candidatId: number): Observable<DTOgene[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<DTOgene[]>(`${this.baseUrl}/candidatureAcceptee/${candidatId}`, { headers });
+  }
+
 }

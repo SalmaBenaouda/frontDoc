@@ -425,8 +425,8 @@ main .recent-orders a{
 }
 
 .right-section .nav .profile .profile-photo{
-    width: 5rem;
-    height: 2rem;
+    width: 2.8rem;
+    height: 2.8rem;
     border-radius: 50%;
     overflow: hidden;
 }

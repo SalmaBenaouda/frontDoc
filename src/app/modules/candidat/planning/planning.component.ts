@@ -8,6 +8,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { CandidatService } from '../../../services/candidat/candidat.service';
 import { Candidatdetails } from '../../../models/Candidatdetails.model';
 import { FormsModule } from '@angular/forms';
+import { DTOgene } from '../../../models/DTOgene.model';
 
 @Component({
   selector: 'app-planning',
@@ -20,6 +21,9 @@ import { FormsModule } from '@angular/forms';
 export class PlanningComponent implements OnInit {
   candidatDetails!: Candidatdetails; // Variable pour stocker les détails du candidat
   photoUrl: string | undefined;
+  candidatId: number = Number(localStorage.getItem('userId')); // Récupère l'id du candidat
+  selectedEvents: any[] = [];
+  events: any[] = [];
   constructor(private candidatService: CandidatService, private authService: AuthService) {}
   loadPhoto(userId: number): void {
     this.candidatService.getPhoto(userId).subscribe({
@@ -38,47 +42,7 @@ export class PlanningComponent implements OnInit {
   onLogout() {
     this.authService.logout();
   }
-  selectedEvents: any[] = [];
-
-  // Stockez vos événements dans une variable distincte
-  events = [
-    {
-      title: 'Entretien avec John Doe',
-      start: '2024-10-18T12:00:00',
-      end: '2024-10-18T13:00:00',
-    },
-    {
-      title: 'Entretien avec John Doe',
-      start: '2024-10-17T23:00:00',
-      end: '2024-10-17T24:00:00',
-    },
-    {
-      title: 'Entretien avec Jane Doe',
-      start: '2024-10-18T15:00:00',
-      end: '2024-10-18T16:00:00',
-    },
-    {
-      title: 'Entretien avec John Doe',
-      start: '2024-10-17T23:00:00',
-      end: '2024-10-17T24:00:00',
-    },
-    {
-      title: 'Entretien avec Jane Doe',
-      start: '2024-10-18T15:00:00',
-      end: '2024-10-18T16:00:00',
-    },
-    {
-      title: 'Entretien avec John Doe',
-      start: '2024-10-17T23:00:00',
-      end: '2024-10-17T24:00:00',
-    },
-    {
-      title: 'Entretien avec Jane Doe',
-      start: '2024-10-18T15:00:00',
-      end: '2024-10-18T16:00:00',
-    },
-    // Ajouter d'autres événements ici
-  ];
+  
 
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, timeGridPlugin],
@@ -100,12 +64,70 @@ export class PlanningComponent implements OnInit {
 
   ngOnInit() {
     const today = new Date().toISOString().slice(0, 10);
+    this.loadCandidatureAcceptee();
     this.filterEventsByDate(today);
     const userIdNumber = Number(localStorage.getItem('userId')); 
     this.loadPhoto(userIdNumber);
 
+
   }
   
+  loadCandidatureAcceptee(): void {
+    if (this.candidatId) {
+      this.candidatService.getCandidatureAccepteeByCandidatId(this.candidatId).subscribe({
+        next: (candidatures: DTOgene[]) => {
+          // Map les candidatures reçues pour créer des événements
+          this.events = candidatures.map((candidature) => ({
+            title: `Entretien avec ${candidature.nomprenomprof}`,
+            start: candidature.date,
+            end: new Date(new Date(candidature.date).getTime() + 60 * 60 * 1000).toISOString(),
+            id: candidature.idcandidature,
+            nomprenomprof: candidature.nomprenomprof,
+            titresujet: candidature.titresujet,
+            nomstructure: candidature.nomstructure,
+            domaine: candidature.domaine,
+            etablissement: candidature.etablissement,
+          }));
+
+          // Mise à jour des événements dans les options du calendrier
+          this.calendarOptions = {
+            ...this.calendarOptions,
+            events: this.events,
+          };
+
+          // Après avoir chargé les événements, afficher les détails de l'événement du jour si disponible
+          this.selectTodayEvent();
+        },
+        error: (error) => {
+          console.error('Erreur lors de la récupération des candidatures acceptées :', error);
+        },
+      });
+    } else {
+      console.error("userId introuvable dans localStorage");
+    }
+  }
+
+  selectTodayEvent(): void {
+    const today = new Date().toISOString().slice(0, 10);
+    const todayEvents = this.events.filter((event: any) => {
+      return new Date(event.start).toISOString().slice(0, 10) === today;
+    });
+
+    if (todayEvents.length > 0) {
+      // S'il y a des événements aujourd'hui, les afficher par défaut
+      this.selectedEvents = todayEvents.map(event => ({
+        nomprenomprof: event.nomprenomprof,
+        date: event.start,
+        titresujet: event.titresujet,
+        nomstructure: event.nomstructure,
+        domaine: event.domaine,
+        etablissement: event.etablissement,
+      }));
+    } else {
+      // Sinon, réinitialiser les détails
+      this.selectedEvents = [];
+    }
+  }
 
   filterEventsByDate(date: string) {
     this.selectedEvents = this.events.filter((event: any) => {
@@ -116,9 +138,12 @@ export class PlanningComponent implements OnInit {
   displayEventDetails(event: any) {
     this.selectedEvents = [
       {
-        title: event.title,
-        start: event.start?.toISOString(),
-        end: event.end?.toISOString(),
+        nomprenomprof: event.extendedProps.nomprenomprof,
+        date: event.start?.toISOString(),
+        titresujet: event.extendedProps.titresujet,
+        nomstructure: event.extendedProps.nomstructure,
+        domaine: event.extendedProps.domaine,
+        etablissement: event.extendedProps.etablissement,
       },
     ];
   }

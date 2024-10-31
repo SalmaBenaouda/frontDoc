@@ -8,6 +8,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { ProfesseurService } from '../../../services/prof/professeur.service';
 import { ProfesseurDTO } from '../../../models/ProfesseurDTO.model';
+import { DTOgene } from '../../../models/DTOgene.model';
 
 @Component({
   selector: 'app-planning-preselection',
@@ -19,53 +20,19 @@ import { ProfesseurDTO } from '../../../models/ProfesseurDTO.model';
 })
 export class PlanningPreselectionComponent implements OnInit{
 
-  professeur: ProfesseurDTO = new ProfesseurDTO('', '', '', 0, '', '','',0); // Initialisation complète
+  professeur: ProfesseurDTO = new ProfesseurDTO('', '', '', 0, '', '','',0);
+  professeurId: number = Number(localStorage.getItem('userId')); 
+  selectedEvents: any[] = [];
+  events: any[] = [];
   constructor(private professeurService: ProfesseurService, private authService: AuthService) {}
 
   onLogout() {
     this.authService.logout();
   }
-  selectedEvents: any[] = [];
+  
 
   // Stockez vos événements dans une variable distincte
-  events = [
-    {
-      title: 'Entretien avec John Doe',
-      start: '2024-10-18T12:00:00',
-      end: '2024-10-18T13:00:00',
-    },
-    {
-      title: 'Entretien avec John Doe',
-      start: '2024-10-17T23:00:00',
-      end: '2024-10-17T24:00:00',
-    },
-    {
-      title: 'Entretien avec Jane Doe',
-      start: '2024-10-18T15:00:00',
-      end: '2024-10-18T16:00:00',
-    },
-    {
-      title: 'Entretien avec John Doe',
-      start: '2024-10-17T23:00:00',
-      end: '2024-10-17T24:00:00',
-    },
-    {
-      title: 'Entretien avec Jane Doe',
-      start: '2024-10-18T15:00:00',
-      end: '2024-10-18T16:00:00',
-    },
-    {
-      title: 'Entretien avec John Doe',
-      start: '2024-10-17T23:00:00',
-      end: '2024-10-17T24:00:00',
-    },
-    {
-      title: 'Entretien avec Jane Doe',
-      start: '2024-10-18T15:00:00',
-      end: '2024-10-18T16:00:00',
-    },
-    // Ajouter d'autres événements ici
-  ];
+ 
 
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, timeGridPlugin],
@@ -80,16 +47,74 @@ export class PlanningPreselectionComponent implements OnInit{
     eventClick: (arg: EventClickArg) => {
       this.displayEventDetails(arg.event);
     },
-    dayMaxEventRows: true, // Limite le nombre d'événements par jour
-    unselectAuto: false, // Garde la sélection active
-    eventBackgroundColor: 'green', // Colore le fond des cases ayant des événements
+    dayMaxEventRows: true,
+    unselectAuto: false,
+    eventBackgroundColor: 'green',
   };
 
   ngOnInit() {
     const today = new Date().toISOString().slice(0, 10);
     this.filterEventsByDate(today);
     this.loadProfesseurData();
+    this.loadCandidatureAcceptee();
   }
+
+  loadCandidatureAcceptee(): void {
+    if (this.professeurId) {
+      this.professeurService.getCandidatureAccepteeByProfId(this.professeurId).subscribe({
+        next: (candidatures: DTOgene[]) => {
+          // Map les candidatures reçues pour créer des événements
+          this.events = candidatures.map((candidature) => ({
+            title: `Entretien avec ${candidature.nomprenomcandidat}`,
+            start: candidature.date,
+            end: new Date(new Date(candidature.date).getTime() + 60 * 60 * 1000).toISOString(),
+            id: candidature.idcandidature,
+            nomprenomcandidat: candidature.nomprenomcandidat,
+            titresujet: candidature.titresujet,
+            nomstructure: candidature.nomstructure,
+            domaine: candidature.domaine,
+            etablissement: candidature.etablissement,
+          }));
+  
+          // Mise à jour des événements dans les options du calendrier
+          this.calendarOptions = {
+            ...this.calendarOptions,
+            events: this.events,
+          };
+  
+          // Après avoir chargé les événements, afficher les détails de l'événement du jour si disponible
+          this.selectTodayEvent();
+        },
+        error: (error) => {
+          console.error('Erreur lors de la récupération des candidatures acceptées :', error);
+        },
+      });
+    } else {
+      console.error("userId introuvable dans localStorage");
+    }
+  }
+  selectTodayEvent(): void {
+    const today = new Date().toISOString().slice(0, 10);
+    const todayEvents = this.events.filter((event: any) => {
+      return new Date(event.start).toISOString().slice(0, 10) === today;
+    });
+  
+    if (todayEvents.length > 0) {
+      // S'il y a des événements aujourd'hui, les afficher par défaut
+      this.selectedEvents = todayEvents.map(event => ({
+        nomprenomcandidat: event.nomprenomcandidat,
+        date: event.start,
+        titresujet: event.titresujet,
+        nomstructure: event.nomstructure,
+        domaine: event.domaine,
+        etablissement: event.etablissement,
+      }));
+    } else {
+      // Sinon, réinitialiser les détails
+      this.selectedEvents = [];
+    }
+  }
+  
   loadProfesseurData(): void {
     const userId = Number(localStorage.getItem('userId')); // Récupère `userId` depuis localStorage
     if (userId) {
@@ -117,12 +142,16 @@ export class PlanningPreselectionComponent implements OnInit{
   displayEventDetails(event: any) {
     this.selectedEvents = [
       {
-        title: event.title,
-        start: event.start?.toISOString(),
-        end: event.end?.toISOString(),
+        nomprenomcandidat: event.extendedProps.nomprenomcandidat,
+        date: event.start?.toISOString(),
+        titresujet: event.extendedProps.titresujet,
+        nomstructure: event.extendedProps.nomstructure,
+        domaine: event.extendedProps.domaine,
+        etablissement: event.extendedProps.etablissement,
       },
     ];
   }
+  
 }
 
 

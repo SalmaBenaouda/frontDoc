@@ -6,12 +6,13 @@ import { ProfesseurDTO } from '../../models/ProfesseurDTO.model';
 import { CandidatureDTO } from '../../models/CandidatureDTO.model';
 import { Candidatdetails } from '../../models/Candidatdetails.model';
 import { CandidatureDetailsDTO } from '../../models/CandidatureDetailsDTO.model';
+import { DTOgene } from '../../models/DTOgene.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfesseurService {
-  private apiUrl = 'http://localhost:8082/Professeur';
+  private apiUrl = 'http://localhost:8081/Professeur';
 
   constructor(private http: HttpClient) {}
 
@@ -111,5 +112,10 @@ export class ProfesseurService {
     return this.http.get(`${this.apiUrl}/refuserCandidature/${candidatureId}`,{ headers, responseType: 'text' });
   }
   
+  getCandidatureAccepteeByProfId(professeurId: number): Observable<DTOgene[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<DTOgene[]>(`${this.apiUrl}/candidatureAcceptee/${professeurId}`, { headers });
+  }
   
 }

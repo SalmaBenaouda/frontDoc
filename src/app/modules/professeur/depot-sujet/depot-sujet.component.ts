@@ -38,9 +38,12 @@ export class DepotSujetComponent implements OnInit {
 
   ngOnInit(): void {
     this.successMessage = this.messageService.getSuccessMessage();
+    if (this.successMessage) {
+      setTimeout(() => {
+        this.clearSuccessMessage();
+      }, 4000);
+    }
     this.loadProfesseurData();
-      // Effacer le message après l'affichage
-      this.messageService.clearSuccessMessage();
     const professeurId = localStorage.getItem('userId');
     if (professeurId) {
       const professeurIdNumber = parseInt(professeurId, 10);
@@ -56,6 +59,11 @@ export class DepotSujetComponent implements OnInit {
         }
       });
     }
+  }
+
+  clearSuccessMessage(): void {
+    this.successMessage = null;
+    this.messageService.clearSuccessMessage();
   }
   loadProfesseurData(): void {
     const userId = Number(localStorage.getItem('userId')); // Récupère `userId` depuis localStorage
@@ -144,9 +152,8 @@ export class DepotSujetComponent implements OnInit {
 
   saveSujet(): void {
     if (this.sujetToEdit) {
-      // Prépare un objet Sujet complet en utilisant les propriétés existantes de sujetToEdit
       const updatedSujet: Sujet = {
-        ...this.sujetToEdit, // Conserve les propriétés existantes (comme id, professeur_id, structureRecherche_id, etc.)
+        ...this.sujetToEdit, 
         titre: this.sujetToEdit.titre,
         thematique: this.sujetToEdit.thematique,
         description: this.sujetToEdit.description,
@@ -200,7 +207,7 @@ export class DepotSujetComponent implements OnInit {
           this.successMessage = 'Sujet supprimé avec succès';
           setTimeout(() => {
             this.successMessage = null;
-          }, 5000);
+          }, 4000);
         },
         error: (err) => {
           console.error('Erreur lors de la suppression du sujet :', err);
@@ -211,4 +218,18 @@ export class DepotSujetComponent implements OnInit {
         }
       });
     }
-  }}
+  }
+
+  onAddSujet(): void {
+    if (this.sujets.length >= 9) {
+      this.errorMessage = "Vous avez atteint le nombre maximal de 9 sujets.";
+      setTimeout(() => {
+        this.errorMessage = null;
+      }, 5000);
+    } else {
+      
+      window.location.href = 'Professeur/ajouterSujet';
+    }
+  }
+
+}

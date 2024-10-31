@@ -340,10 +340,16 @@ main .new-users .user-list:hover{
 }
 
 .right-section .nav .profile .profile-photo{
-    width: 2.8rem;
-    height: 2.8rem;
+    width: 3.2rem;
+    height: 2.5rem;
     border-radius: 50%;
     overflow: hidden;
+}
+.right-section .nav .profile .profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 .right-section .user-profile{

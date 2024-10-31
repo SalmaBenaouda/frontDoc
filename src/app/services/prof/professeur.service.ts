@@ -7,12 +7,13 @@ import { CandidatureDTO } from '../../models/CandidatureDTO.model';
 import { Candidatdetails } from '../../models/Candidatdetails.model';
 import { CandidatureDetailsDTO } from '../../models/CandidatureDetailsDTO.model';
 import { DTOgene } from '../../models/DTOgene.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfesseurService {
-  private apiUrl = 'http://localhost:8081/Professeur';
+  private apiUrl = `${environment.baseApiUrl}/Professeur`;
 
   constructor(private http: HttpClient) {}
 

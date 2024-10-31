@@ -12,12 +12,13 @@ import { Sujet } from '../../models/Sujet.model';
 import { CandidatureDetails } from '../../models/CandidatureDetails.model';
 import { candidaturedashboard } from '../../models/candidaturedashboard.model';
 import { DTOgene } from '../../models/DTOgene.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CandidatService {
-  private baseUrl = 'http://localhost:8081/Candidat';
+  private baseUrl = `${environment.baseApiUrl}/Candidat`;
 
   constructor(private http: HttpClient) {}
 

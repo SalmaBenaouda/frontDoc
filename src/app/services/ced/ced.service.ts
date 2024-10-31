@@ -5,13 +5,15 @@ import { StructureRecherche } from '../../models/StructureRecherche.model';
 import { Professeur } from '../../models/Professeur.model';
 import { CandidatureDTO } from '../../models/CandidatureDTO.model';
 import { CandidatureDetailsDTO } from '../../models/CandidatureDetailsDTO.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CedService {
 
-  private apiUrl = 'http://localhost:8081/CED'; // Remplacer par l'URL de votre backend
+  private apiUrl = `${environment.baseApiUrl}/CED`; 
+  
 
   constructor(private http: HttpClient) {}
   getProfesseursByCedId(cedId: number): Observable<Professeur[]> {

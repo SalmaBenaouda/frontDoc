@@ -58,17 +58,20 @@
                 <div class="sales">
                     <div class="status">
                         <div class="info">
-                            <h3>Candidatures acceptées</h3>
-                            <h1>0</h1>
+                            <h3>Entretien validé</h3>
+                            <h1>{{ acceptedCandidaturesCount }}</h1> <!-- Affiche le nombre de candidatures retenus pour entretien -->
                         </div>
                         <div class="progresss">
                             <svg>
                                 <circle cx="38" cy="38" r="36"></circle>
                             </svg>
-                            
+                            <div class="percentage">
+                                <p>{{ acceptedCandidaturesCount * 100 / totalCandidatures | number:'1.0-0' }}%</p> <!-- Affiche le pourcentage accepté -->
+                            </div>
                         </div>
                     </div>
                 </div>
+                
                 <div class="visits">
                     <div class="status">
                         <div class="info">
@@ -90,18 +93,19 @@
                     <div class="status">
                         <div class="info">
                             <h3>Candidatures refusées</h3>
-                            <h1>2</h1>
+                            <h1>{{ refusedCandidaturesCount }}</h1> <!-- Affiche le nombre de candidatures refusées -->
                         </div>
                         <div class="progresss">
                             <svg>
                                 <circle cx="38" cy="38" r="36"></circle>
                             </svg>
                             <div class="percentage">
-                                <p>+21%</p>
+                                <p>{{ refusedCandidaturesCount * 100 / totalCandidatures | number:'1.0-0' }}%</p> <!-- Affiche le pourcentage refusé -->
                             </div>
                         </div>
                     </div>
                 </div>
+                
             </div>
             <!-- End of Analyses -->
 
@@ -141,11 +145,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let candidature of candidatures">
+                        <tr *ngFor="let candidature of candidatures"
+                        [ngClass]="{
+                            'accepted': candidature.statuts === 'Acceptee',
+                            'rejected': candidature.statuts === 'Refusee'
+                          }">
                             <td>{{ candidature.sujetNom }}</td>
                             <td>{{ candidature.thematique }}</td>
                             <td>{{ candidature.etablissement }}</td>
-                            <td>{{ candidature.statuts }}</td>
+                            <td>
+                                {{ 
+                                  candidature.statuts === 'Acceptee' ? 'Retenu pour entretien' : 
+                                  candidature.statuts === 'Encours' ? 'En cours' : 
+                                  candidature.statuts 
+                                }}
+                              </td>
+                              
                         </tr>
                     </tbody>
                 </table>

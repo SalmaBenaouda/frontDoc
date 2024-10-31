@@ -425,8 +425,8 @@ main .recent-orders a{
 }
 
 .right-section .nav .profile .profile-photo{
-    width: 2.8rem;
-    height: 2.8rem;
+    width: 5rem;
+    height: 2rem;
     border-radius: 50%;
     overflow: hidden;
 }
@@ -534,3 +534,18 @@ main .recent-orders a{
     align-items: center;
     gap: 0.6rem;
 }
+
+/* Style pour les candidatures acceptées */
+.accepted {
+    background-color: #d4f7d4; /* Vert clair pour l'acceptation */
+    color: #2b7a2b; /* Texte vert foncé */
+    font-weight: bold;
+  }
+  
+  /* Style pour les candidatures refusées */
+  .rejected {
+    background-color: #f7d4d4; /* Rouge clair pour le refus */
+    color: #a12b2b; /* Texte rouge foncé */
+    font-weight: bold;
+  }
+  

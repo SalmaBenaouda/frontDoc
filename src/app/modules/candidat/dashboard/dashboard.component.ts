@@ -20,6 +20,8 @@ export class DashboardComponent implements OnInit {
   photoUrl: string | undefined;
   totalCandidatures: number = 0; // Propriété pour stocker le nombre total de candidatures
   candidaturePercentage: number = 0; // Propriété pour stocker le pourcentage de candidatures
+  refusedCandidaturesCount: number = 0;
+  acceptedCandidaturesCount: number = 0;
 
   constructor(private candidatService: CandidatService, private authService: AuthService) {}
 
@@ -32,13 +34,20 @@ export class DashboardComponent implements OnInit {
         this.candidatures = data;
         this.totalCandidatures = this.candidatures.length; // Compter le nombre de candidatures
         this.calculateCandidaturePercentage(); // Calculer le pourcentage de candidatures
+        this.refusedCandidaturesCount = this.countRefusedCandidatures();
+        this.acceptedCandidaturesCount = this.countAcceptedCandidatures();
       },
       (error) => {
         console.error('Erreur lors de la récupération des candidatures', error);
       }
     );
   }
-
+  countRefusedCandidatures(): number {
+    return this.candidatures.filter(candidature => candidature.statuts === 'Refusee').length;
+  }
+  countAcceptedCandidatures(): number {
+    return this.candidatures.filter(candidature => candidature.statuts === 'Acceptee').length;
+  }
   loadPhoto(userId: number): void {
     this.candidatService.getPhoto(userId).subscribe({
       next: (blob) => {

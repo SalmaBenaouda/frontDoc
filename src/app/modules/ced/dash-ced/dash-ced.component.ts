@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
 import { CedService } from '../../../services/ced/ced.service';
+import { Professeur } from '../../../models/Professeur.model';
 
 @Component({
   selector: 'app-dash-ced',
@@ -14,11 +15,29 @@ export class DashCedComponent implements OnInit{
   constructor(private authService: AuthService,private cedService: CedService) {}
   totalCandidatures: number = 0;
   totalStructures: number = 0;
+  totalProfesseurs: number = 0; // Nouvelle propriété pour le total des professeurs
 
 
   ngOnInit(): void {
     this.loadTotalCandidatures();
     this.loadTotalStructures();
+    this.loadTotalProfesseurs(); // Chargez le total des professeurs
+  }
+   // Nouvelle méthode pour charger le total des professeurs
+   loadTotalProfesseurs(): void {
+    const cedId = localStorage.getItem('userId');
+    if (cedId) {
+      this.cedService.getProfesseursByCedId(parseInt(cedId)).subscribe({
+        next: (professeurs: Professeur[]) => {
+          this.totalProfesseurs = professeurs.length; // Mettre à jour le total des professeurs
+        },
+        error: (err) => {
+          console.error('Erreur lors de la récupération des professeurs :', err);
+        }
+      });
+    } else {
+      console.error("Impossible de trouver l'id du CED.");
+    }
   }
   loadTotalCandidatures(): void {
     const cedId = localStorage.getItem('userId');

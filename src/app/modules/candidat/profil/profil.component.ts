@@ -30,13 +30,23 @@ export class ProfilComponent implements OnInit{
   Langues: Langue[] = [];
 diplomes: Diplome[] = [];
 experiences: ExperienceProf[] = [];
-photoUrl: string | undefined;
+photoUrl: string | null = 'images/profilCandidatdefault.png';
+candidatNom: string = '';
 
 ngOnInit(): void {
   const userId = localStorage.getItem('userId');
   if (userId) {
     const userIdNumber = parseInt(userId, 10);
     this.loadPhoto(userIdNumber);
+    this.candidatService.getCandidatDetails(userIdNumber).subscribe({
+      next: (details: Candidatdetails) => {
+        this.candidatdetails = details;
+        this.candidatNom = details.nom;  // Assigner le prénom
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération des détails du candidat :', err);
+      }
+    });
     this.candidatService.getCandidatDetails(userIdNumber).subscribe({
       next: (details: Candidatdetails) => {
         // Assigner les langues, diplômes, et expériences uniquement s'ils existent
@@ -430,17 +440,26 @@ uploadDiplomeFiles(userId: number): void {
 loadPhoto(userId: number): void {
   this.candidatService.getPhoto(userId).subscribe({
     next: (blob) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(blob);
-      reader.onloadend = () => {
-        this.photoUrl = reader.result as string;
-      };
+      if (blob.size === 0) {
+        // Si le blob est vide, conserver l'image par défaut
+        this.photoUrl = 'images/profilCandidatdefault.png';
+      } else {
+        // Charger la photo du blob
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+          this.photoUrl = reader.result as string;
+        };
+      }
     },
     error: (err) => {
       console.error('Erreur lors du chargement de la photo :', err);
+      // Conserver l'image par défaut en cas d'erreur
+      this.photoUrl = 'assets/images/profilCandidatdefault.png';
     }
   });
 }
+
   
 
   onLogout() {

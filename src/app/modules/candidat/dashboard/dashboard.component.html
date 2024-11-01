@@ -166,27 +166,20 @@
         <!-- End of Main Content -->
 
         <!-- Right Section -->
-        <div class="right-section">
+        <div class="right-section"> 
             <div class="nav">
-             
-               
-
-                <div class="profile">
-                    <div class="info">
-                        <p>Hey, <b>Salma</b></p>
-                    </div>
-                    <div class="profile-photo">
-                        <img *ngIf="photoUrl" [src]="photoUrl" alt="Profile Photo">
-                    </div>
+              <div class="profile">
+                <div class="info">
+                  <p>Hey, <b>{{ candidatNom }}</b></p>
                 </div>
-
+                <div class="profile-photo">
+                  <img [src]="photoUrl || 'assets/images/profilCandidatdefault.png'" alt="Profile Photo">
+                </div>
+              </div>
             </div>
             <!-- End of Nav -->
-
-           
-
-        </div>
-
+          </div>
+          
 
     </div>
 

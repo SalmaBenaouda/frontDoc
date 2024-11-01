@@ -20,22 +20,32 @@ import { DTOgene } from '../../../models/DTOgene.model';
 })
 export class PlanningComponent implements OnInit {
   candidatDetails!: Candidatdetails; // Variable pour stocker les détails du candidat
-  photoUrl: string | undefined;
+  photoUrl: string | null = 'images/profilCandidatdefault.png';
   candidatId: number = Number(localStorage.getItem('userId')); // Récupère l'id du candidat
   selectedEvents: any[] = [];
   events: any[] = [];
+  candidatNom: string = '';
+
   constructor(private candidatService: CandidatService, private authService: AuthService) {}
   loadPhoto(userId: number): void {
     this.candidatService.getPhoto(userId).subscribe({
       next: (blob) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onloadend = () => {
-          this.photoUrl = reader.result as string;
-        };
+        if (blob.size === 0) {
+          // Si le blob est vide, conserver l'image par défaut
+          this.photoUrl = 'images/profilCandidatdefault.png';
+        } else {
+          // Charger la photo du blob
+          const reader = new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onloadend = () => {
+            this.photoUrl = reader.result as string;
+          };
+        }
       },
       error: (err) => {
         console.error('Erreur lors du chargement de la photo :', err);
+        // Conserver l'image par défaut en cas d'erreur
+        this.photoUrl = 'assets/images/profilCandidatdefault.png';
       }
     });
   }
@@ -68,6 +78,15 @@ export class PlanningComponent implements OnInit {
     this.filterEventsByDate(today);
     const userIdNumber = Number(localStorage.getItem('userId')); 
     this.loadPhoto(userIdNumber);
+    this.candidatService.getCandidatDetails(userIdNumber).subscribe({
+      next: (details: Candidatdetails) => {
+        this.candidatDetails = details;
+        this.candidatNom = details.nom;  // Assigner le prénom
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération des détails du candidat :', err);
+      }
+    });
 
 
   }

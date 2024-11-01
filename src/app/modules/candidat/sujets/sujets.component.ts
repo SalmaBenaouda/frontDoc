@@ -21,7 +21,7 @@ import { CandidatureDetails } from '../../../models/CandidatureDetails.model';
 
 export class SujetsComponent implements OnInit{
   candidatDetails!: Candidatdetails; // Variable pour stocker les détails du candidat
-  photoUrl: string | undefined;
+  photoUrl: string | null = 'images/profilCandidatdefault.png';
   constructor(private candidatService: CandidatService, private authService: AuthService,
     private cdr: ChangeDetectorRef) {}
 
@@ -34,11 +34,20 @@ export class SujetsComponent implements OnInit{
   candidatures: CandidatureDetails[] = [];
   sujetsOriginaux: Sujet[] = []; // Liste pour conserver les sujets originaux
   showCart: boolean = false;
+  candidatNom: string = '';
   
   ngOnInit() {
     const userIdNumber = Number(localStorage.getItem('userId')); 
     this.loadPhoto(userIdNumber);
-
+    this.candidatService.getCandidatDetails(userIdNumber).subscribe({
+      next: (details: Candidatdetails) => {
+        this.candidatDetails = details;
+        this.candidatNom = details.nom;  // Assigner le prénom
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération des détails du candidat :', err);
+      }
+    });
     // Charger la liste des CED
     this.candidatService.getCEDDetails().subscribe({
       next: (data) => {
@@ -63,14 +72,22 @@ export class SujetsComponent implements OnInit{
   loadPhoto(userId: number): void {
     this.candidatService.getPhoto(userId).subscribe({
       next: (blob) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onloadend = () => {
-          this.photoUrl = reader.result as string;
-        };
+        if (blob.size === 0) {
+          // Si le blob est vide, conserver l'image par défaut
+          this.photoUrl = 'images/profilCandidatdefault.png';
+        } else {
+          // Charger la photo du blob
+          const reader = new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onloadend = () => {
+            this.photoUrl = reader.result as string;
+          };
+        }
       },
       error: (err) => {
         console.error('Erreur lors du chargement de la photo :', err);
+        // Conserver l'image par défaut en cas d'erreur
+        this.photoUrl = 'assets/images/profilCandidatdefault.png';
       }
     });
   }

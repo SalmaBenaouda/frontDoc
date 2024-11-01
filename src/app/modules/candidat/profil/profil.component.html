@@ -251,7 +251,7 @@
 <h2>Master ou équivalent</h2>
 <div class="etat-civil-form" *ngIf="diplomes[2]">
 <div class="form-row">
-<label>Nom du lycée*</label>
+<label>Etablissement*</label>
 <input type="text" [(ngModel)]="diplomes[2].nomEtablissement" required />
 </div>
 <div class="form-row">
@@ -270,7 +270,7 @@
 </select>
 </div>
 <div class="form-row">
-<label>Filière de Bac*</label>
+<label>Spécialité*</label>
 <input type="text" [(ngModel)]="diplomes[2].specialite" />
 </div>
 <div class="form-row">
@@ -468,10 +468,10 @@
     <div class="nav">
       <div class="profile">
         <div class="info">
-          <p>Hey, <b>Salma</b></p>
+          <p>Hey, <b>{{ candidatNom }}</b></p>
         </div>
         <div class="profile-photo">
-          <img *ngIf="photoUrl" [src]="photoUrl" alt="Profile Photo">
+          <img [src]="photoUrl || 'assets/images/profilCandidatdefault.png'" alt="Profile Photo">
         </div>
       </div>
     </div>

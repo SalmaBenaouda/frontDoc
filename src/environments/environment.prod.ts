@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseApiUrl: 'http://springapp:8080'
+  baseApiUrl: 'http://localhost:8080'
 };
